@@ -65,7 +65,7 @@ export function SignUpPage() {
           <p>Хэрэглэгч бүртгүүлж болно. Админ эрхийг сервер тусад нь баталгаажуулна.</p>
         </div>
         {isLoaded
-          ? <SignUp routing="path" path={signUpPath} signInUrl={signInPath} />
+          ? <SignIn routing="path" path={signInPath} signUpUrl={signUpPath} fallbackRedirectUrl={`${basePath}/admin`} />
           : <p className="auth-loading" role="status">Бүртгэлийн хэсэг ачаалж байна…</p>}
         <Link className="auth-home-link" href="/">Сайт руу буцах</Link>
       </div>
