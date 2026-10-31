@@ -6,6 +6,7 @@ publish = "artifacts/multi-page-site/dist/public"
 BASE_PATH = "/"
 NODE_VERSION = "22"
 PORT = "26129"
+VITE_CLERK_AUTH_TRANSPORT = "bearer"
 
 [functions]
 directory = "artifacts/api-server/netlify/functions"

@@ -1,4 +1,5 @@
 import { uploadImageFile } from "../upload-image";
+import { useAdminFetch } from "../use-admin-fetch";
 import { useEffect, useState, type FormEvent } from "react";
 import { ImagePlus, Pencil, Save, X } from "lucide-react";
 import { getImageUrl } from "../image-url";
@@ -24,6 +25,7 @@ function portfolioImageSource(image: string) {
 }
 
 export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWorkItem[] }) {
+  const adminFetch = useAdminFetch();
   const [works, setWorks] = useState(initialWorks);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
@@ -35,7 +37,7 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
 
   useEffect(() => {
     let active = true;
-    fetch("/api/admin/portfolio", { credentials: "include" })
+    adminFetch("/api/admin/portfolio")
       .then(async (response) => {
         if (!response.ok) throw new Error("Бүтээлийн сангийн жагсаалтыг ачаалж чадсангүй.");
         return response.json() as Promise<PortfolioWorkOverride[]>;
@@ -55,7 +57,7 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
     return () => {
       active = false;
     };
-  }, [initialWorks]);
+  }, [initialWorks, adminFetch]);
 
   useEffect(() => {
     if (!imageFile) {
@@ -88,7 +90,7 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
     try {
       let image = editing.image;
       if (imageFile) {
-        const uploadResponse = await fetch("/api/admin/portfolio-images/upload-url", {
+        const uploadResponse = await adminFetch("/api/admin/portfolio-images/upload-url", {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -100,7 +102,7 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
         await uploadImageFile(upload, imageFile);
 
         const imageId = String(upload.imageUrl).split("/").pop();
-        const completeResponse = await fetch("/api/admin/portfolio-images/complete", {
+        const completeResponse = await adminFetch("/api/admin/portfolio-images/complete", {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -111,7 +113,7 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
         image = completed.imageUrl;
       }
 
-      const response = await fetch(`/api/admin/portfolio/${encodeURIComponent(editing.id)}`, {
+      const response = await adminFetch(`/api/admin/portfolio/${encodeURIComponent(editing.id)}`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

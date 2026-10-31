@@ -11,6 +11,7 @@ import { shadcn } from '@clerk/themes';
 import { AdminPage, SignInPage, SignUpPage } from './components/auth-pages';
 import { filterPortfolioWork, getPortfolioCategoryFromSearch, getPortfolioMaterialFromSearch, getPortfolioRouteCategoryFromSearch, getPortfolioSearchTermFromSearch, getPortfolioWorkFromSearch, mergePortfolioWork, PORTFOLIO_CATEGORIES, PORTFOLIO_MATERIAL_OPTIONS, PORTFOLIO_SEARCH_SUGGESTIONS, PORTFOLIO_WORK, type PortfolioWorkOverride } from './portfolio-data';
 import { getImageUrl } from './image-url';
+import { useAdminFetch } from './use-admin-fetch';
 
 const queryClient = new QueryClient();
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -80,6 +81,7 @@ function Header() {
 function AccountNavigation({ onNavigate }: { onNavigate: () => void }) {
   const { isLoaded, isSignedIn, user } = useUser();
   const { signOut } = useClerk();
+  const adminFetch = useAdminFetch();
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -88,11 +90,11 @@ function AccountNavigation({ onNavigate }: { onNavigate: () => void }) {
       return;
     }
     let active = true;
-    fetch('/api/admin/access', { credentials: 'include' })
+    adminFetch('/api/admin/access')
       .then((response) => { if (active) setIsAdmin(response.ok); })
       .catch(() => { if (active) setIsAdmin(false); });
     return () => { active = false; };
-  }, [isLoaded, isSignedIn, user?.id]);
+  }, [isLoaded, isSignedIn, user?.id, adminFetch]);
 
   if (!isLoaded || !isSignedIn) return null;
 

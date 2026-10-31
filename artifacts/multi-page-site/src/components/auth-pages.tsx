@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { useAdminFetch } from "../use-admin-fetch";
 import { ArrowRight, ArrowUpRight, ImagePlus, Pencil, Plus, Save, ShieldCheck, X } from "lucide-react";
 import { Link } from "wouter";
 import { SignIn, SignUp, useClerk, useUser } from "@clerk/react";
@@ -84,6 +85,7 @@ export function AdminPage({
 }) {
   const { isLoaded, isSignedIn, user } = useUser();
   const { signOut } = useClerk();
+  const adminFetch = useAdminFetch();
   const [access, setAccess] = useState<AdminAccessState>("checking");
 
   useEffect(() => {
@@ -91,7 +93,7 @@ export function AdminPage({
 
     let active = true;
     setAccess("checking");
-    fetch("/api/admin/access", { credentials: "include" })
+    adminFetch("/api/admin/access")
       .then((response) => {
         if (!active) return;
         setAccess(response.ok ? "admin" : response.status === 403 ? "denied" : "error");
@@ -103,7 +105,7 @@ export function AdminPage({
     return () => {
       active = false;
     };
-  }, [isLoaded, isSignedIn, user?.id]);
+  }, [isLoaded, isSignedIn, user?.id, adminFetch]);
 
   if (!isLoaded || (isSignedIn && access === "checking")) {
     return (
@@ -188,7 +190,7 @@ export function AdminPage({
               className="admin-retry"
               onClick={() => {
                 setAccess("checking");
-                fetch("/api/admin/access", { credentials: "include" })
+                adminFetch("/api/admin/access")
                   .then((response) => setAccess(response.ok ? "admin" : response.status === 403 ? "denied" : "error"))
                   .catch(() => setAccess("error"));
               }}
@@ -238,6 +240,7 @@ function productImageSource(image: string) {
 }
 
 function ProductManager({ initialProducts }: { initialProducts: AdminManagedProduct[] }) {
+  const adminFetch = useAdminFetch();
   const [products, setProducts] = useState(initialProducts);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
@@ -251,7 +254,7 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
 
   useEffect(() => {
     let active = true;
-    fetch("/api/admin/products", { credentials: "include" })
+    adminFetch("/api/admin/products")
       .then(async (response) => {
         if (!response.ok) throw new Error("Бүтээгдэхүүний жагсаалтыг ачаалж чадсангүй.");
         return response.json() as Promise<AdminManagedProduct[]>;
@@ -271,7 +274,7 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
     return () => {
       active = false;
     };
-  }, [initialProducts]);
+  }, [initialProducts, adminFetch]);
 
   useEffect(() => {
     if (!imageFile) {
@@ -346,7 +349,7 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
       }
 
       if (imageFile) {
-        const uploadResponse = await fetch("/api/admin/product-images/upload-url", {
+        const uploadResponse = await adminFetch("/api/admin/product-images/upload-url", {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -358,7 +361,7 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
         await uploadImageFile(upload, imageFile);
 
         const imageId = String(upload.imageUrl).split("/").pop();
-        const completeResponse = await fetch("/api/admin/product-images/complete", {
+        const completeResponse = await adminFetch("/api/admin/product-images/complete", {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -370,7 +373,7 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
       }
 
       const payload = { ...editing, image, specs, features };
-      const response = await fetch(`/api/admin/products/${encodeURIComponent(editing.id)}`, {
+      const response = await adminFetch(`/api/admin/products/${encodeURIComponent(editing.id)}`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
