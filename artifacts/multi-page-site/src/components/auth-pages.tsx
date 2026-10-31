@@ -40,7 +40,7 @@ export function SignInPage() {
           <p>Нэвтэрч админ эрхийнхээ төлөвийг шалгана уу.</p>
         </div>
         {isLoaded
-          ? <SignIn routing="path" path={signInPath} signUpUrl={signUpPath} />
+          ? <SignIn routing="path" path={signInPath} signUpUrl={signUpPath} fallbackRedirectUrl={`${basePath}/admin`} />
           : <p className="auth-loading" role="status">Нэвтрэх хэсэг ачаалж байна…</p>}
         <Link className="auth-home-link" href="/">Сайт руу буцах</Link>
       </div>
