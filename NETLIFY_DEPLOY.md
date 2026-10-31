@@ -22,11 +22,10 @@ repository:
 | `CLERK_SECRET_KEY` | API Function | Secret key for that Clerk application. |
 | `CLERK_FIRST_ADMIN_EMAIL` | API Function | Email that receives the initial admin role. |
 | `DATABASE_URL` | API Function | Replit production PostgreSQL connection string; use SSL. |
-| `STORAGE_PROVIDER` | API Function | Set to `r2`. |
-| `R2_ACCOUNT_ID` | API Function | Cloudflare account that owns the bucket. |
-| `R2_BUCKET_NAME` | API Function | Private R2 bucket name. |
-| `R2_ACCESS_KEY_ID` | API Function | R2 S3-compatible access key. |
-| `R2_SECRET_ACCESS_KEY` | API Function | R2 S3-compatible secret. |
+| `STORAGE_PROVIDER` | API Function | Set to `cloudinary`. |
+| `CLOUDINARY_CLOUD_NAME` | API Function | Cloud name from the Cloudinary dashboard. |
+| `CLOUDINARY_API_KEY` | API Function | API key for that cloud. |
+| `CLOUDINARY_API_SECRET` | API Function | Secret for the same API key; keep server-side only. |
 
 Do not commit secret values or send them in chat. `PORT`, `BASE_PATH`, and the
 Node version are already set in `netlify.toml`. Leave `VITE_CLERK_PROXY_URL`
@@ -35,16 +34,27 @@ unset when using the separate Clerk application.
 ## Before the first deploy
 
 1. Import the repository into Netlify from its root directory.
-2. Create a private Cloudflare R2 bucket and an S3-compatible key restricted to
-   object read/write for that bucket. Add the key values to Netlify’s settings.
-3. Configure the bucket’s CORS to allow `PUT` from the final Netlify site origin
-   with the `Content-Type` header.
+2. Create a free Cloudinary Image & Video API account and add its cloud name,
+   API key, and API secret in Netlify. Set `STORAGE_PROVIDER=cloudinary`.
+3. No unsigned upload preset or custom bucket CORS policy is required.
 4. Add the Replit production database connection string to Netlify as
    `DATABASE_URL`; keep the SSL requirement enabled.
 5. Configure the separate Clerk application for the Netlify domain and enable
    public signup. Add its publishable and secret keys to Netlify.
 
-Replit’s managed App Storage is not used in Netlify mode. Local Replit runs keep
-using App Storage unless `STORAGE_PROVIDER=r2` is set. Netlify image uploads use
-short-lived signed R2 URLs, and image reads redirect to short-lived signed
-downloads.
+Local Replit runs keep using App Storage unless a provider is explicitly set.
+Cloudinary uploads go directly from the administrator's browser to Cloudinary
+using signed multipart POST requests. The API verifies the resource, format,
+and 8 MB limit before returning a permanent HTTPS CDN URL for the database.
+Never prefix the Cloudinary API secret with VITE_ or commit it to Git.
+
+Deploy this updated code once, after saving the environment variables.
+Afterward, product and portfolio image changes made through the admin editor
+do not require another deploy. Existing bundled images stay unchanged.
+Previously uploaded Replit App Storage or R2 files are not automatically copied
+to Cloudinary; any existing edits referencing those stores must be migrated or
+re-uploaded before retiring their old storage. Replaced images are not deleted
+automatically, so periodically review unused assets in Cloudinary.
+
+R2 remains an optional supported provider for existing installations. It is not
+needed for the Cloudinary setup above.

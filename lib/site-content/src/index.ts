@@ -1,0 +1,57 @@
+// Keep this append-only list aligned with PORTFOLIO_WORK_SOURCE in the site.
+// IDs are independent of image filenames so changing an image never changes a work's identity.
+export const PORTFOLIO_WORK_IDS = [
+  "work-001",
+  "work-002",
+  "work-003",
+  "work-004",
+  "work-005",
+  "work-006",
+  "work-007",
+  "work-008",
+  "work-009",
+  "work-010",
+  "work-011",
+  "work-012",
+  "work-013",
+  "work-014",
+  "work-015",
+  "work-016",
+  "work-017",
+  "work-018",
+  "work-019",
+  "work-020",
+  "work-021",
+  "work-022",
+  "work-023",
+  "work-024",
+  "work-025",
+  "work-026",
+  "work-027",
+  "work-028",
+  "work-029",
+  "work-030",
+  "work-031",
+  "work-032",
+  "work-033",
+  "work-034",
+  "work-035",
+  "work-036",
+  "work-037",
+  "work-038",
+  "work-039",
+  "work-040",
+  "work-041",
+  "work-042",
+  "work-043",
+  "work-044",
+  "work-045",
+  "work-046",
+  "work-047",
+] as const;
+
+const portfolioWorkIdSet = new Set<string>(PORTFOLIO_WORK_IDS);
+
+export function isPortfolioWorkId(id: string): boolean {
+  return portfolioWorkIdSet.has(id);
+}

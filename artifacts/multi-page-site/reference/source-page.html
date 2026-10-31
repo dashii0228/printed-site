@@ -1,0 +1,2582 @@
+﻿<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лазер Хэвлэл — Промошн Бүтээгдэхүүн | 86681144</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:radial-gradient(ellipse at 15% 20%,rgba(59,130,246,0.10) 0%,transparent 55%),radial-gradient(ellipse at 85% 80%,rgba(147,197,253,0.12) 0%,transparent 55%),linear-gradient(135deg,#f0f8ff 0%,#e8f2ff 35%,#dbeafe 65%,#eff6ff 100%);background-attachment:fixed;color:#0f172a;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:0.01em;line-height:1.6}
+/* ── Deep blue noise mesh overlay ── */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.038;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── Mesh dot accent (subtle repeating grid) ── */
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.06;background-image:radial-gradient(circle,#93C5FD 1px,transparent 1px);background-size:40px 40px}
+
+/* ── Section text on dark background ── */
+.section-title{text-shadow:none}
+.hero h1{text-shadow:0 4px 32px rgba(14,165,233,0.45)}
+.contact h2{text-shadow:none}
+.section-label{text-shadow:none}
+
+nav{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#6d28d9,#7c3aed);backdrop-filter:blur(14px);border-bottom:1px solid rgba(109,40,217,0.3);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;color:#fff;-webkit-text-fill-color:#fff}
+.nav-links{display:flex;gap:8px;align-items:center}
+.nav-links a{font-size:13px;font-weight:800;text-decoration:none;padding:6px 16px;border-radius:20px;border:2px solid rgba(255,255,255,0.85);background:linear-gradient(90deg,#ffd6f0,#ffe8ba,#d4ffd6,#baeeff,#e0baff,#ffc8f0,#ffd6f0);background-size:400% 100%;animation:holo-anim 3s linear infinite;color:#4c1d95;-webkit-text-fill-color:#4c1d95;letter-spacing:0.02em;box-shadow:0 0 12px rgba(255,255,255,0.55),0 4px 16px rgba(139,92,246,0.4)}
+.nav-links a:hover{filter:brightness(1.12);box-shadow:0 0 22px rgba(255,255,255,0.75),0 6px 22px rgba(139,92,246,0.55)}
+.nav-phone{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff}
+
+/* ── Mobile slide-in menu ── */
+.nav-burger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:rgba(255,255,255,0.14);border:1.5px solid rgba(255,255,255,0.35);border-radius:10px;cursor:pointer;padding:0;flex-shrink:0}
+.nav-burger span{display:block;width:18px;height:2px;background:#fff;border-radius:2px;transition:transform 0.25s ease,opacity 0.2s ease}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.nav-drawer-backdrop{position:fixed;inset:0;background:rgba(15,10,30,0.55);backdrop-filter:blur(3px);z-index:199;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+.nav-drawer-backdrop.open{opacity:1;pointer-events:auto}
+
+.nav-drawer{position:fixed;top:0;right:0;height:100%;height:100dvh;width:82%;max-width:320px;background:linear-gradient(165deg,#6d28d9,#4c1d95);z-index:200;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.22,1,0.36,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,0.35)}
+.nav-drawer.open{transform:translateX(0)}
+.nav-drawer-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.1rem 1rem;border-bottom:1px solid rgba(255,255,255,0.14);flex-shrink:0}
+.nav-drawer-close{background:rgba(255,255,255,0.14);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-drawer-close:hover{background:rgba(255,255,255,0.24)}
+.nav-drawer-links{display:flex;flex-direction:column;padding:0.75rem 0.6rem;overflow-y:auto;flex:1}
+.nav-drawer-links a{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#fff;text-decoration:none;padding:14px 0.9rem;border-radius:12px;display:flex;align-items:center;gap:11px;transition:background 0.2s}
+.nav-drawer-links a:hover,.nav-drawer-links a:active{background:rgba(255,255,255,0.12)}
+.nav-drawer-foot{padding:1rem 1.1rem 1.4rem;border-top:1px solid rgba(255,255,255,0.14);flex-shrink:0}
+.nav-drawer-call{display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#6d28d9;font-family:'Inter',sans-serif;font-weight:800;font-size:14px;padding:13px;border-radius:14px;text-decoration:none;transition:transform 0.15s}
+.nav-drawer-call:hover{transform:translateY(-1px)}
+@keyframes holo-anim{0%{background-position:0% 50%;filter:hue-rotate(0deg) brightness(1.05)}50%{background-position:100% 50%;filter:hue-rotate(200deg) brightness(1.12)}100%{background-position:0% 50%;filter:hue-rotate(360deg) brightness(1.05)}}
+.holo-btn{background:linear-gradient(90deg,#ffd6f0,#ffe8ba,#d4ffd6,#baeeff,#e0baff,#ffc8f0,#ffd6f0) !important;background-size:400% 100% !important;animation:holo-anim 3s linear infinite !important;color:#4c1d95 !important;-webkit-text-fill-color:#4c1d95 !important;border:2px solid rgba(255,255,255,0.85) !important;box-shadow:0 0 14px rgba(255,255,255,0.55),0 6px 20px rgba(139,92,246,0.4) !important}
+.holo-btn:hover{filter:brightness(1.12) !important;box-shadow:0 0 24px rgba(255,255,255,0.75),0 8px 26px rgba(139,92,246,0.55) !important}
+.nav-fb-btn{background:linear-gradient(90deg,#ffd6f0,#ffe8ba,#d4ffd6,#baeeff,#e0baff,#ffc8f0,#ffd6f0);background-size:400% 100%;animation:holo-anim 3s linear infinite;color:#4c1d95 !important;-webkit-text-fill-color:#4c1d95 !important;font-weight:800 !important;border:2px solid rgba(255,255,255,0.85) !important;box-shadow:0 0 12px rgba(255,255,255,0.55),0 4px 16px rgba(139,92,246,0.4) !important}
+.nav-fb-btn:hover{filter:brightness(1.12);box-shadow:0 0 22px rgba(255,255,255,0.75),0 6px 22px rgba(139,92,246,0.55) !important}
+.hero{background:#020c24;min-height:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;text-align:center;position:relative;overflow:hidden}
+.hero-visual{width:100%;position:relative;overflow:hidden;line-height:0}
+.hero-visual img{width:100%;height:auto;display:block;max-height:340px;object-fit:cover}
+.hero-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,#1e3a8a)}
+/* ── Banner Slider ── */
+.banner-slider{position:relative;width:100%;overflow:hidden;line-height:0}
+.banner-slides{display:flex;transition:transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform}
+.banner-slide{min-width:100%;width:100%;flex-shrink:0}
+.banner-slide img{width:100%;height:auto;display:block;max-height:340px;object-fit:cover}
+.banner-slider::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,#1e3a8a);pointer-events:none;z-index:2}
+.banner-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+.banner-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);border:2px solid rgba(255,255,255,0.7);padding:0;cursor:pointer;transition:all 0.3s;flex-shrink:0}
+.banner-dot.active{background:#fff;width:24px;border-radius:4px;border-color:#fff}
+.banner-prev,.banner-next{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(0,0,0,0.32);border:none;color:#fff;font-size:22px;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;backdrop-filter:blur(4px);line-height:1}
+.banner-prev{left:10px}
+.banner-next{right:10px}
+.banner-prev:hover,.banner-next:hover{background:rgba(0,0,0,0.55);transform:translateY(-50%) scale(1.08)}
+/* ── News banner slide ── */
+.banner-slide-news{background:linear-gradient(135deg,#1a0505 0%,#3b0d0d 45%,#1a0808 100%);min-height:340px;max-height:340px;display:flex;align-items:center;overflow:hidden;position:relative}
+.banner-slide-news::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(180,120,20,0.18),transparent 65%),radial-gradient(ellipse at 20% 80%,rgba(80,0,0,0.35),transparent 60%);pointer-events:none}
+.bsn-content{display:flex;align-items:center;justify-content:center;gap:2rem;padding:1.2rem 2rem;width:100%;z-index:1;position:relative}
+.bsn-imgs{display:flex;gap:0.75rem;align-items:center;flex-shrink:0}
+.bsn-imgs img{height:200px;width:auto;border-radius:12px;object-fit:contain;filter:drop-shadow(0 8px 28px rgba(0,0,0,0.6))}
+.bsn-text{color:#fff;max-width:320px}
+.bsn-badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:3px;color:#d4af37;text-transform:uppercase;margin-bottom:0.6rem;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);padding:4px 12px;border-radius:20px}
+.bsn-title{font-size:clamp(1rem,3vw,1.5rem);font-weight:900;line-height:1.15;letter-spacing:-0.01em;color:#fff;margin-bottom:0.3rem}
+.bsn-sub{font-size:13px;font-weight:700;color:#d4af37;margin-bottom:0.65rem;letter-spacing:0.5px}
+.bsn-desc{font-size:12.5px;color:rgba(255,255,255,0.78);line-height:1.65}
+@media(max-width:640px){.bsn-content{flex-direction:column;gap:0.75rem;padding:0.75rem 1rem}.bsn-imgs img{height:110px}.bsn-text{max-width:100%;text-align:center}.bsn-imgs{gap:0.5rem}}
+@keyframes hvFloat1{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes hvFloat2{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
+@keyframes hvFloat3{0%,100%{transform:translateY(-7px)}50%{transform:translateY(4px)}}
+@keyframes hvFloat4{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+@keyframes hvInkPulse{0%,100%{r:7px;opacity:0.65}50%{r:11px;opacity:0.3}}
+.hv-fp1{animation:hvFloat1 4s ease-in-out infinite}
+.hv-fp2{animation:hvFloat2 5s ease-in-out infinite}
+.hv-fp3{animation:hvFloat3 5.5s ease-in-out infinite}
+.hv-fp4{animation:hvFloat4 4.5s ease-in-out infinite}
+.hero-sub{width:100%;background:linear-gradient(180deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%);padding:1.8rem 2rem 3rem;display:flex;flex-direction:column;align-items:center;position:relative}
+.hero-sub::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:rgba(96,165,250,0.18);border-radius:50%;filter:blur(40px)}
+.hero-sub::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:rgba(14,165,233,0.12);border-radius:50%;filter:blur(30px)}
+.brand-tag{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1.25rem;z-index:1;position:relative;padding:9px 22px;border-radius:50px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.2);backdrop-filter:blur(8px);color:#fff}.brand-tag .bt-dot{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#a78bfa);flex-shrink:0;animation:pulseCTA 1.8s ease-in-out infinite}.brand-tag .bt-text{background:linear-gradient(90deg,#93c5fd,#e9d5ff,#bfdbfe);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}@keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+.hero h1{font-family:'Inter',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:#fff;line-height:1.15;letter-spacing:-0.03em;margin-bottom:1rem;z-index:1;position:relative}
+.hero h1 span{background:linear-gradient(135deg,#BFDBFE,#0EA5E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:17px;color:rgba(255,255,255,0.8);max-width:500px;line-height:1.6;font-weight:500;z-index:1;position:relative;margin-bottom:2rem}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;z-index:1;position:relative}
+.btn-primary{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;padding:14px 32px;border-radius:50px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.02em;cursor:pointer;text-decoration:none;transition:opacity 0.2s,transform 0.15s;display:inline-block}
+.btn-primary:hover{opacity:0.88;transform:scale(1.03)}
+.btn-outline{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;padding:12px 26px;border-radius:50px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity 0.2s,transform 0.15s;display:inline-block;box-shadow:0 4px 14px rgba(37,99,235,0.25)}
+.btn-outline:hover{opacity:0.88;transform:scale(1.03)}
+.stats{display:flex;justify-content:center;border-bottom:1px solid rgba(37,99,235,0.12);background:rgba(240,247,255,0.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(37,99,235,0.1)}
+.stat{flex:1;max-width:200px;padding:1.25rem 1rem;text-align:center;border-right:1px solid rgba(37,99,235,0.1)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Inter',sans-serif;font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:11px;color:rgba(30,64,175,0.7);margin-top:2px}
+.section{padding:3rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:#1D4ED8;text-transform:uppercase;margin-bottom:0.5rem;text-align:center}
+.section-title{font-family:'Inter',sans-serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:800;text-align:center;letter-spacing:-0.02em;line-height:1.25;color:#0f172a;text-shadow:none;margin-bottom:2.5rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+@media(max-width:640px){.cards{grid-template-columns:1fr 1fr;gap:10px}.card-img{height:150px}.card-body{padding:0.7rem}.card-name{font-size:13px}.card-desc{font-size:11px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
+.card{border-radius:20px;overflow:hidden;border:1.5px solid rgba(37,99,235,0.1);transition:transform 0.25s,box-shadow 0.25s;background:#fff;text-decoration:none;color:inherit;display:block}
+.card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(37,99,235,0.18)}
+.card-img{height:240px;overflow:hidden;background:#EFF6FF;display:flex;align-items:center;justify-content:center}
+.card-img img{width:100%;height:100%;object-fit:contain;background:#EFF6FF;padding:8px;transition:transform 0.3s}
+.card:hover .card-img img{transform:scale(1.04)}
+.card-body{padding:1.1rem}
+.card-name{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#020c1f;margin-bottom:5px}
+.card-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.card-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px}
+.tag-gold{background:#FFF3CD;color:#A0522D}
+.tag-green{background:#D4EDDA;color:#155724}
+.tag-pink{background:#E0F2FE;color:#0C4A6E}
+.tag-orange{background:#FFE8D6;color:#0B1437}
+.tag-blue{background:#DBEAFE;color:#1E40AF}
+.tag-gray{background:#EFF6FF;color:#1E3A8A}
+.card-arrow{font-size:16px;color:#ccc;transition:color 0.2s}
+.card:hover .card-arrow{color:#1D4ED8}
+.detail-section{background:linear-gradient(180deg,rgba(240,247,255,0.97) 0%,rgba(235,244,255,0.99) 100%);border-top:1px solid rgba(37,99,235,0.15)}
+.detail-inner{max-width:960px;margin:0 auto}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+@media(max-width:640px){body{overflow-x:hidden}.detail-grid{grid-template-columns:1fr}.nav-links{display:none}.nav-phone{display:none}.nav-logo{font-size:14px}nav{padding:0 12px}.nav-burger{display:flex}.prod-filters{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}.prod-filters::-webkit-scrollbar{display:none}.prod-filter{flex-shrink:0}.section{padding-left:1rem;padding-right:1rem}.prod-filter-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -1rem;padding-left:1rem;padding-right:1rem;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(to right,#000 92%,transparent 100%);mask-image:linear-gradient(to right,#000 92%,transparent 100%)}.prod-filter-bar::-webkit-scrollbar{display:none}.prod-filter-bar .prod-filter{flex-shrink:0;white-space:nowrap;scroll-snap-align:start}.prod-more-wrap{flex-shrink:0}}
+.gallery{display:grid;gap:10px}
+.gallery-one{grid-template-columns:1fr}
+.gallery-two{grid-template-columns:1fr 1fr}
+.gallery-img{border-radius:16px;overflow:hidden;height:260px;background:rgba(240,247,255,0.7)}
+.gallery-img img{width:100%;height:100%;object-fit:contain;padding:8px}
+.detail-content h2{font-family:'Inter',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;line-height:1.25;margin-bottom:0.75rem;color:#0f172a;text-shadow:none}
+.detail-content>p{font-size:15px;color:rgba(15,23,42,0.75);line-height:1.6;margin-bottom:1.25rem}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:1.25rem}
+.spec-item{background:rgba(255,255,255,0.85);border-radius:10px;padding:9px 12px;border:1px solid rgba(37,99,235,0.15)}
+.spec-label{font-size:10px;color:#1D4ED8;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;font-weight:600}
+.spec-val{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#0f172a;letter-spacing:-0.02em}
+.features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:1.25rem}
+.features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(15,23,42,0.85);line-height:1.6;font-weight:500}
+.features li::before{content:'';width:7px;height:7px;min-width:7px;border-radius:50%;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);margin-top:6px}
+.process{padding:4rem 2rem;max-width:1000px;margin:0 auto;text-align:center}
+.road-steps{display:flex;align-items:flex-start;justify-content:center;margin-top:3rem}
+.road-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:1;min-width:0}
+.road-connector{flex:1;height:6px;background:linear-gradient(90deg,#7c3aed,#0ea5e9);border-radius:3px;margin-top:34px;position:relative;z-index:0;min-width:20px}
+.road-connector::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(255,255,255,0.65) 8px,rgba(255,255,255,0.65) 16px)}
+.rs-bubble{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#6d28d9,#7c3aed);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(109,40,217,0.38);border:4px solid #fff;transition:transform 0.2s,box-shadow 0.2s;cursor:default}
+.rs-bubble:hover{transform:scale(1.12);box-shadow:0 12px 30px rgba(109,40,217,0.5)}
+.rs-icon{font-size:22px;line-height:1}
+.rs-num{font-size:9px;font-weight:800;letter-spacing:1px;opacity:0.72;margin-top:2px}
+.rs-card{background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);border:1.5px solid rgba(109,40,217,0.12);border-radius:16px;padding:14px 10px;width:100%}
+.rs-card h3{font-size:13px;font-weight:800;color:#4c1d95;margin-bottom:5px}
+.rs-card p{font-size:12px;color:rgba(15,23,42,0.62);line-height:1.55}
+@media(max-width:640px){.road-steps{flex-direction:column;align-items:center;gap:0}.road-step{width:80%;max-width:280px}.road-connector{width:4px;height:36px;flex:none;margin:0 0 0 0;background:linear-gradient(180deg,#7c3aed,#0ea5e9)}.road-connector::after{top:0;bottom:0;left:50%;right:auto;width:2px;height:100%;margin:0 0 0 -1px;background:repeating-linear-gradient(180deg,transparent,transparent 8px,rgba(255,255,255,0.65) 8px,rgba(255,255,255,0.65) 16px)}}
+.contact{background:linear-gradient(135deg,#dbeafe 0%,#bfdbfe 50%,#dbeafe 100%);background-size:200% 200%;padding:4rem 2rem;text-align:center;position:relative;overflow:hidden}
+
+.contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(37,99,235,0.08),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(14,165,233,0.06),transparent 60%);pointer-events:none}
+.contact h2{font-family:'Inter',sans-serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:800;color:#0f172a;margin-bottom:0.75rem;letter-spacing:-0.02em;line-height:1.2;position:relative}
+.contact p{color:rgba(15,23,42,0.72);font-size:16px;font-weight:500;margin-bottom:2rem;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.6;position:relative}
+.contact-info{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:2rem;position:relative}
+.contact-item{background:rgba(255,255,255,0.82);backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,0.95);border-radius:20px;padding:18px 22px;min-width:130px;text-align:center;box-shadow:0 4px 20px rgba(37,99,235,0.10);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;display:inline-flex;flex-direction:column;align-items:center;gap:4px;color:#0f172a}
+a.contact-item:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(109,40,217,0.18)}
+.contact-item .ci-icon{font-size:26px;line-height:1}
+.contact-item strong{color:#6d28d9;display:block;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700}
+.contact-item .ci-val{color:#0f172a;font-size:13px;font-weight:700}
+.contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-white{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;padding:14px 32px;border-radius:50px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 14px rgba(37,99,235,0.3)}
+.btn-white:hover{opacity:0.88;transform:scale(1.03)}
+.btn-ghost{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;padding:12px 26px;border-radius:50px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 14px rgba(37,99,235,0.25)}
+.btn-ghost:hover{opacity:0.88;transform:scale(1.03)}
+footer{padding:1.25rem 2rem;text-align:center;border-top:1px solid rgba(37,99,235,0.15);font-size:12px;color:rgba(30,64,175,0.6);background:rgba(240,247,255,0.97);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footer-logo{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── Product filters ── */
+.prod-filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+.prod-filter{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:9px 20px;border-radius:50px;border:1.5px solid rgba(37,99,235,0.2);background:rgba(255,255,255,0.8);color:#1D4ED8;cursor:pointer;transition:all 0.2s;letter-spacing:0.01em;backdrop-filter:blur(8px)}
+.prod-filter:hover{border-color:#1D4ED8;background:#DBEAFE}
+.prod-filter.active{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border-color:transparent;box-shadow:0 0 0 4px rgba(37,99,235,0.16),0 4px 18px rgba(37,99,235,0.45),0 0 22px rgba(14,165,233,0.35);animation:prodFilterPop 0.35s ease}
+@keyframes prodFilterPop{0%{transform:scale(0.94)}55%{transform:scale(1.05)}100%{transform:scale(1)}}
+.prod-count{font-size:11px;background:rgba(255,255,255,0.25);border-radius:20px;padding:1px 7px;margin-left:4px;font-weight:700}
+.prod-filter:not(.active) .prod-count{background:rgba(37,99,235,0.1);color:#1D4ED8}
+/* ── Filter bar ── */
+.prod-filter-scroll{position:relative}
+.prod-filter-bar{display:flex;gap:8px;align-items:center;margin-bottom:1.75rem;flex-wrap:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 4px 10px}
+.prod-filter-bar::-webkit-scrollbar{display:none}
+.prod-filter-bar .prod-filter{flex-shrink:0}
+.prod-more-wrap{position:relative;flex-shrink:0}
+.prod-more-btn{padding:9px 16px;font-size:17px;letter-spacing:3px;line-height:1;min-width:56px}
+.prod-more-dropdown{display:none;position:absolute;top:calc(100% + 10px);left:0;background:#fff;border:1.5px solid rgba(37,99,235,0.15);border-radius:16px;padding:8px;min-width:210px;box-shadow:0 8px 32px rgba(37,99,235,0.14);z-index:200;flex-direction:column;gap:4px}
+.prod-more-dropdown.open{display:flex}
+.prod-more-dropdown .prod-filter{border-radius:12px;text-align:left;width:100%}
+/* ── Scroll hint (edge fade + arrow) ── */
+.prod-filter-edge{position:absolute;top:0;bottom:12px;width:38px;display:flex;align-items:center;pointer-events:none;opacity:0;transition:opacity 0.25s ease;z-index:5}
+.prod-filter-edge svg{width:16px;height:16px;stroke:#1D4ED8;filter:drop-shadow(0 1px 3px rgba(255,255,255,0.9))}
+.prod-filter-edge-r{right:0;justify-content:flex-end;padding-right:2px;background:linear-gradient(to right,rgba(238,246,255,0) 0%,rgba(238,246,255,0.9) 65%)}
+.prod-filter-edge-l{left:0;justify-content:flex-start;padding-left:2px;background:linear-gradient(to left,rgba(238,246,255,0) 0%,rgba(238,246,255,0.9) 65%)}
+.prod-filter-scroll.can-scroll-r .prod-filter-edge-r,
+.prod-filter-scroll.can-scroll-l .prod-filter-edge-l{opacity:1}
+.prod-filter-edge-r svg{animation:prodEdgeNudgeR 1.6s ease-in-out infinite}
+.prod-filter-edge-l svg{animation:prodEdgeNudgeL 1.6s ease-in-out infinite}
+@keyframes prodEdgeNudgeR{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@keyframes prodEdgeNudgeL{0%,100%{transform:translateX(0)}50%{transform:translateX(-4px)}}
+.prod-filter-scroll.hint-swipe .prod-filter-bar{animation:prodSwipeHint 1.4s ease 0.4s 1}
+@keyframes prodSwipeHint{0%{transform:translateX(0)}30%{transform:translateX(-22px)}60%{transform:translateX(4px)}100%{transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){
+  .prod-filter.active{animation:none}
+  .prod-filter-edge-r svg,.prod-filter-edge-l svg{animation:none}
+  .prod-filter-scroll.hint-swipe .prod-filter-bar{animation:none}
+}
+.card.hidden{display:none}
+
+/* ── Animations ── */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes pulseCTA{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,0.5)}70%{box-shadow:0 0 0 16px rgba(37,99,235,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sparkle{0%{opacity:1;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(0) translate(var(--dx),var(--dy))}}
+@keyframes particleDrift{0%{opacity:0;transform:translateY(0) scale(0.5)}20%{opacity:0.7}80%{opacity:0.5}100%{opacity:0;transform:translateY(-120px) scale(1.2)}}
+@keyframes counterUp{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes navGlow{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 12px rgba(255,107,53,0.5)}}
+
+/* ── Scroll reveal ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.7s cubic-bezier(.22,1,.36,1),transform 0.7s cubic-bezier(.22,1,.36,1)}
+.reveal.from-left{transform:translateX(-36px)}
+.reveal.from-right{transform:translateX(36px)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── Hero animated gradient ── */
+.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb,#3b82f6,#60a5fa,#38bdf8,#2563eb,#1e3a8a);background-size:300% 300%;animation:gradientShift 10s ease infinite}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:rgba(96,165,250,0.18);border-radius:50%;filter:blur(40px)}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:rgba(14,165,233,0.12);border-radius:50%;filter:blur(30px)}
+
+/* ── Hero entrance ── */
+.hero .brand-tag{animation:fadeInUp 0.7s 0.1s both}
+.hero h1{animation:fadeInUp 0.7s 0.25s both}
+.hero p{animation:fadeInUp 0.7s 0.4s both}
+.hero-btns{animation:fadeInUp 0.7s 0.55s both}
+
+/* ── Floating particles in hero ── */
+.hero-particle{position:absolute;border-radius:50%;pointer-events:none;animation:particleDrift linear infinite}
+
+/* ── Pulsing CTA ── */
+.btn-primary{animation:pulseCTA 2.4s infinite}
+.btn-primary:hover{animation:none}
+
+/* ── btn-white gradient override ── */
+.btn-white{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);animation:none}
+
+/* ── Stat counter pop ── */
+.stat-num.popped{animation:counterUp 0.5s cubic-bezier(.22,1,.36,1) both}
+
+/* ── Card 3D tilt ── */
+.card{transform-style:preserve-3d;will-change:transform}
+
+/* ── Active card ── */
+.card.active{border-color:#1D4ED8;box-shadow:0 0 0 3px rgba(37,99,235,0.35),0 12px 32px rgba(37,99,235,0.2);transform:none !important}
+.card.active .card-arrow{color:#1D4ED8}
+
+/* ── Detail sections: collapsed by default ── */
+.detail-section{display:none}
+#detail-screen{position:fixed;top:0;left:0;width:100%;height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;background:linear-gradient(180deg,rgba(240,247,255,0.97) 0%,rgba(235,244,255,0.99) 100%);z-index:200;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.22,1,0.36,1);will-change:transform}
+#detail-screen.open{transform:translateX(0)}
+#detail-screen .detail-section.active-detail{display:block}
+
+/* ── Detail close btn ── */
+.detail-back-bar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:12px 16px;border-bottom:1px solid rgba(37,99,235,0.1);margin:-1.5rem -1.5rem 1.5rem}
+.detail-close{display:flex;align-items:center;gap:6px;background:none;border:none;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#1D4ED8;cursor:pointer;padding:4px 0;letter-spacing:0.01em;transition:opacity 0.2s}
+.detail-close:hover{opacity:0.7}
+.detail-close::before{content:'‹';font-size:24px;line-height:1;margin-right:2px}
+
+/* ── Section label spin dot ── */
+.section-label::before{content:'';display:inline-block;width:7px;height:7px;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);border-radius:50%;margin-right:7px;animation:spin 1.8s linear infinite;vertical-align:middle}
+
+/* ── Cursor sparkle ── */
+.cursor-spark{position:fixed;pointer-events:none;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#93C5FD,transparent);z-index:9999;animation:sparkle 0.6s ease forwards}
+
+/* ── Step number pulse on hover ── */
+.step:hover .step-num{animation:pulseCTA 1.2s infinite;transform:scale(1.15);transition:transform 0.2s}
+
+/* ── Nav logo float ── */
+.nav-logo{animation:none}
+
+/* ── Footer logo ── */
+.footer-logo{animation:floatY 4s ease-in-out infinite}
+
+/* ── Services section ── */
+.services-section{padding:3.5rem 2rem;background:rgba(235,245,255,0.75);backdrop-filter:blur(16px);border-top:1px solid rgba(37,99,235,0.12);border-bottom:1px solid rgba(37,99,235,0.12)}
+.services-inner{max-width:1100px;margin:0 auto}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:2rem}
+.svc-card{border-radius:22px;overflow:hidden;background:rgba(255,255,255,0.88);border:1.5px solid rgba(37,99,235,0.15);backdrop-filter:blur(10px);padding:2rem 1.75rem;position:relative;transition:transform 0.25s,box-shadow 0.25s}
+.svc-card:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(37,99,235,0.16)}
+.svc-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:1.25rem;position:relative}
+.svc-icon-laser{background:linear-gradient(135deg,#DBEAFE,#BFDBFE)}
+.svc-icon-uv{background:linear-gradient(135deg,#E0F2FE,#BAE6FD)}
+.svc-icon-dtf{background:linear-gradient(135deg,#E0F7FA,#B2EBF2)}
+.svc-icon-sublim{background:linear-gradient(135deg,#FFF3E0,#FFE0B2)}
+.svc-badge{position:absolute;top:1.25rem;right:1.25rem;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.04em}
+.badge-free{background:#D4EDDA;color:#155724}
+.badge-color{background:#E0F2FE;color:#0C4A6E}
+.badge-fab{background:#E0F7FA;color:#006064}
+.svc-name{font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:800;color:#0f172a;margin-bottom:0.5rem}
+.svc-desc{font-size:13.5px;color:rgba(15,23,42,0.65);line-height:1.6;margin-bottom:1.25rem}
+.svc-materials{display:flex;flex-wrap:wrap;gap:6px}
+.svc-mat{font-size:11px;font-weight:600;padding:4px 10px;border-radius:12px;background:#EFF6FF;color:#1E40AF;border:1px solid rgba(37,99,235,0.15)}
+.svc-divider{width:36px;height:3px;border-radius:2px;margin-bottom:1rem}
+.svc-divider-laser{background:linear-gradient(90deg,#1D4ED8,#93C5FD)}
+.svc-divider-uv{background:linear-gradient(90deg,#0EA5E9,#38BDF8)}
+.svc-divider-dtf{background:linear-gradient(90deg,#06B6D4,#67E8F9)}
+.svc-divider-sublim{background:linear-gradient(90deg,#F97316,#FBBF24)}
+.svc-view-btn{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;padding:9px 20px;border-radius:50px;border:none;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;cursor:pointer;letter-spacing:0.02em;transition:opacity 0.2s,transform 0.15s;display:inline-block}
+.svc-view-btn:hover{opacity:0.85;transform:scale(1.03)}
+
+/* ── Service tabs (redesigned) ── */
+.svc-subtitle{text-align:center;font-size:14.5px;color:#3b5484;font-weight:500;margin-top:-1.75rem;margin-bottom:2.25rem}
+.svc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.25rem;justify-content:center}
+.svc-tab{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;padding:11px 20px;border-radius:50px;border:1.5px solid transparent;background:#EEF4FF;cursor:pointer;color:#3355a8;transition:background 0.2s,color 0.2s,box-shadow 0.2s,transform 0.15s;letter-spacing:0.01em;display:inline-flex;align-items:center;gap:7px}
+.svc-tab-ic{font-size:15px;line-height:1}
+.svc-tab.active{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;box-shadow:0 6px 18px rgba(37,99,235,0.32);transform:translateY(-1px)}
+.svc-tab:hover:not(.active){background:#DCE9FF;color:#1D4ED8}
+.svc-tab:active{transform:scale(0.97)}
+@media(max-width:640px){.svc-tabs{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;margin-left:-1px}.svc-tab{flex:0 0 auto}}
+
+.svc-panel{display:none}
+.svc-panel.active{display:grid;grid-template-columns:1.2fr 1fr;gap:2.25rem;align-items:stretch;animation:detailSlideIn 0.4s cubic-bezier(0.22,1,0.36,1) both;position:relative;z-index:2}
+@media(max-width:768px){.svc-panel.active{grid-template-columns:1fr}}
+
+/* Left column — all text/interactive content lives here */
+.svc-panel-left{display:flex;flex-direction:column}
+.svc-panel-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#1D4ED8;background:#EFF6FF;border:1px solid rgba(37,99,235,0.18);padding:6px 14px;border-radius:50px;margin-bottom:0.9rem;align-self:flex-start}
+.svc-panel-headline{font-family:'Inter',sans-serif;font-size:1.35rem;font-weight:800;color:#0f172a;letter-spacing:-0.01em;line-height:1.3;margin-bottom:0.6rem}
+.svc-panel-desc{font-size:14.5px;color:rgba(15,23,42,0.7);line-height:1.65;margin-bottom:1.5rem}
+.svc-features{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:1.5rem}
+.svc-features li{display:flex;align-items:center;gap:12px;font-size:13.5px;color:#1e2a3f;line-height:1.5;font-weight:600}
+.svc-feat-ic{flex:0 0 auto;width:32px;height:32px;border-radius:10px;background:#EFF6FF;border:1px solid rgba(37,99,235,0.14);display:flex;align-items:center;justify-content:center;font-size:15px}
+.svc-mat-label{font-size:10.5px;color:#64748b;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.svc-panel-mats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.6rem}
+.svc-panel-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.svc-cta-btn{flex:1;min-width:170px;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:800;padding:14px 20px;border-radius:14px;border:none;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;cursor:pointer;letter-spacing:0.01em;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 8px 22px rgba(29,78,216,0.32);transition:transform 0.15s,box-shadow 0.2s}
+.svc-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(29,78,216,0.4)}
+.svc-cta-btn:active{transform:translateY(0)}
+.svc-cta-arrow{transition:transform 0.2s}
+.svc-cta-btn:hover .svc-cta-arrow{transform:translateX(3px)}
+.svc-view-link{flex:0 0 auto;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;padding:14px 18px;border-radius:14px;border:1.5px solid rgba(37,99,235,0.25);background:#fff;color:#1D4ED8;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.svc-view-link:hover{background:#EFF6FF;transform:translateY(-2px)}
+
+/* Right column — pure visual showcase card, identical structure on every tab */
+.svc-panel-right{display:flex;flex-direction:column;background:rgba(255,255,255,0.92);border-radius:22px;border:1.5px solid rgba(37,99,235,0.15);overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 10px 32px rgba(37,99,235,0.08);transition:box-shadow 0.25s,transform 0.25s}
+.svc-panel-right:hover{box-shadow:0 18px 44px rgba(37,99,235,0.14);transform:translateY(-3px)}
+.svc-preview{flex:1;display:flex;flex-direction:column;padding:16px}
+.svc-preview-main{position:relative;flex:1;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#EFF6FF;cursor:zoom-in}
+.svc-preview-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.svc-preview-main:hover img{transform:scale(1.06)}
+.svc-preview-zoom{position:absolute;bottom:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(15,23,42,0.55);backdrop-filter:blur(4px);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;pointer-events:none}
+.svc-gallery-btn{display:inline-flex;align-items:center;gap:6px;align-self:center;margin-top:12px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;color:#1D4ED8;background:#EFF6FF;border:1px solid rgba(37,99,235,0.18);padding:8px 16px;border-radius:50px;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.svc-gallery-btn:hover{background:#DCE9FF;transform:translateY(-1px)}
+
+/* ── Portfolio section ── */
+.pf-toggle-btn{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:11px 28px;border-radius:50px;border:none;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;cursor:pointer;transition:opacity 0.2s,transform 0.15s;letter-spacing:0.02em;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(37,99,235,0.25)}
+.pf-toggle-btn:hover{opacity:0.88;transform:scale(1.03)}
+.pf-toggle-btn.open{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff}
+#pf-toggle-icon{display:inline-block;transition:transform 0.3s}
+.pf-toggle-btn.open #pf-toggle-icon{transform:rotate(180deg)}
+.portfolio-body{display:none;animation:detailSlideIn 0.4s cubic-bezier(0.22,1,0.36,1) both}
+.portfolio-body.open{display:block}
+.portfolio-section{padding:3rem 2rem;max-width:1100px;margin:0 auto}
+.portfolio-filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+.pf-btn{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;border:1.5px solid rgba(37,99,235,0.25);background:#fff;color:#1E40AF;cursor:pointer;transition:all 0.2s;letter-spacing:0.02em}
+.pf-btn:hover{border-color:#1D4ED8;background:#DBEAFE}
+.pf-btn.active{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(37,99,235,0.35)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.pf-item{border-radius:16px;overflow:hidden;background:#fff;border:1.5px solid rgba(37,99,235,0.1);cursor:zoom-in;position:relative;transition:transform 0.25s,box-shadow 0.25s}
+.pf-item:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(37,99,235,0.18)}
+.pf-item img{width:100%;height:200px;object-fit:contain;background:#EFF6FF;padding:10px;display:block;transition:transform 0.3s}
+.pf-item:hover img{transform:scale(1.05)}
+.pf-item-label{padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
+.pf-item-name{font-size:12px;font-weight:700;color:#020c1f}
+.pf-item-tag{font-size:12px;font-weight:600;padding:2px 8px;border-radius:12px}
+.pf-item[data-hidden="true"]{display:none}
+
+/* ── Typewriter cursor ── */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+#hero-typetext::after{content:'|';display:inline-block;margin-left:2px;color:#BFDBFE;animation:blink 0.85s step-start infinite;font-weight:300}
+#hero-typetext.done::after{display:none}
+#lb-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;cursor:zoom-out}
+#lb-overlay.open{display:flex;animation:lbIn 0.2s ease}
+#lb-overlay img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 8px 48px rgba(0,0,0,0.6);object-fit:contain}
+#lb-close{position:absolute;top:18px;right:24px;color:#fff;font-size:2rem;cursor:pointer;opacity:0.8}
+#lb-close:hover{opacity:1}
+@keyframes lbIn{from{opacity:0;transform:scale(0.94)}to{opacity:1;transform:scale(1)}}
+.lb-img{cursor:zoom-in;transition:opacity 0.2s}.lb-img:hover{opacity:0.85}
+
+/* == Auth & Order System == */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
+.modal-box{background:#fff;border-radius:24px;padding:2rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-box.wide{max-width:600px}
+.order-modal-box{background:#fff;border-radius:24px;padding:2rem;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94a3b8;line-height:1;transition:color 0.2s}
+.modal-close:hover{color:#0f172a}
+.modal-title{font-size:1.25rem;font-weight:800;color:#0f172a;margin-bottom:1.5rem}
+.auth-tabs{display:flex;gap:0;margin-bottom:1.5rem;border-radius:12px;overflow:hidden;border:1.5px solid #e2e8f0}
+.auth-tab{flex:1;padding:10px;border:none;background:none;font-weight:700;cursor:pointer;font-size:14px;color:#64748b;transition:all 0.2s}
+.auth-tab.active{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff}
+.form-group{margin-bottom:1rem}
+.form-label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:5px}
+.form-input{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;transition:border 0.2s;font-family:'Inter',sans-serif;box-sizing:border-box}
+.form-input:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.form-select{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;background:#fff;font-family:'Inter',sans-serif;box-sizing:border-box}
+textarea.form-input{resize:vertical;min-height:70px}
+.btn-auth{width:100%;padding:12px;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:0.5rem;transition:opacity 0.2s}
+.btn-auth:hover{opacity:0.9}
+.btn-auth:disabled{opacity:0.6;cursor:not-allowed}
+.auth-err{color:#ef4444;font-size:13px;margin-top:0.5rem;display:none;background:#fef2f2;padding:8px 12px;border-radius:8px}
+.nav-auth-area{display:flex;align-items:center;gap:6px}
+.nav-login-btn{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.5);color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif}
+.nav-login-btn:hover{background:rgba(255,255,255,0.28)}
+.nav-user-btn{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.5);color:#fff;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.nav-logout-btn{background:rgba(255,80,80,0.18);border:1.5px solid rgba(255,100,100,0.4);color:#fff;padding:5px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.order-btns-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:1rem}.order-btn-online{padding:11px 10px;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s;font-family:'Inter',sans-serif;text-align:center;width:100%}.order-btn-online:hover{opacity:0.9}.order-btn-fb{display:flex;align-items:center;justify-content:center;padding:11px 10px;background:#1877F2;color:#fff;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity 0.2s;text-align:center}.order-btn-fb:hover{opacity:0.9}
+.orders-list{display:flex;flex-direction:column;gap:10px;margin-top:0.5rem}
+.order-card{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:1rem}
+.order-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
+.order-status{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.status-new{background:#dbeafe;color:#1D4ED8}
+.status-pending{background:#fef9c3;color:#a16207}
+.status-progress{background:#fef3c7;color:#d97706}
+.status-ready{background:#d1fae5;color:#065f46}
+.status-delivered{background:#e0e7ff;color:#4338ca}
+.order-product-name{font-weight:700;font-size:14px;color:#0f172a}
+.order-detail{font-size:12px;color:#64748b;margin-top:3px;line-height:1.6}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 24px;border-radius:14px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+.tab-content{display:none}
+.tab-content.active{display:block}
+@media(max-width:640px){.modal-box,.order-modal-box{padding:1.5rem;border-radius:16px}}
+
+/* == Stock badges == */
+.stock-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.stock-ok{background:#d1fae5;color:#065f46}
+.stock-low{background:#fef3c7;color:#d97706}
+.stock-out{background:#fee2e2;color:#b91c1c}
+.stock-input{width:70px;padding:5px 8px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:center}
+.stock-item{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.stock-item-name{font-size:13px;font-weight:600;color:#0f172a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stock-save-btn{padding:5px 12px;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
+
+.detail-stock-wrap{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem;flex-wrap:wrap}
+.detail-stock-info{display:inline-flex;align-items:center;padding:6px 14px;border-radius:10px;font-size:13px;font-weight:700}
+.detail-stock-edit{background:none;border:1.5px solid #cbd5e1;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;color:#64748b;transition:all 0.2s}
+.detail-stock-edit:hover{background:#f1f5f9}
+
+.detail-price-wrap{margin-bottom:0.75rem}
+.detail-price-table{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.detail-price-row{display:flex;align-items:center;gap:10px;font-size:13px;padding:6px 12px;border-radius:8px;background:#f1f5f9}
+.detail-price-row.active-tier{background:#ede9fe;font-weight:700;color:#6d28d9}
+.detail-price-range{color:#64748b;min-width:110px}
+.detail-price-row.active-tier .detail-price-range{color:#6d28d9}
+.detail-price-amount{font-weight:700;color:#1e3a8a}
+.detail-price-row.active-tier .detail-price-amount{color:#6d28d9}
+.detail-price-label{font-size:12px;font-weight:700;color:#64748b;margin-bottom:2px}
+
+#prodEditModal{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;padding:16px}
+#prodEditModal.open{display:flex}
+#prodEditBox{background:#fff;border-radius:20px;padding:1.75rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.25);position:relative}
+#prodEditBox h3{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#0f172a;margin-bottom:1.25rem}
+.pedit-label{font-size:12px;font-weight:700;color:#64748b;margin-bottom:4px;margin-top:12px;letter-spacing:.05em;text-transform:uppercase}
+.pedit-input{width:100%;padding:9px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;box-sizing:border-box;resize:vertical}
+.pedit-input:focus{outline:none;border-color:#1D4ED8}
+.pedit-hint{font-size:11px;color:#94a3b8;margin-top:3px}
+.prod-edit-btn{display:inline-flex;align-items:center;gap:5px;background:rgba(37,99,235,0.08);border:1.5px solid rgba(37,99,235,0.2);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;color:#1D4ED8;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;margin-top:0.75rem}
+.prod-edit-btn:hover{background:rgba(37,99,235,0.15)}
+
+/* ---- PWA: Дэлгэцэнд суулгах banner ---- */
+#a2hsBanner{position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);width:calc(100% - 32px);max-width:420px;background:#fff;border-radius:18px;box-shadow:0 12px 40px rgba(15,23,42,0.25);padding:14px 16px;display:flex;align-items:center;gap:12px;z-index:2000;opacity:0;transition:transform 0.35s cubic-bezier(.2,.9,.3,1.2),opacity 0.35s;font-family:'Inter',sans-serif}
+#a2hsBanner.show{transform:translate(-50%,0);opacity:1}
+#a2hsBanner .a2hs-icon{width:46px;height:46px;border-radius:12px;object-fit:contain;background:#f1f5f9;flex-shrink:0;padding:4px;box-sizing:border-box}
+#a2hsBanner .a2hs-text{flex:1;min-width:0}
+#a2hsBanner .a2hs-title{font-size:13.5px;font-weight:800;color:#0f172a;letter-spacing:-0.01em}
+#a2hsBanner .a2hs-sub{font-size:11.5px;color:#64748b;margin-top:1px}
+#a2hsBanner .a2hs-install{background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;padding:9px 16px;border-radius:50px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+#a2hsBanner .a2hs-close{background:none;border:none;color:#94a3b8;font-size:16px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0}
+@media (max-width:420px){#a2hsBanner .a2hs-sub{display:none}}
+
+/* ---- Үндсэн дэлгэц рүү буцах товч (Home FAB) ---- */
+#homeFab{position:fixed;right:18px;bottom:92px;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#1D4ED8,#0EA5E9);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(29,78,216,0.4);cursor:pointer;z-index:1900;opacity:0;transform:translateY(16px) scale(0.85);pointer-events:none;transition:opacity 0.25s,transform 0.25s}
+#homeFab.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+#homeFab:active{transform:scale(0.92)}
+#homeFab svg{width:22px;height:22px}
+</style>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#cc0000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PrintEd">
+  <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<!-- PWA: Дэлгэцэнд суулгах санал болгох banner -->
+<div id="a2hsBanner" role="dialog" aria-label="Апп суулгах">
+  <img src="icon-192.png" alt="" class="a2hs-icon">
+  <div class="a2hs-text">
+    <div class="a2hs-title">PrintEd-г дэлгэцэнд суулгах</div>
+    <div class="a2hs-sub" id="a2hsSub">Апп шиг хурдан, офлайн ашиглана</div>
+  </div>
+  <button class="a2hs-install" id="a2hsInstallBtn">Суулгах</button>
+  <button class="a2hs-close" id="a2hsCloseBtn" aria-label="Хаах">&#x2715;</button>
+</div>
+
+<!-- Үндсэн дэлгэц рүү буцах товч -->
+<button id="homeFab" aria-label="Үндсэн дэлгэц рүү буцах" title="Нүүр хуудас">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>
+</button>
+
+<nav>
+  <div class="nav-logo" style="flex:1"><img src="nav_logo.png" alt="PrintEd" style="height:42px;object-fit:contain"></div>
+  <div class="nav-links">
+    <a href="#services">Үйлчилгээ</a>
+    <a href="#products">Бүтээгдэхүүн</a>
+    <a href="#equipment-sale">Хэвлэлийн тоног төхөөрөмж худалдаа</a>
+    <a href="#portfolio">Ажлын жишээ</a>
+    <a href="#process">Үйл явц</a>
+    <a href="#contact">Холбоо барих</a>
+    <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="nav-fb-btn">✦ Facebook</a>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:8px">
+    <div class="nav-auth-area" id="navAuthArea"><button class="nav-login-btn" onclick="openAuthModal()">Нэвтрэх</button></div>
+    <div class="nav-phone">📞 86681144</div>
+    <button class="nav-burger" id="navBurger" aria-label="Цэс нээх" aria-expanded="false" aria-controls="navDrawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-drawer-backdrop" id="navDrawerBackdrop"></div>
+<aside class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <div class="nav-drawer-head">
+    <img src="nav_logo.png" alt="PrintEd" style="height:34px;object-fit:contain">
+    <button class="nav-drawer-close" id="navDrawerClose" aria-label="Цэс хаах">✕</button>
+  </div>
+  <div class="nav-drawer-links">
+    <a href="#services">🖨️ <span>Үйлчилгээ</span></a>
+    <a href="#products">🛍️ <span>Бүтээгдэхүүн</span></a>
+    <a href="#equipment-sale">⚙️ <span>Тоног төхөөрөмж худалдаа</span></a>
+    <a href="#portfolio">🖼️ <span>Ажлын жишээ</span></a>
+    <a href="#process">🔄 <span>Үйл явц</span></a>
+    <a href="#contact">📍 <span>Холбоо барих</span></a>
+    <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank">✦ <span>Facebook</span></a>
+  </div>
+  <div class="nav-drawer-foot">
+    <a href="tel:86681144" class="nav-drawer-call">📞 86681144</a>
+  </div>
+</aside>
+
+<section class="hero">
+    <div class="banner-slider" id="bannerSlider">
+    <div class="banner-slides" id="bannerSlides">
+<div class="banner-slide"><img src="uv_new.png" alt="UV хэвлэл"></div>
+      <div class="banner-slide"><img src="dtf_new.png" alt="DTF хэвлэл"></div>
+      <div class="banner-slide"><img src="biz_new.png" alt="Бизнес карт"></div>
+      <div class="banner-slide"><img src="banner.png" alt="Промошн"></div>
+    </div>
+    <button class="banner-prev" id="bannerPrev">&#8249;</button>
+    <button class="banner-next" id="bannerNext">&#8250;</button>
+    <div class="banner-dots" id="bannerDots"></div>
+  </div>
+  <div class="hero-sub">
+    <div class="brand-tag"><span class="bt-dot"></span><span class="bt-text">All Printing &amp; Custom Gifts</span><span class="bt-dot"></span></div>
+    <p id="hero-typetext" style="min-height:3.2em"></p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary holo-btn">Хэвлэлийн үйлчилгээ</a>
+      <a href="#products" class="btn-primary holo-btn">Бүтээгдэхүүн үзэх</a>
+      <a href="#equipment-sale" class="btn-primary holo-btn">⚙️ Тоног төхөөрөмжүүд</a>
+      <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="btn-outline holo-btn">✦ Facebook захиалга</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Амжилттай захиалга</div></div>
+  <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Байгууллагын үйлчлүүлэгч</div></div>
+  <div class="stat"><div class="stat-num">Үнэгүй</div><div class="stat-label">Бүтээгдэхүүн сонговол хэвлэл</div></div>
+</div>
+
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="section-label" style="text-align:center">✦ Манай үйлчилгээ</div>
+    <div class="section-title">Хэвлэлийн үйлчилгээ</div>
+    <p class="svc-subtitle">Таны санааг чанартай бүтээгдэхүүн болгон бүтээнэ</p>
+
+    <!-- Tab navigation -->
+    <div class="svc-tabs">
+      <button class="svc-tab active" data-tab="laser"><span class="svc-tab-ic">🔆</span> Лазер</button>
+      <button class="svc-tab" data-tab="uv"><span class="svc-tab-ic">🌈</span> UV</button>
+      <button class="svc-tab" data-tab="dtf"><span class="svc-tab-ic">👕</span> DTF</button>
+      <button class="svc-tab" data-tab="bizprint"><span class="svc-tab-ic">🖨️</span> Бизнес</button>
+      <button class="svc-tab" data-tab="sublim"><span class="svc-tab-ic">🌡️</span> Сублимац</button>
+    </div>
+
+    <!-- Лазер panel -->
+    <div class="svc-panel active" id="svc-laser">
+      <div class="svc-panel-left">
+        <div class="svc-panel-eyebrow">🔆 Лазер хэвлэл</div>
+        <div class="svc-panel-headline">Насан туршийн чанартай, өндөр нарийвчлалтай лазер сийлбэр</div>
+        <p class="svc-panel-desc">Лазер туяагаар материалын гадаргуу дээр лого, текст, дизайн сийлдэг аргачлал. Маш нарийн, удаан эдэлгээтэй, өнгө хэзээ ч бүдгэрдэггүй.</p>
+        <ul class="svc-features">
+          <li><span class="svc-feat-ic">💎</span>Маш нарийн, өндөр нарийвчлалтай хэвлэл</li>
+          <li><span class="svc-feat-ic">♾️</span>Өнгө бүдгэрэх, арилах явдалгүй — насан туршийн чанар</li>
+          <li><span class="svc-feat-ic">🌿</span>Химийн бодис ашиглахгүй — гадаргуу гэмтдэггүй</li>
+          <li><span class="svc-feat-ic">🔢</span>Нэг нэгжээс олон ширхэг хүртэл захиалах боломжтой</li>
+          <li><span class="svc-feat-ic">🪨</span>Металл, шил, мод зэрэг хатуу материалд тохиромжтой</li>
+        </ul>
+        <div class="svc-mat-label">Тохирох материал</div>
+        <div class="svc-panel-mats">
+          <span class="svc-mat">Металл</span>
+          <span class="svc-mat">Шил</span>
+          <span class="svc-mat">Мод</span>
+          <span class="svc-mat">Арьс</span>
+          <span class="svc-mat">Акрил</span>
+          <span class="svc-mat">Керамик</span>
+        </div>
+        <div class="svc-panel-actions">
+          <button class="svc-cta-btn" onclick="openOrderModal(this)" data-prints="Лазер хэвлэл">Захиалга өгөх <span class="svc-cta-arrow">→</span></button>
+          <button class="svc-view-link" data-pfilter="laser">Бүтээгдэхүүн харах</button>
+        </div>
+      </div>
+      <div class="svc-panel-right">
+        <div class="svc-preview">
+          <div class="svc-preview-main" onclick="lbOpen(['Laserzurag.png','laser_new.png'],0)">
+            <img src="Laserzurag.png" alt="Лазер хэвлэлийн хэрэглээ" loading="lazy">
+            <span class="svc-preview-zoom">🔍</span>
+          </div>
+          <button type="button" class="svc-gallery-btn" onclick="lbOpen(['Laserzurag.png','laser_new.png'],0)">🖼️ Бүх жишээ харах (2)</button>
+        </div>
+      </div>
+    </div>
+
+<!-- UV panel -->
+    <div class="svc-panel" id="svc-uv">
+      <div class="svc-panel-left">
+        <div class="svc-panel-eyebrow">🌈 UV хэвлэл</div>
+        <div class="svc-panel-headline">Бүрэн өнгөт, фото чанарын хэвлэл хурдан хугацаанд</div>
+        <p class="svc-panel-desc">Хэт ягаан туяагаар будгийг тэр даруй хатаадаг аргачлал. Тод өнгө, фото чанарын дүрс, гадар гүнзгий бүтэцтэй харагдал өгдөг.</p>
+        <ul class="svc-features">
+          <li><span class="svc-feat-ic">🎨</span>Бүрэн өнгөт, фото чанарын хэвлэл</li>
+          <li><span class="svc-feat-ic">✨</span>3D текстур болон гялбаатай эффект боломжтой</li>
+          <li><span class="svc-feat-ic">⚡</span>Хатаалт хурдан — үйлдвэрлэлийн хугацаа богино</li>
+          <li><span class="svc-feat-ic">🧩</span>Янз бүрийн гадаргуунд хэвлэнэ</li>
+          <li><span class="svc-feat-ic">🖼️</span>Лого, зураг, нарийн хэлбэр дүрслэлд тохиромжтой</li>
+        </ul>
+        <div class="svc-mat-label">Тохирох материал</div>
+        <div class="svc-panel-mats">
+          <span class="svc-mat">Хуванцар</span>
+          <span class="svc-mat">Металл</span>
+          <span class="svc-mat">Шил</span>
+          <span class="svc-mat">Мод</span>
+          <span class="svc-mat">Чулуу</span>
+          <span class="svc-mat">Картон</span>
+        </div>
+        <div class="svc-panel-actions">
+          <button class="svc-cta-btn" onclick="openOrderModal(this)" data-prints="UV хэвлэл">Захиалга өгөх <span class="svc-cta-arrow">→</span></button>
+          <button class="svc-view-link" data-pfilter="uv">Бүтээгдэхүүн харах</button>
+        </div>
+      </div>
+      <div class="svc-panel-right">
+        <div class="svc-preview">
+          <div class="svc-preview-main" onclick="lbOpen(['biz_detail_2.jpg','UV-services01.jpg'],0)">
+            <img src="biz_detail_2.jpg" alt="UV хэвлэлийн жишээ" loading="lazy" style="filter:brightness(1.1) contrast(1.06) saturate(1.1)">
+            <span class="svc-preview-zoom">🔍</span>
+          </div>
+          <button type="button" class="svc-gallery-btn" onclick="lbOpen(['biz_detail_2.jpg','UV-services01.jpg'],0)">🖼️ Бүх жишээ харах (2)</button>
+        </div>
+      </div>
+    </div>
+
+<!-- DTF panel -->
+    <div class="svc-panel" id="svc-dtf">
+      <div class="svc-panel-left">
+        <div class="svc-panel-eyebrow">👕 DTF хэвлэл</div>
+        <div class="svc-panel-headline">Угаалтанд тэсвэртэй, уян хатан даавууны хэвлэл</div>
+        <p class="svc-panel-desc">Дулааны дамжуулалтаар даавуун дээр лого, зураг шилжүүлдэг орчин үеийн арга. Угаалтанд тэсвэртэй, тод, уян хатан.</p>
+        <ul class="svc-features">
+          <li><span class="svc-feat-ic">🧺</span>Угаалтанд тэсвэртэй — өнгө бүдгэрдэггүй</li>
+          <li><span class="svc-feat-ic">🤸</span>Уян хатан, хагардаггүй хэвлэл</li>
+          <li><span class="svc-feat-ic">🔍</span>Жижиг нарийн загвар, дүрс сайн гарна</li>
+          <li><span class="svc-feat-ic">🧵</span>Байгалийн болон нийлэг даавуунд аль алинд тохиромжтой</li>
+          <li><span class="svc-feat-ic">🎁</span>Корпорат хувцас, бэлэг дурсгалд хамгийн тохиромжтой</li>
+        </ul>
+        <div class="svc-mat-label">Тохирох материал</div>
+        <div class="svc-panel-mats">
+          <span class="svc-mat">Хөвөн</span>
+          <span class="svc-mat">Полиэстер</span>
+          <span class="svc-mat">Хольмог</span>
+          <span class="svc-mat">Жинс</span>
+          <span class="svc-mat">Бүрээс</span>
+        </div>
+        <div class="svc-panel-actions">
+          <button class="svc-cta-btn" onclick="openOrderModal(this)" data-prints="DTF хэвлэл">Захиалга өгөх <span class="svc-cta-arrow">→</span></button>
+          <button class="svc-view-link" data-pfilter="dtf">Бүтээгдэхүүн харах</button>
+        </div>
+      </div>
+      <div class="svc-panel-right">
+        <div class="svc-preview">
+          <div class="svc-preview-main" onclick="lbOpen(['dtf_new.png','DTF.jpg'],0)">
+            <img src="dtf_new.png" alt="DTF хэвлэлийн жишээ" loading="lazy">
+            <span class="svc-preview-zoom">🔍</span>
+          </div>
+          <button type="button" class="svc-gallery-btn" onclick="lbOpen(['dtf_new.png','DTF.jpg'],0)">🖼️ Бүх жишээ харах (2)</button>
+        </div>
+      </div>
+    </div>
+
+<!-- Бизнес хэвлэл panel -->
+    <div class="svc-panel" id="svc-bizprint">
+      <div class="svc-panel-left">
+        <div class="svc-panel-eyebrow">🖨️ Бизнес хэвлэл</div>
+        <div class="svc-panel-headline">Байгууллагын дүр төрхийг бий болгох нэгдсэн корпорат хэвлэл</div>
+        <p class="svc-panel-desc">Байгууллагын дүр төрхийг бий болгодог хэвлэмэл материалууд. Нэрийн хуудаснаас эхлээд хавтас хүртэл нэгдсэн дизайнаар гүйцэтгэнэ.</p>
+        <ul class="svc-features">
+          <li><span class="svc-feat-ic">🪪</span>Нэрийн хуудас — давхар болон нэг талтай</li>
+          <li><span class="svc-feat-ic">📄</span>Албан бланк — байгууллагын лого, хаяг бүхий</li>
+          <li><span class="svc-feat-ic">✉️</span>Дугтуй — C4, C5, DL хэмжээний сонголттой</li>
+          <li><span class="svc-feat-ic">📁</span>Хавтас (Folder) — танилцуулга, баримт хавчуурлахад</li>
+          <li><span class="svc-feat-ic">🆓</span>Нэгдсэн корпорат дизайны зөвлөгөө үнэгүй</li>
+        </ul>
+        <div class="svc-mat-label">Хэвлэмэл бүтээгдэхүүн</div>
+        <div class="svc-panel-mats">
+          <span class="svc-mat">Нэрийн хуудас</span>
+          <span class="svc-mat">Албан бланк</span>
+          <span class="svc-mat">Дугтуй</span>
+          <span class="svc-mat">Хавтас</span>
+        </div>
+        <div class="svc-panel-actions">
+          <button class="svc-cta-btn" onclick="openOrderModal(this)" data-prints="Бизнес хэвлэл">Захиалга өгөх <span class="svc-cta-arrow">→</span></button>
+        </div>
+      </div>
+      <div class="svc-panel-right">
+        <div class="svc-preview">
+          <div class="svc-preview-main" onclick="lbOpen(['business%20card.jpg','biz_service.jpg'],0)">
+            <img src="business%20card.jpg" alt="Бизнес карт жишээ" loading="lazy">
+            <span class="svc-preview-zoom">🔍</span>
+          </div>
+          <button type="button" class="svc-gallery-btn" onclick="lbOpen(['business%20card.jpg','biz_service.jpg'],0)">🖼️ Бүх жишээ харах (2)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Сублимац хэвлэл panel -->
+    <div class="svc-panel" id="svc-sublim">
+      <div class="svc-panel-left">
+        <div class="svc-panel-eyebrow">🌡️ Сублимац хэвлэл</div>
+        <div class="svc-panel-headline">Аяга, футболка, малгай зэрэг фото чанарын дулаан дамжуулалтын хэвлэл</div>
+        <p class="svc-panel-desc">Дулаан болон даралтын тусламжтайгаар тусгай будгийг полиэстер эдлэл эсвэл бүрсэн гадаргуу дээр шингээдэг аргачлал. Тод өнгө, фото чанарын дүрс, удаан тэсвэртэй.</p>
+        <ul class="svc-features">
+          <li><span class="svc-feat-ic">☕</span>Аяга, футболка, малгай, дэр, бэлэг дурсгалын бүтээгдэхүүнд хэвлэнэ</li>
+          <li><span class="svc-feat-ic">🎨</span>Бүрэн өнгөт фото чанарын хэвлэл</li>
+          <li><span class="svc-feat-ic">🧼</span>Угаалтанд, гэрлийн нөлөөнд тэсвэртэй</li>
+          <li><span class="svc-feat-ic">📦</span>Жижиг болон дунд хэмжээний захиалгыг хүлээн авна</li>
+          <li><span class="svc-feat-ic">🆓</span>Дизайны зөвлөгөө үнэгүй</li>
+        </ul>
+        <div class="svc-mat-label">Хэвлэх боломжтой материал</div>
+        <div class="svc-panel-mats">
+          <span class="svc-mat">Дулааны аяга</span>
+          <span class="svc-mat">Футболка</span>
+          <span class="svc-mat">Малгай</span>
+          <span class="svc-mat">Дэр</span>
+          <span class="svc-mat">Бэлэг дурсгал</span>
+        </div>
+        <div class="svc-panel-actions">
+          <button class="svc-cta-btn" onclick="openOrderModal(this)" data-prints="Сублимац хэвлэл">Захиалга өгөх <span class="svc-cta-arrow">→</span></button>
+          <button class="svc-view-link" data-pfilter="sublim">Бүтээгдэхүүн харах</button>
+        </div>
+      </div>
+      <div class="svc-panel-right">
+        <div class="svc-preview">
+          <div class="svc-preview-main" onclick="lbOpen(['Gemini_Generated_Image_fe04lxfe04lxfe04.png','sub_mug.jpg'],0)">
+            <img src="Gemini_Generated_Image_fe04lxfe04lxfe04.png" alt="Сублимац хэвлэлийн бүтээгдэхүүн" loading="lazy">
+            <span class="svc-preview-zoom">🔍</span>
+          </div>
+          <button type="button" class="svc-gallery-btn" onclick="lbOpen(['Gemini_Generated_Image_fe04lxfe04lxfe04.png','sub_mug.jpg'],0)">🖼️ Бүх жишээ харах (2)</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="section-label">✦ Манай бүтээгдэхүүн</div>
+  <div class="section-title">Бүх бүтээгдэхүүн</div>
+  <div class="prod-filter-scroll" id="prod-filter-scroll">
+    <div class="prod-filter-bar" id="prod-filter-bar">
+      <button class="prod-filter active" data-filter="all">Бүгд <span class="prod-count" id="prod-count-all"></span></button>
+      <div id="prod-cats-visible" style="display:contents"></div>
+      <div class="prod-more-wrap" id="prod-more-wrap" style="display:none">
+        <button class="prod-filter prod-more-btn" id="prod-more-btn">···</button>
+        <div class="prod-more-dropdown" id="prod-more-dropdown"></div>
+      </div>
+    </div>
+    <div class="prod-filter-edge prod-filter-edge-l" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <div class="prod-filter-edge prod-filter-edge-r" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+  </div>
+  <div class="cards" id="products-grid">
+<a href="#medallion" class="card" data-category="medal" data-ptype="laser">
+      <div class="card-img"><img src="gallery_25.jpg" alt="Дурсгалын медаллион"></div>
+      <div class="card-body">
+        <div class="card-name">Дурсгалын медаллион</div>
+        <div class="card-desc">Тусгай арга хэмжээ, тэмцээн, баяр ёслолд зориулсан дурсгалын медаль.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Захиалгаар хийгддэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#bottle580" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="gallery_26.jpg" alt="Термо усны сав 580мл"></div>
+      <div class="card-body">
+        <div class="card-name">Термо усны сав 580мл</div>
+        <div class="card-desc">Халуун хүйтнээ удаан барьдаг, лазер хэвлэлтэй 580мл термо сав.</div>
+        <div class="card-footer"><span class="card-tag tag-pink">Шинэ бүтээгдэхүүн</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#bottle300" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="gallery_27.jpg" alt="Термо сав 300мл — 4 өнгө"></div>
+      <div class="card-body">
+        <div class="card-name">Термо сав 300мл — 4 өнгө</div>
+        <div class="card-desc">Цүнхэндээ хийгээд явж болохоор авсаархан 300мл термо сав. Хар, улаан, улбар шар, цагаан өнгөтэй.</div>
+        <div class="card-footer"><span class="card-tag tag-green">Хамгийн их захиалагддаг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#notebook" class="card" data-category="devter" data-ptype="uv">
+      <div class="card-img"><img src="gallery_28.jpg" alt="Тэмдэглэлийн дэвтэр & Бал сет"></div>
+      <div class="card-body">
+        <div class="card-name">Тэмдэглэлийн дэвтэр & Бал сет</div>
+        <div class="card-desc">A5 тэмдэглэлийн дэвтэр, балны сет хайрцаг болон уут багтсан. 5 өнгийн сонголттой.</div>
+        <div class="card-footer"><span class="card-tag tag-orange">Корпорат бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#pen-luxury" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="gallery_29.jpg" alt="Тансаг үзэг хайрцагтай"></div>
+      <div class="card-body">
+        <div class="card-name">Тансаг үзэг хайрцагтай</div>
+        <div class="card-desc">Бичихэд гарт эвтэйхэн, металл гадартай тансаг үзэг. Лазер хэвлэлээр нэр бичих боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Тансаг бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#pen-slim" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="gallery_30.jpg" alt="Нарийн металл үзэг"></div>
+      <div class="card-body">
+        <div class="card-name">Нарийн металл үзэг</div>
+        <div class="card-desc">Ногоон, цэнхэр өнгийн нарийн металл үзэг. Лазер хэвлэлээр брэнд нэрийг гоёхон харуулна.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Лазер хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#pen-red" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="red-pen.png" alt="Улаан металл үзэг"></div>
+      <div class="card-body">
+        <div class="card-name">Улаан металл үзэг</div>
+        <div class="card-desc">Улаан өнгийн металл гадартай, орой хэсэгт тач-скрийн stylus бүхий загварлаг үзэг. Лазер хэвлэлээр нэр, лого гоёмсог гарна.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Лазер хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#cable-tag" class="card" data-category="other" data-ptype="laser">
+      <div class="card-img"><img src="gallery_31.jpg" alt="Кабелийн SS тэмдэглэгээ"></div>
+      <div class="card-body">
+        <div class="card-name">Кабелийн SS тэмдэглэгээ</div>
+        <div class="card-desc">Зэвэрдэггүй ган кабелийн SS тэмдэглэгээ. Лазер хэвлэлээр дугаар, нэр тэмдэглэнэ.</div>
+        <div class="card-footer"><span class="card-tag tag-gray">Үйлдвэрийн шийдэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#stanley" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="gallery_32.jpg" /></div>
+      <div class="card-body">
+        <div class="card-name">Стейнли загвартай термо аяга</div>
+        <div class="card-desc">900мл, SUS304 дотортой, соруултай. Лазер, UV, DTF хэвлэл боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Шинэ</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#notebook2" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="gallery_33.jpg" /></div>
+      <div class="card-body">
+        <div class="card-name">Арьсан тэмдэглэлийн дэвтэр</div>
+        <div class="card-desc">A5 хэмжээ, Хүрэн · Хөх · Хар өнгөтэй. Лазер, UV, DTF хэвлэл боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-orange">Корпорат</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#notebook3" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="gallery_34.jpg" /></div>
+      <div class="card-body">
+        <div class="card-name">Арьсан хавтастай нимгэн дэвтэр</div>
+        <div class="card-desc">A5 хэмжээ, Саарал · Хар · Хөх өнгөтэй. Лазер, UV, DTF хэвлэл боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-orange">Корпорат</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#coffee-cup" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="gallery_35.jpg" /></div>
+      <div class="card-body">
+        <div class="card-name">Аялалын кофены ган аяга</div>
+        <div class="card-desc">300мл, SUS304 дотортой, ган соруултай, таг 2 төрлөөр нээгдэнэ.</div>
+        <div class="card-footer"><span class="card-tag tag-green">Эрэлттэй</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#keychain-opener" class="card" data-category="keychain" data-ptype="laser">
+      <div class="card-img"><img src="gallery_36.jpg" /></div>
+      <div class="card-body">
+        <div class="card-name">Олон үйлдэлт түлхүүрийн оосор</div>
+        <div class="card-desc">Лазер хэвлэлтэй. Ой, хурим, төрсөн өдрийн бэлэгт тохиромжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Захиалгаар</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#keychain-plain" class="card" data-category="keychain" data-ptype="laser">
+      <div class="card-img"><img src="gallery_37.jpg" alt="Металл түлхүүрийн оосор" onerror="this.closest('.card-img').style.background='#dbeafe';this.style.display='none'"></div>
+      <div class="card-body">
+        <div class="card-name">Металл түлхүүрийн оосор</div>
+        <div class="card-desc">Лазер хэвлэлтэй. Нэр, лого, огноо сийлэх боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Захиалгаар</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#keychain-badge" class="card" data-category="keychain" data-ptype="uv">
+      <div class="card-img"><img src="badge-keychain.png" alt="Дугуй badge түлхүүрийн оосор" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Дугуй badge түлхүүрийн оосор</div>
+        <div class="card-desc">Бүрэн өнгөт хэвлэлтэй дугуй badge оосор. Зураг, лого, текст хэвлэх боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Бүрэн өнгөт хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#vacuum-bottle" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="gallery_38.jpg" /></div>
+      <div class="card-body">
+        <div class="card-name">Цайны шүүртэй ган усны сав</div>
+        <div class="card-desc">520мл, SUS304 дотортой, цай хандлах шүүртэй, резинэн бариултай.</div>
+        <div class="card-footer"><span class="card-tag tag-pink">Шинэ</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#dogtag" class="card" data-category="jewelry" data-ptype="laser">
+      <div class="card-img"><img src="gallery_39.jpg" alt="Зураг хэвлэх боломжтой ган зүүлт"></div>
+      <div class="card-body">
+        <div class="card-name">Зураг хэвлэх боломжтой ган зүүлт</div>
+        <div class="card-desc">Лазераар гэрэл зураг сийлсэн ган хавтан. Хос, гэр бүл, дурсгалын бэлэгт тохиромжтой. 50×30мм, хилэн хайрцагтай.</div>
+        <div class="card-footer"><span class="card-tag tag-pink">Хосын бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#paper-bag" class="card" data-category="tor" data-ptype="uv">
+      <div class="card-img"><img src="gallery_42.jpg" alt="Цагаан цаасан уут"></div>
+      <div class="card-body">
+        <div class="card-name">Цагаан цаасан уут</div>
+        <div class="card-desc">UV, DTF хэвлэл хийх боломжтой цагаан цаасан уут. Хэмжээ: 25×33×11см.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">UV хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#name-necklace" class="card" data-category="print" data-ptype="laser">
+      <div class="card-img"><img src="gallery_44.jpg" alt="Name necklace — нэрийн зүүлт"></div>
+      <div class="card-body">
+        <div class="card-name">Name necklace — нэрийн зүүлт</div>
+        <div class="card-desc">Нэр, үг, огноо хэвлэсэн захиалгат ган зүүлт. Хосын, төрсөн өдрийн бэлэгт.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Захиалгаар</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#card-holder" class="card" data-category="print" data-ptype="laser">
+      <div class="card-img"><img src="card-holder.jpg" alt="Металл карт холдер" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Металл карт холдер</div>
+        <div class="card-desc">RFID хамгаалалттай металл карт холдер. Лазер, UV хэвлэлээр брэнд нэр бичих боломжтой. Хэвлэл үнэгүй.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Лазер · UV</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#leather-card-holder" class="card" data-category="print" data-ptype="laser">
+      <div class="card-img"><img src="leather-card-holder.png" alt="Арьсан гадартай карт холдер" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Арьсан гадартай карт холдер</div>
+        <div class="card-desc">Арьсан гадартай визитны карт холдер. Лазер хэвлэлээр брэнд нэр, лого бичих боломжтой. Хэвлэл үнэгүй.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Корпорат бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#badge" class="card" data-category="print" data-ptype="dtf">
+      <div class="card-img"><img src="badge.png" alt="Энгэрийн тэмдэг" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Энгэрийн тэмдэг (Badge)</div>
+        <div class="card-desc">Дугуй хэлбэртэй энгэрийн тэмдэг. Таны лого, загвараар бүрэн өнгөт хэвлэлтэй. Корпорат арга хэмжээ, сурталчилгаанд тохиромжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Бүрэн өнгөт хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#pvc-id-card" class="card" data-category="print" data-ptype="uv">
+      <div class="card-img"><img src="PVC unemleh.png" alt="PVC үнэмлэх" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">PVC үнэмлэх</div>
+        <div class="card-desc">86×54мм, зурагтай, оосортой. Бүрэн өнгөт UV хэвлэлээр лого, нэр, QR код хэвлэнэ.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Корпорат · Арга хэмжээ</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#japan-bottle" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="japan_design.png" alt="Японы загварын термо сав" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Япон загварын термо сав</div>
+        <div class="card-desc">Vacuum insulated технологитой, 360° стресс-free ундааны тав тухтай дизайн. Гадуур авч явахад тохиромжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-gray">Япон загвар</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#owala-mug" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="owala_design.png" alt="Owala загварын кофены аяга" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Owala загварын кофены аяга</div>
+        <div class="card-desc">Асгардаггүй, дулаан тусгаарлалттай, уухад тав тухтай кофены аяга. Лазер хэвлэлээр лого, нэр бичих боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-green">Хамгийн их захиалагддаг</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#sublim-tumbler" class="card" data-category="ayaga" data-ptype="sublim">
+      <div class="card-img"><img src="sub_mug.jpg" alt="Сублимац аяга 590мл" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Сублимац аяга 590мл</div>
+        <div class="card-desc">590мл, ган дотортой, ган соруултай. Бүрэн өнгөт сублимац хэвлэлээр захиалгат дизайн хэвлэнэ.</div>
+        <div class="card-footer"><span class="card-tag tag-orange">Сублимац хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#ceramic-mug" class="card" data-category="ayaga" data-ptype="sublim">
+      <div class="card-img"><img src="ceramic_mug.png" alt="Захиалгат шаазан аяга" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Захиалгат шаазан аяга</div>
+        <div class="card-desc">330мл цагаан шаазан аяга. Бүрэн өнгөт сублимац хэвлэлээр таны дизайн, лого, зургийг хэвлэнэ.</div>
+        <div class="card-footer"><span class="card-tag tag-orange">Сублимац хэвлэл</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#thermo-flask" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="bottleB.jpg" alt="Термос сав 532мл" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Термос сав 532мл</div>
+        <div class="card-desc">18oz/532мл vacuum insulated термос сав. Хар, хөх, шар өнгийн сонголттой, гоёмсог хайрцагтай.</div>
+        <div class="card-footer"><span class="card-tag tag-pink">Шинэ бүтээгдэхүүн</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#tyeso-tumbler" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="tyeso1.jpg" alt="TYESO зөөврийн аяга" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">TYESO зөөврийн аяга</div>
+        <div class="card-desc">Бариул, шулуус бүхий flip-top таг, зэвэрдэггүй ган дотортой аяга. 10 гаруй өнгийн сонголттой.</div>
+        <div class="card-footer"><span class="card-tag tag-purple">Олон өнгөтэй</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+<a href="#travel-coffee-cup" class="card" data-category="ayaga" data-ptype="laser">
+      <div class="card-img"><img src="coff_biege.jpg" alt="Зөөврийн кофены аяга" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Зөөврийн кофены аяга</div>
+        <div class="card-desc">Гарын оосортой, аяврын кофены аяга. Цагаан, хар, шаргал өнгийн сонголттой.</div>
+        <div class="card-footer"><span class="card-tag tag-blue">Шинэ</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#notebook-a5" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="Blue-notebook.png" alt="Арьсан гадартай A5 дэвтэр" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Арьсан гадартай A5 дэвтэр</div>
+        <div class="card-desc">PU арьсан гадартай A5 дэвтэр. Цэнхэр, teal, шар өнгийн сонголттой.</div>
+        <div class="card-footer"><span class="card-tag tag-orange">Корпорат бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#notebook-pen-set" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="Blue-set.png" alt="Дэвтэр & Үзгийн бэлгийн хайрцаг сет" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Дэвтэр & Үзгийн бэлгийн хайрцаг сет</div>
+        <div class="card-desc">A5 дэвтэр болон 2 үзэг багтсан тансаг хайрцагтай бэлгийн сет.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Тансаг бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#pen-set-box" class="card" data-category="devter" data-ptype="laser">
+      <div class="card-img"><img src="pen-set.png" alt="Металл үзэгний сет хайрцагтай" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Металл үзэгний сет хайрцагтай</div>
+        <div class="card-desc">Хар өнгийн тансаг хайрцагтай, 2 металл үзэгний сет.</div>
+        <div class="card-footer"><span class="card-tag tag-gold">Тансаг бэлэг</span><span class="card-arrow">→</span></div>
+      </div></a>
+<a href="#tote-bag" class="card" data-category="tor" data-ptype="sublim">
+      <div class="card-img"><img src="Tote-bag.png" alt="Даавуун тор" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-name">Даавуун тор</div>
+        <div class="card-desc">Цагаан канвас даавуун тоут цүнх. Сублимац хэвлэлээр лого, зураг хэвлэх боломжтой.</div>
+        <div class="card-footer"><span class="card-tag tag-green">Шинэ бүтээгдэхүүн</span><span class="card-arrow">→</span></div>
+      </div></a>
+
+  </div>
+</section>
+
+<!-- ══ Хэвлэлийн тоног төхөөрөмж худалдаа ══ -->
+<style>
+/* ── Equipment grid ── */
+.equip-filter-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.equip-card{background:#fff;border:1.5px solid rgba(37,99,235,0.14);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.25s,box-shadow 0.25s}
+.equip-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(37,99,235,0.14)}
+.equip-card-media{position:relative;aspect-ratio:4/3;background:#f8fafc;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.equip-card-media img{width:100%;height:100%;object-fit:contain;padding:14px;cursor:zoom-in;transition:transform 0.35s ease}
+.equip-card-media:hover img{transform:scale(1.06)}
+.equip-card-badge{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:0.03em}
+.equip-card-body{padding:1.25rem 1.4rem 1.4rem;display:flex;flex-direction:column;flex:1}
+.equip-card-cat{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#1D4ED8;margin-bottom:8px}
+.equip-card-name{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;color:#0f172a;line-height:1.35;margin-bottom:3px}
+.equip-card-sub{font-size:11px;color:#64748b;font-weight:600;letter-spacing:0.02em;margin-bottom:12px}
+.equip-card-desc{font-size:12.5px;color:rgba(15,23,42,0.65);line-height:1.55;margin-bottom:12px}
+.equip-card-specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.equip-spec-chip{font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;background:#EFF6FF;color:#1E40AF;border:1px solid rgba(37,99,235,0.14)}
+.equip-card-actions{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.equip-detail-btn{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;padding:9px 14px;border-radius:10px;border:1.5px solid rgba(37,99,235,0.2);background:#fff;color:#1D4ED8;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:5px}
+.equip-detail-btn:hover{background:#EFF6FF}
+.equip-detail-arrow{transition:transform 0.25s;font-size:10px}
+.equip-detail-btn.open .equip-detail-arrow{transform:rotate(180deg)}
+.equip-card-callrow{display:flex;gap:8px}
+.equip-card-callrow a{flex:1;text-align:center;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;padding:9px 10px;border-radius:10px;color:#fff;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:opacity 0.2s,transform 0.15s}
+.equip-card-callrow a:hover{opacity:0.88;transform:translateY(-1px)}
+
+.equip-detail-panel{display:none;margin-top:24px;background:#fff;border:1.5px solid rgba(37,99,235,0.16);border-radius:22px;padding:1.75rem 2rem 2rem}
+.equip-detail-panel.open{display:block;animation:fadeInUp 0.35s cubic-bezier(0.22,1,0.36,1) both}
+.equip-detail-close{display:flex;align-items:center;gap:6px;margin-left:auto;background:none;border:none;color:#1D4ED8;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;padding:0 0 1rem}
+@media(max-width:640px){.equip-grid{grid-template-columns:1fr}.equip-detail-panel{padding:1.25rem 1.25rem 1.5rem}}
+</style>
+
+<section class="services-section" id="equipment-sale">
+  <div class="services-inner">
+    <div class="section-label" style="text-align:center">✦ Тоног төхөөрөмж худалдаа</div>
+    <div class="section-title">Хэвлэлийн тоног төхөөрөмж худалдаа</div>
+    <p style="text-align:center;color:rgba(15,23,42,0.6);font-size:15px;max-width:640px;margin:0 auto 2.25rem">Лазер машин, UV болон DTF принтер худалдаа. Худалдан авагчид суурилуулалт, сургалт, мэргэжлийн зөвлөгөө өгөгдөнө.</p>
+
+    <div class="equip-filter-bar" id="equip-filter-bar">
+      <button class="prod-filter active" data-ecat="all">Бүгд (5)</button>
+      <button class="prod-filter" data-ecat="laser">🔆 Лазер машин (3)</button>
+      <button class="prod-filter" data-ecat="printer">🖨️ Принтер (2)</button>
+    </div>
+
+    <div class="equip-grid" id="equip-grid">
+
+      <!-- Card 1: Fiber laser 30W -->
+      <div class="equip-card" data-ecat="laser">
+        <div class="equip-card-media"><img src="LASER_MACHINE.jpg" alt="Файбер лазер тэмдэглэгээний машин 30W" class="lb-img"></div>
+        <span class="equip-card-badge badge-free">Зарагдаж байна</span>
+        <div class="equip-card-body">
+          <div class="equip-card-cat">🔆 Лазер машин</div>
+          <div class="equip-card-name">Файбер лазер тэмдэглэгээний машин — 30W</div>
+          <div class="equip-card-sub">Fiber Laser Marking Machine</div>
+          <div class="equip-card-specs">
+            <span class="equip-spec-chip">⚡ 30W</span>
+            <span class="equip-spec-chip">📐 10×10см</span>
+          </div>
+          <div class="equip-card-actions">
+            <button type="button" class="equip-detail-btn" id="ed-btn-laser1" onclick="toggleEquipDetail('ed-laser1',this)">
+              <span class="equip-detail-label">Дэлгэрэнгүй</span><span class="equip-detail-arrow">▼</span>
+            </button>
+            <div class="equip-card-callrow">
+              <a href="tel:86681144" style="background:linear-gradient(135deg,#1D4ED8,#0EA5E9)">📞 Утасдах</a>
+              <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: KT-4060/5070/6090 -->
+      <div class="equip-card" data-ecat="laser">
+        <div class="equip-card-media"><img src="LASER_KT4060.jpg" alt="KT-4060/5070/6090 Үйлдвэрийн лазер сийлбэрийн машин" class="lb-img"></div>
+        <span class="equip-card-badge badge-color">Захиалгаар</span>
+        <div class="equip-card-body">
+          <div class="equip-card-cat">🔆 Лазер машин</div>
+          <div class="equip-card-name">KT-4060/5070/6090 Үйлдвэрийн лазер сийлбэрийн машин</div>
+          <div class="equip-card-sub">Industrial CO₂ Laser Engraving Machine</div>
+          <div class="equip-card-specs">
+            <span class="equip-spec-chip">⚡ 60-100W</span>
+            <span class="equip-spec-chip">🚀 6400мм/мин</span>
+          </div>
+          <div class="equip-card-actions">
+            <button type="button" class="equip-detail-btn" id="ed-btn-laser2" onclick="toggleEquipDetail('ed-laser2',this)">
+              <span class="equip-detail-label">Дэлгэрэнгүй</span><span class="equip-detail-arrow">▼</span>
+            </button>
+            <div class="equip-card-callrow">
+              <a href="tel:86681144" style="background:linear-gradient(135deg,#1D4ED8,#0EA5E9)">📞 Утасдах</a>
+              <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: UV Laser Marking Machine -->
+      <div class="equip-card" data-ecat="laser">
+        <div class="equip-card-media"><img src="UV_LASER.jpg" alt="UV Лазер тэмдэглэгээний машин" class="lb-img"></div>
+        <span class="equip-card-badge badge-color">Захиалгаар</span>
+        <div class="equip-card-body">
+          <div class="equip-card-cat">🌈 UV Лазер</div>
+          <div class="equip-card-name">UV Лазер тэмдэглэгээний машин</div>
+          <div class="equip-card-sub">UV Laser Marking Machine · Pulsex</div>
+          <div class="equip-card-specs">
+            <span class="equip-spec-chip">⚡ 3–20W</span>
+            <span class="equip-spec-chip">📐 110×110мм</span>
+          </div>
+          <div class="equip-card-actions">
+            <button type="button" class="equip-detail-btn" id="ed-btn-laser3" onclick="toggleEquipDetail('ed-laser3',this)">
+              <span class="equip-detail-label">Дэлгэрэнгүй</span><span class="equip-detail-arrow">▼</span>
+            </button>
+            <div class="equip-card-callrow">
+              <a href="tel:86681144" style="background:linear-gradient(135deg,#0EA5E9,#38bdf8)">📞 Утасдах</a>
+              <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: UV Flatbed Printer -->
+      <div class="equip-card" data-ecat="printer">
+        <div class="equip-card-media"><img src="UV_PLATBED.jpg" alt="UV Flatbed Printer" class="lb-img"></div>
+        <span class="equip-card-badge badge-color">UV Printer</span>
+        <div class="equip-card-body">
+          <div class="equip-card-cat">🌈 UV Printer</div>
+          <div class="equip-card-name">UV Flatbed Printer</div>
+          <div class="equip-card-sub">Хатуу гадаргууны бүрэн өнгөт хэвлэл</div>
+          <p class="equip-card-desc">Хатуу гадаргуу дээр бүрэн өнгөт, фото чанарын хэвлэл хийдэг UV принтер. Металл, шил, хуванцар, мод, арьс зэрэг олон материалд хэвлэнэ.</p>
+          <div class="equip-card-specs">
+            <span class="equip-spec-chip">Металл</span>
+            <span class="equip-spec-chip">Шил</span>
+            <span class="equip-spec-chip">Хуванцар</span>
+            <span class="equip-spec-chip">Мод</span>
+          </div>
+          <div class="equip-card-actions">
+            <div class="equip-card-callrow">
+              <a href="tel:86681144" style="background:linear-gradient(135deg,#0891b2,#06b6d4)">📞 Утасдах</a>
+              <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: DTF Printer -->
+      <div class="equip-card" data-ecat="printer">
+        <div class="equip-card-media"><img src="DTF PRINTER.jpg" alt="DTF Printer" class="lb-img"></div>
+        <span class="equip-card-badge badge-fab">DTF Printer</span>
+        <div class="equip-card-body">
+          <div class="equip-card-cat">👕 DTF Printer</div>
+          <div class="equip-card-name">DTF Printer</div>
+          <div class="equip-card-sub">Даавуунд зориулсан бүрэн өнгөт хэвлэл</div>
+          <p class="equip-card-desc">Даавуун дээр бүрэн өнгөт лого, дизайн шилжүүлдэг DTF принтер. Хөвөн, полиэстер, нийлэг болон байгалийн даавуунд тохиромжтой.</p>
+          <div class="equip-card-specs">
+            <span class="equip-spec-chip">Хөвөн</span>
+            <span class="equip-spec-chip">Полиэстер</span>
+            <span class="equip-spec-chip">Жинс</span>
+          </div>
+          <div class="equip-card-actions">
+            <div class="equip-card-callrow">
+              <a href="tel:86681144" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">📞 Утасдах</a>
+              <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /equip-grid -->
+
+    <!-- ── Дэлгэрэнгүй самбарууд (grid-ийн доор нэг нэгээр нь нээгдэнэ) ── -->
+    <div class="equip-detail-panel" id="ed-laser1">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem">
+        <div class="svc-icon svc-icon-laser" style="margin-bottom:0;flex-shrink:0">🔆</div>
+        <div style="flex:1">
+          <div class="svc-name" style="margin-bottom:2px">Файбер лазер тэмдэглэгээний машин — 30W</div>
+          <div style="font-size:12px;color:#1D4ED8;font-weight:600;letter-spacing:0.05em;text-transform:uppercase">Fiber Laser Marking Machine — Дэлгэрэнгүй</div>
+        </div>
+        <button type="button" class="equip-detail-close" style="padding:0" onclick="toggleEquipDetail('ed-laser1', document.getElementById('ed-btn-laser1'))">✕ Хаах</button>
+      </div>
+      <div class="svc-divider svc-divider-laser"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem">
+        <div class="spec-item"><div class="spec-label">Лазерын төрөл</div><div class="spec-val">Файбер лазер (Fiber)</div></div>
+        <div class="spec-item"><div class="spec-label">Чадал</div><div class="spec-val">30W</div></div>
+        <div class="spec-item"><div class="spec-label">Ажлын талбар</div><div class="spec-val">10см × 10см</div></div>
+        <div class="spec-item"><div class="spec-label">Томруулах боломж</div><div class="spec-val">15см × 15см болгоно</div></div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div class="svc-mat-label">Хэвлэл хийх материал</div>
+        <div class="svc-panel-mats" style="margin-top:8px">
+          <span class="svc-mat">Бүх металл</span>
+          <span class="svc-mat">Хатуу пластик</span>
+          <span class="svc-mat">Резин</span>
+          <span class="svc-mat">Мод</span>
+          <span class="svc-mat">Арьс</span>
+          <span class="svc-mat">Акрил</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div class="svc-mat-label">Дагалдах зүйлс (иж бүрдэл)</div>
+        <ul class="svc-features" style="margin-top:8px">
+          <li>Хөлийн удирдлага (foot control)</li>
+          <li>Хамгаалтын шил</li>
+          <li>Ezcad2 программ хангамж</li>
+          <li>Тусгай түлхүүр</li>
+        </ul>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border:1.5px solid #f59e0b;border-radius:14px;padding:14px 18px;margin-bottom:1.5rem">
+        <div style="font-size:12px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">⚠️ Чухал анхааруулга</div>
+        <div style="font-size:13px;color:#78350f;line-height:1.65">Худалдан авагчид төхөөрөмж ашиглалтын болон <strong>лазер төхөөрөмжийн аюулгүйн ажиллагааны заавар</strong>, түүнээс хамаарч учирч болох эрсдэлээс хэрхэн хамгаалах тухай мэргэжлийн зөвлөгөө өгөх болно.<br><br><strong>ЛАЗЕР ТӨХӨӨРӨМЖТЭЙ ХАРЬЦАЖ АЖИЛЛАХАД АЮУЛГҮЙ БАЙДЛЫН ТУХАЙ МЭРГЭЖЛИЙН ЗӨВЛӨГӨӨ ЗАЙЛШГҮЙ ШААРДЛАГАТАЙ.</strong></div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="tel:86681144" class="svc-view-btn" style="display:inline-flex;align-items:center;gap:6px">📞 86681144 — Үнэ лавлах</a>
+        <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="svc-view-btn" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook мессеж</a>
+      </div>
+    </div>
+
+    <div class="equip-detail-panel" id="ed-laser2">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem">
+        <div class="svc-icon svc-icon-laser" style="margin-bottom:0;flex-shrink:0">⚡</div>
+        <div style="flex:1">
+          <div class="svc-name" style="margin-bottom:2px">KT-4060/5070/6090 Үйлдвэрийн лазер сийлбэрийн машин</div>
+          <div style="font-size:12px;color:#1D4ED8;font-weight:600;letter-spacing:0.05em;text-transform:uppercase">Industrial CO₂ Laser Engraving Machine — Дэлгэрэнгүй</div>
+        </div>
+        <button type="button" class="equip-detail-close" style="padding:0" onclick="toggleEquipDetail('ed-laser2', document.getElementById('ed-btn-laser2'))">✕ Хаах</button>
+      </div>
+      <div class="svc-divider svc-divider-laser"></div>
+
+      <div style="margin-bottom:1.5rem">
+        <div class="svc-mat-label">Гол онцлогууд</div>
+        <ul class="svc-features" style="margin-top:8px">
+          <li>Өндөр хурдны сийлбэр — хамгийн их хурд <strong>6400мм/мин</strong>, ажлын бүтээмж өндөр</li>
+          <li>Нарийн сийлбэр — мэргэжлийн оптик линз, тогтвортой туяа, улаан гэрлийн нарийн байршуулалт</li>
+          <li>Нээлттэй программ хангамж — Autocad, Coreldraw, AI зэрэг вектор дизайны программтай нийцтэй</li>
+          <li>Усны хамгаалалт — лазерыг хамгаалж, эдэлгээний хугацааг уртасгана</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom:1.5rem">
+        <div class="svc-mat-label">Техникийн үзүүлэлт</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+          <div class="spec-item">
+            <div class="spec-label">Ажлын талбар</div>
+            <div class="spec-val" style="font-size:12px">600×400 · 700×500 · 900×600мм</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Лазерын чадал</div>
+            <div class="spec-val">60W · 80W · 100W</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Хэрчих хурд</div>
+            <div class="spec-val">0–3600мм/мин</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Сийлбэрийн хурд</div>
+            <div class="spec-val">0–6400мм/мин</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Давтагдах нарийвчлал</div>
+            <div class="spec-val">0.01мм</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Байршуулах нарийвчлал</div>
+            <div class="spec-val">0.01мм</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Цахилгаан хангамж</div>
+            <div class="spec-val">AC220V 50Hz</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Нийт чадал</div>
+            <div class="spec-val">&lt;1250W</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Ажлын температур</div>
+            <div class="spec-val">0–40°C</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Ажлын чийгшил</div>
+            <div class="spec-val">5–95%</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.5rem">
+        <div class="svc-mat-label">Дэмжих файлын формат</div>
+        <div class="svc-panel-mats" style="margin-top:8px">
+          <span class="svc-mat">CDR</span>
+          <span class="svc-mat">BMP</span>
+          <span class="svc-mat">PLT</span>
+          <span class="svc-mat">JPEG</span>
+          <span class="svc-mat">DXF</span>
+          <span class="svc-mat">AI</span>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border:1.5px solid #f59e0b;border-radius:14px;padding:14px 18px;margin-bottom:1.5rem">
+        <div style="font-size:12px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">⚠️ Чухал анхааруулга</div>
+        <div style="font-size:13px;color:#78350f;line-height:1.65">Худалдан авагчид төхөөрөмж ашиглалтын болон <strong>лазер төхөөрөмжийн аюулгүйн ажиллагааны заавар</strong>, учирч болох эрсдэлээс хэрхэн хамгаалах тухай мэргэжлийн зөвлөгөө өгөх болно.<br><br><strong>ЛАЗЕР ТӨХӨӨРӨМЖТЭЙ ХАРЬЦАЖ АЖИЛЛАХАД АЮУЛГҮЙ БАЙДЛЫН ТУХАЙ МЭРГЭЖЛИЙН ЗӨВЛӨГӨӨ ЗАЙЛШГҮЙ ШААРДЛАГАТАЙ.</strong></div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="tel:86681144" class="svc-view-btn" style="display:inline-flex;align-items:center;gap:6px">📞 86681144 — Үнэ лавлах</a>
+        <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="svc-view-btn" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook мессеж</a>
+      </div>
+    </div>
+
+    <div class="equip-detail-panel" id="ed-laser3">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem">
+        <div class="svc-icon svc-icon-uv" style="margin-bottom:0;flex-shrink:0">🌈</div>
+        <div style="flex:1">
+          <div class="svc-name" style="margin-bottom:2px">UV Лазер тэмдэглэгээний машин</div>
+          <div style="font-size:12px;color:#0EA5E9;font-weight:600;letter-spacing:0.05em;text-transform:uppercase">UV Laser Marking Machine · Pulsex — Дэлгэрэнгүй</div>
+        </div>
+        <button type="button" class="equip-detail-close" style="padding:0" onclick="toggleEquipDetail('ed-laser3', document.getElementById('ed-btn-laser3'))">✕ Хаах</button>
+      </div>
+      <div class="svc-divider svc-divider-uv"></div>
+
+      <div style="margin-bottom:1.5rem">
+        <div class="svc-mat-label">Чадлын сонголт (Power)</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <span style="padding:6px 16px;border-radius:20px;border:1.5px solid rgba(14,165,233,0.3);background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:700">3W</span>
+          <span style="padding:6px 16px;border-radius:20px;border:1.5px solid #0EA5E9;background:linear-gradient(135deg,#0EA5E9,#38bdf8);color:#fff;font-size:13px;font-weight:700">5W ⭐</span>
+          <span style="padding:6px 16px;border-radius:20px;border:1.5px solid rgba(14,165,233,0.3);background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:700">10W</span>
+          <span style="padding:6px 16px;border-radius:20px;border:1.5px solid rgba(14,165,233,0.3);background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:700">15W</span>
+          <span style="padding:6px 16px;border-radius:20px;border:1.5px solid rgba(14,165,233,0.3);background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:700">20W</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.5rem">
+        <div class="svc-mat-label">Техникийн үзүүлэлт</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+          <div class="spec-item"><div class="spec-label">Лазерын төрөл</div><div class="spec-val">UV Лазер</div></div>
+          <div class="spec-item"><div class="spec-label">Лазерын брэнд</div><div class="spec-val">Pulsex</div></div>
+          <div class="spec-item"><div class="spec-label">Тэмдэглэгээний талбар</div><div class="spec-val">110мм × 110мм</div></div>
+          <div class="spec-item"><div class="spec-label">Тэмдэглэгээний хурд</div><div class="spec-val">0–1000мм/с</div></div>
+          <div class="spec-item"><div class="spec-label">Тэмдэглэгээний гүн</div><div class="spec-val">0.001–0.01мм</div></div>
+          <div class="spec-item"><div class="spec-label">Ажиллах горим</div><div class="spec-val">Пульсийн (Pulsed)</div></div>
+          <div class="spec-item"><div class="spec-label">Хөргөлтийн систем</div><div class="spec-val">Усны хөргөлт</div></div>
+          <div class="spec-item"><div class="spec-label">Баталгааны хугацаа</div><div class="spec-val">2 жил</div></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.5rem">
+        <div class="svc-mat-label">Тохируулах боломж (Verified)</div>
+        <ul class="svc-features" style="margin-top:8px">
+          <li>Жижиг тохируулга (Minor customization)</li>
+          <li>Зургаар тохируулга (Drawing-based customization)</li>
+          <li>Дээж дээр үндэслэн тохируулга (Sample-based customization)</li>
+          <li>Бүрэн захиалгат тохируулга (Full customization)</li>
+        </ul>
+      </div>
+
+      <div style="display:inline-flex;align-items:center;gap:6px;background:#d1fae5;border:1.5px solid #6ee7b7;border-radius:10px;padding:8px 14px;margin-bottom:1.5rem;font-size:12px;font-weight:700;color:#065f46">
+        ✅ EU стандартад нийцсэн · 2 жилийн баталгаа
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border:1.5px solid #f59e0b;border-radius:14px;padding:14px 18px;margin-bottom:1.5rem">
+        <div style="font-size:12px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">⚠️ Чухал анхааруулга</div>
+        <div style="font-size:13px;color:#78350f;line-height:1.65">Худалдан авагчид төхөөрөмж ашиглалтын болон <strong>лазер төхөөрөмжийн аюулгүйн ажиллагааны заавар</strong>, учирч болох эрсдэлээс хэрхэн хамгаалах тухай мэргэжлийн зөвлөгөө өгөх болно.<br><br><strong>ЛАЗЕР ТӨХӨӨРӨМЖТЭЙ ХАРЬЦАЖ АЖИЛЛАХАД АЮУЛГҮЙ БАЙДЛЫН ТУХАЙ МЭРГЭЖЛИЙН ЗӨВЛӨГӨӨ ЗАЙЛШГҮЙ ШААРДЛАГАТАЙ.</strong></div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="tel:86681144" class="svc-view-btn" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#0EA5E9,#38bdf8)">📞 86681144 — Үнэ лавлах</a>
+        <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="svc-view-btn" style="background:linear-gradient(135deg,#1877F2,#0d65d9)">✦ Facebook мессеж</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="detail-section" id="japan-bottle">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Японы загварын термо сав</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="japan_design.png" alt="Японы загварын термо сав" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Япон загварын термо сав</h2>
+        <p>Vacuum insulated технологитой Япон дизайнтай термо сав. 360° stress-free ундааны тав тухтай хийц, гадуур авч явахад хамгийн тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Технологи</div><div class="spec-val">Vacuum Insulated</div></div>
+          <div class="spec-item"><div class="spec-label">Дизайн</div><div class="spec-val">360° Stress-Free</div></div>
+          <div class="spec-item"><div class="spec-label">Тэсвэрлэлт</div><div class="spec-val">Outdoor Durability</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV, DTF</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Vacuum insulated — халуун хүйтнээ удаан барьдаг</li>
+          <li>360° stress-free уух боломжтой таг</li>
+          <li>Гадуур авч явахад тэсвэртэй, бат бөх бүтэц</li>
+          <li>Лазер хэвлэлээр лого, нэр нарийн бичигдэнэ</li>
+          <li>Корпорат бэлэг, аялалын хэрэглэлд тохиромжтой</li>
+        </ul>
+        <div id="ds_japan-bottle" class="detail-stock-wrap"></div>
+        <div id="dp_japan-bottle" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Японы загварын термо сав" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="owala-mug">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Owala загварын кофены аяга</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="owala_design.png" alt="Owala загварын кофены аяга" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Owala загварын кофены аяга</h2>
+        <p>Дулаан тусгаарлалттай, уухад тав тухтай кофены аяга. Лазер хэвлэлээр лого, нэр бичих боломжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Онцлог 1</div><div class="spec-val">Асгардаггүй (Leak proof)</div></div>
+          <div class="spec-item"><div class="spec-label">Онцлог 2</div><div class="spec-val">Дулаан тусгаарлалт</div></div>
+          <div class="spec-item"><div class="spec-label">Онцлог 3</div><div class="spec-val">Уухад тав тухтай</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол хэвлэл үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Асгардаггүй — цүнхэнд хийгээд явж болно</li>
+          <li>Дулаан тусгаарлалттай — кофе удаан халуун байна</li>
+          <li>Уухад тав тухтай загвартай</li>
+          <li>Лазер хэвлэлээр лого, нэр гоё гардаг</li>
+          <li>Хэвлэл үнэгүй</li>
+        </ul>
+        <div id="ds_owala-mug" class="detail-stock-wrap"></div>
+        <div id="dp_owala-mug" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Owala загварын кофены аяга" data-prints="Лазер хэвлэл|UV хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="sublim-tumbler">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Сублимац аяга 590мл</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="sub_mug.jpg" alt="Сублимац аяга 590мл" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Сублимац аяга 590мл</h2>
+        <p>Гурван давхар хана бүхий ган аяга. Бүрэн өнгөт сублимац хэвлэлээр танай лого, дизайн, зургийг гоё тодоор гаргана. Бэлэг болгоход хамгийн тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Багтаамж</div><div class="spec-val">590мл</div></div>
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">SUS304 ган дотор</div></div>
+          <div class="spec-item"><div class="spec-label">Соруул</div><div class="spec-val">Ган соруул</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Сублимац (бүрэн өнгөт)</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол хэвлэл үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Бүрэн өнгөт фото чанарын сублимац хэвлэл</li>
+          <li>Дулаан тусгаарлалттай — ундаа удаан хүйтэн/халуун байна</li>
+          <li>Ган соруултай — тав тухтай уух боломжтой</li>
+          <li>Лого, нэр, дизайн, зураг хэвлэх боломжтой</li>
+          <li>Корпорат бэлэг, ойн бэлэгт хамгийн тохиромжтой</li>
+        </ul>
+        <div id="ds_sublim-tumbler" class="detail-stock-wrap"></div>
+        <div id="dp_sublim-tumbler" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Сублимац аяга 590мл" data-prints="Сублимац хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="ceramic-mug">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Захиалгат шаазан аяга</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="ceramic_mug.png" alt="Захиалгат шаазан аяга" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Захиалгат шаазан аяга</h2>
+        <p>Цагаан шаазан аяга дээр таны лого, дизайн, зураг, нэрийг бүрэн өнгөт сублимац хэвлэлээр тодоор гаргана. Бэлэг болгоход хамгийн тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Багтаамж</div><div class="spec-val">330мл (11oz)</div></div>
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Шаазан (ceramic)</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Сублимац (бүрэн өнгөт)</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол хэвлэл үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Ашиглалт</div><div class="spec-val">Угаалгын машинд тэсвэртэй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Бүрэн өнгөт фото чанарын сублимац хэвлэл</li>
+          <li>Лого, нэр, дизайн, зураг хэвлэх боломжтой</li>
+          <li>Кофе, цай, халуун, хүйтэн ундаанд тохиромжтой</li>
+          <li>Угаалгын машинд ашиглах боломжтой</li>
+          <li>Корпорат бэлэг, ойн бэлэгт хамгийн тохиромжтой</li>
+          <li>Дизайны зөвлөгөө үнэгүй</li>
+        </ul>
+        <div id="ds_ceramic-mug" class="detail-stock-wrap"></div>
+        <div id="dp_ceramic-mug" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Захиалгат шаазан аяга" data-prints="Сублимац хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="badge">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Энгэрийн тэмдэг (Badge)</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="badge.png" alt="Энгэрийн тэмдэг" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Энгэрийн тэмдэг (Badge)</h2>
+        <p>Дугуй хэлбэртэй металл суурьтай энгэрийн тэмдэг. Таны лого, загвараар бүрэн өнгөт хэвлэлтэй. Корпорат арга хэмжээ, үзэсгэлэн, сурталчилгаанд хамгийн тохиромжтой бэлэг.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Хэлбэр</div><div class="spec-val">Дугуй</div></div>
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Металл суурь + хуванцар бүрхүүл</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Бүрэн өнгөт (Full color)</div></div>
+          <div class="spec-item"><div class="spec-label">Хавчаар</div><div class="spec-val">Зүү хавчаартай</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+          <div class="spec-item"><div class="spec-label">Утас 2</div><div class="spec-val">85882030</div></div>
+        </div>
+        <ul class="features">
+          <li>Таны лого, загвараар захиалгаар хийнэ</li>
+          <li>Бүрэн өнгөт, тод хэвлэл</li>
+          <li>Корпорат арга хэмжээнд тохиромжтой</li>
+          <li>Үзэсгэлэн, сурталчилгааны бэлэгт хамгийн тохиромжтой</li>
+          <li>Цөөн болон олон тоогоор захиалга хүлээн авна</li>
+        </ul>
+        <div id="ds_badge" class="detail-stock-wrap"></div>
+        <div id="dp_badge" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Энгэрийн тэмдэг (Badge)" data-prints="Бүрэн өнгөт хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="pvc-id-card">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ PVC үнэмлэх</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="PVC unemleh.png" alt="PVC үнэмлэх" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>PVC үнэмлэх</h2>
+        <p>Зурагтай, QR кодтой, оосортой PVC үнэмлэх. Бүрэн өнгөт UV хэвлэлээр танай компанийн лого, нэр, албан тушаал, ID дугаар хэвлэнэ. Корпорат болон арга хэмжээнд хамгийн тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Хэмжээ</div><div class="spec-val">86×54мм</div></div>
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">PVC хуванцар</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Бүрэн өнгөт UV</div></div>
+          <div class="spec-item"><div class="spec-label">Оосор</div><div class="spec-val">Хүзүүний оосортой</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол хэвлэл үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Зураг, нэр, албан тушаал, ID дугаар хэвлэнэ</li>
+          <li>QR код нэмэх боломжтой</li>
+          <li>Хүзүүний оосортой — бэлэн хэрэглэх боломжтой</li>
+          <li>Корпорат арга хэмжээ, сургуулийн үнэмлэхэд тохиромжтой</li>
+          <li>Цөөн болон олон тоогоор захиалга хүлээн авна</li>
+        </ul>
+        <div id="ds_pvc-id-card" class="detail-stock-wrap"></div>
+        <div id="dp_pvc-id-card" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="PVC үнэмлэх" data-prints="UV хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="card-holder">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Металл карт холдер</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="card-holder.jpg" alt="Металл карт холдер" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Металл карт холдер</h2>
+        <p>RFID хамгаалалттай металл карт холдер. Холдерын гаднаас картны мэдээлэл уншигдахгүй. Хэвлэлтэй гарын бэлгэнд тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Металл (Алюмин)</div></div>
+          <div class="spec-item"><div class="spec-label">Хамгаалалт</div><div class="spec-val">RFID блокер</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+          <div class="spec-item"><div class="spec-label">Утас 2</div><div class="spec-val">85882030</div></div>
+        </div>
+        <ul class="features">
+          <li>Металл карт холдер — удаан эдэлгээтэй</li>
+          <li>Холдерын гаднаас картны мэдээлэл уншигдахгүй</li>
+          <li>Хэвлэлтэй гарын бэлэнд тохиромжтой</li>
+          <li>Лазер болон UV хэвлэлээр брэнд нэр харуулна</li>
+          <li>Хэвлэл үнэгүй</li>
+        </ul>
+        <div id="ds_card-holder" class="detail-stock-wrap"></div>
+        <div id="dp_card-holder" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Металл карт холдер" data-prints="Лазер хэвлэл|UV хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="leather-card-holder">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Арьсан гадартай карт холдер</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="leather-card-holder.png" alt="Арьсан гадартай карт холдер" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Арьсан гадартай карт холдер</h2>
+        <p>Арьсан гадартай металл хавчаартай визитны карт холдер. Лазер хэвлэлээр брэнд нэр, лого бичих боломжтой. Корпорат бэлэгт тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Арьс + Металл</div></div>
+          <div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">Хар</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+          <div class="spec-item"><div class="spec-label">Утас 2</div><div class="spec-val">85882030</div></div>
+        </div>
+        <ul class="features">
+          <li>Арьсан гадар — тансаг дүр төрх</li>
+          <li>Металл хавчаар — бат бөх хаалт</li>
+          <li>Визитны карт хадгалахад тохиромжтой</li>
+          <li>Лазер хэвлэлээр лого, нэр нарийн бичигдэнэ</li>
+          <li>Корпорат болон хувийн бэлэгт тохиромжтой</li>
+          <li>Хэвлэл үнэгүй</li>
+        </ul>
+        <div id="ds_leather-card-holder" class="detail-stock-wrap"></div>
+        <div id="dp_leather-card-holder" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Арьсан гадартай карт холдер" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="medallion">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Дурсгалын медаллион</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="gallery_22.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="gallery_23.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="gallery_24.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="gallery_25.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Дурсгалын медаллион</h2>
+        <p>Тусгай арга хэмжээ, тэмцээн, баяр ёслолд зориулсан дурсгалын медаль.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val"> Гууль </div></div><div class="spec-item"><div class="spec-label">Хэмжээ</div><div class="spec-val">40мм / 3мм</div></div><div class="spec-item"><div class="spec-label">Өнгөлгөө</div><div class="spec-val">Алт, мөнгө, хүрэл</div></div><div class="spec-item"><div class="spec-label">Хүргэлт</div><div class="spec-val">2–3 хоног</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лого + текст</div></div></div>
+        <ul class="features"><li>Нэг ба хоёр талд лого, нэр, огноо хэвлэх боломжтой</li><li>Нарийн нааш цутгасан дизайн</li><li>Хүзүүний туузтай хамт хүргэгдэнэ</li><li>Хайрцаг эсвэл уут сонголттой савлагаа</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_medallion" class="detail-stock-wrap"></div>
+              <div id="dp_medallion" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Дурсгалын медаллион" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="bottle580">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Термо усны сав 580мл</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_26.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Термо усны сав 580мл</h2>
+        <p>Халуун хүйтнээ удаан барьдаг, лазер хэвлэлтэй 580мл термо сав.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Хэмжээ</div><div class="spec-val">580мл</div></div><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">SUS304 дотортой</div></div><div class="spec-item"><div class="spec-label">Тагандаа</div><div class="spec-val">Оосортой</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV, DTF</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div><div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div></div>
+        <ul class="features"><li>Халуун хүйтнээ удаан барьдаг</li><li>SUS304 зэвэрдэггүй ган дотор</li><li>Тагандаа оосортой — гээхгүй</li><li>Лазер хэвлэлээр лого сайхан гардаг</li></ul>
+        <div id="ds_bottle580" class="detail-stock-wrap"></div>
+              <div id="dp_bottle580" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Термо усны сав 580мл" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="bottle300">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Термо сав 300мл — 4 өнгө</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_27.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Термо сав 300мл — 4 өнгө</h2>
+        <p>Цүнхэндээ хийгээд явж болохоор авсаархан 300мл термо сав. Хар, улаан, улбар шар, цагаан өнгөтэй.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Хэмжээ</div><div class="spec-val">300мл</div></div><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">SUS316 дотортой</div></div><div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">4 сонголт</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV, DTF</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div><div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div></div>
+        <ul class="features"><li>Цүнхэнд багтаарxан авсаархан хэмжээ</li><li>SUS316 өндөр чанарын ган</li><li>Хар, улаан, улбар шар, цагаан — 4 өнгө</li><li>Лазер хэвлэлээр лого, нэр бичих боломжтой</li></ul>
+        <div id="ds_bottle300" class="detail-stock-wrap"></div>
+              <div id="dp_bottle300" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Термо сав 300мл — 4 өнгө" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="notebook">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Тэмдэглэлийн дэвтэр & Бал сет</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_28.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Тэмдэглэлийн дэвтэр & Бал сет</h2>
+        <p>A5 тэмдэглэлийн дэвтэр, балны сет хайрцаг болон уут багтсан. 5 өнгийн сонголттой.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Дэвтэр</div><div class="spec-val">A5 хэмжээ</div></div><div class="spec-item"><div class="spec-label">Шугам</div><div class="spec-val">Тууш шугамтай</div></div><div class="spec-item"><div class="spec-label">Үзэг</div><div class="spec-val">Хар өнгийн бэхтэй</div></div><div class="spec-item"><div class="spec-label">Запас</div><div class="spec-val">Нэг запастай</div></div><div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">5 сонголт</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div></div>
+        <ul class="features"><li>Дэвтэр, бал, хайрцаг, уут — бүгд багтсан</li><li>Хар, цэнхэр, ногоон, улаан, улбар — 5 өнгө</li><li>A5 хэмжээ — хурал, оффист тохиромжтой</li><li>Лого хэвлэлтэй корпорат бэлэг болгон тохиромжтой</li></ul>
+        <div id="ds_notebook" class="detail-stock-wrap"></div>
+              <div id="dp_notebook" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Тэмдэглэлийн дэвтэр &amp; Бал сет" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="pen-luxury">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Тансаг үзэг хайрцагтай</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_29.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Тансаг үзэг хайрцагтай</h2>
+        <p>Бичихэд гарт эвтэйхэн, металл гадартай тансаг үзэг. Лазер хэвлэлээр нэр бичих боломжтой.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Металл гадар</div></div><div class="spec-item"><div class="spec-label">Бэх</div><div class="spec-val">Бэх соруулдаг</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер</div></div><div class="spec-item"><div class="spec-label">Хайрцаг</div><div class="spec-val">Багтсан</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div><div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div></div>
+        <ul class="features"><li>Бичихэд гарт эвтэйхэн, тансаг мэдрэмж</li><li>Лазер хэвлэлээр нэр, лого сайхан гардаг</li><li>Бэк соруулдаг — удаан ашиглах боломжтой</li><li>Металл гадар — бат бөх, элэгдэлд тэсвэртэй</li><li>Хайрцагтайгаа бэлэглэхэд тохиромжтой</li></ul>
+        <div id="ds_pen-luxury" class="detail-stock-wrap"></div>
+              <div id="dp_pen-luxury" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Тансаг үзэг хайрцагтай" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="pen-slim">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Нарийн металл үзэг</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_30.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Нарийн металл үзэг</h2>
+        <p>Ногоон, цэнхэр өнгийн нарийн металл үзэг. Лазер хэвлэлээр брэнд нэрийг гоёхон харуулна.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Металл гадар</div></div><div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">Ногоон, цэнхэр</div></div><div class="spec-item"><div class="spec-label">Запас</div><div class="spec-val">Сольдог</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div><div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div></div>
+        <ul class="features"><li>Нарийн, гоёмсог дизайн</li><li>Металл гадар — бат бөх</li><li>Запас сольдог — удаан ашиглалт</li><li>Лазер хэвлэлээр лого, нэр бичих боломжтой</li></ul>
+        <div id="ds_pen-slim" class="detail-stock-wrap"></div>
+              <div id="dp_pen-slim" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Нарийн металл үзэг" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="pen-red">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Улаан металл үзэг</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="red-pen.png" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Улаан металл үзэг</h2>
+        <p>Улаан өнгийн металл гадартай, орой хэсэгт тач-скрийн stylus бүхий загварлаг үзэг. Лазер хэвлэлээр нэр, лого гоёмсог гарна.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Металл гадар</div></div><div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">Улаан</div></div><div class="spec-item"><div class="spec-label">Онцлог</div><div class="spec-val">Тач-скрийн stylus</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div><div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div></div>
+        <ul class="features"><li>Тод улаан өнгө — анхаарал татсан харагдамжтай</li><li>Орой хэсэгт тач-скрийн stylus, гар утас, таблет дээр ашиглах боломжтой</li><li>Лазер хэвлэлээр нэр, лого сайхан гардаг</li><li>Металл гадар — бат бөх, элэгдэлд тэсвэртэй</li><li>Байгууллага, эвент, бэлэгт тохиромжтой</li></ul>
+        <div id="ds_pen-red" class="detail-stock-wrap"></div>
+              <div id="dp_pen-red" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Улаан металл үзэг" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="cable-tag">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Кабелийн SS тэмдэглэгээ</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_31.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Кабелийн SS тэмдэглэгээ</h2>
+        <p>Зэвэрдэггүй ган кабелийн SS тэмдэглэгээ. Лазер хэвлэлээр дугаар, нэр тэмдэглэнэ.</p>
+        <div class="specs-grid"><div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Зэвэрдэггүй ган</div></div><div class="spec-item"><div class="spec-label">Хэмжээ 1</div><div class="spec-val">PS 9.5×89мм</div></div><div class="spec-item"><div class="spec-label">Хэмжээ 2</div><div class="spec-val">PS 19×89мм</div></div><div class="spec-item"><div class="spec-label">Хэмжээ 3</div><div class="spec-val">CS 25×75мм</div></div><div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер</div></div><div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div></div>
+        <ul class="features"><li>Зэвэрдэггүй ган — удаан эдэлгээтэй</li><li>3 өөр хэмжээний сонголт</li><li>Лазер хэвлэлээр дугаар, нэр нарийн бичигдэнэ</li><li>Кабель, утас тэмдэглэхэд тохиромжтой</li></ul>
+        <div id="ds_cable-tag" class="detail-stock-wrap"></div>
+              <div id="dp_cable-tag" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Кабелийн SS тэмдэглэгээ" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="stanley">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Стейнли загвартай термо аяга</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_32.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features">
+          <li>Хэмжээ: 900мл</li>
+          <li>SUS304 зэвэрдэггүй ган дотортой</li>
+          <li>Дотроо соруултай</li>
+          <li>Лазер, UV, DTF хэвлэл боломжтой</li>
+          <li>Дизайны зөвлөгөө үнэгүй</li>
+        </ul>
+        <div id="ds_stanley" class="detail-stock-wrap"></div>
+              <div id="dp_stanley" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Стейнли загвартай термо аяга" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="notebook2">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Арьсан тэмдэглэлийн дэвтэр</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_33.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features">
+          <li>Хэмжээ: A5</li>
+          <li>Өнгө: Хүрэн · Хөх · Хар</li>
+          <li>Хэвлэлийн төрөл: Лазер, UV, DTF</li>
+          <li>Корпорат бэлэг, хурлын хэрэглэлд тохиромжтой</li>
+          <li>Дизайны зөвлөгөө үнэгүй</li>
+        </ul>
+        <div id="ds_notebook2" class="detail-stock-wrap"></div>
+              <div id="dp_notebook2" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Арьсан тэмдэглэлийн дэвтэр" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="notebook3">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Арьсан хавтастай нимгэн дэвтэр</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_34.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Хэмжээ: A5</li><li>Өнгө: Саарал · Хар · Хөх</li><li>Хэвлэлийн төрөл: Лазер, UV, DTF</li><li>Корпорат бэлэг, хурлын хэрэглэлд тохиромжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_notebook3" class="detail-stock-wrap"></div>
+              <div id="dp_notebook3" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Арьсан хавтастай нимгэн дэвтэр" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="coffee-cup">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Аялалын кофены ган аяга</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_35.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Хэмжээ: 300мл</li><li>SUS304 зэвэрдэггүй ган дотортой</li><li>Ган соруултай</li><li>Таг 2 төрлөөр нээгдэнэ</li><li>Лазер хэвлэлээр нэр, дизайн сийлнэ</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_coffee-cup" class="detail-stock-wrap"></div>
+              <div id="dp_coffee-cup" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Аялалын кофены ган аяга" data-prints="Лазер хэвлэл|UV хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="keychain-opener">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Олон үйлдэлт түлхүүрийн оосор</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_36.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Лонх онгойлгогч + түлхүүрийн оосор</li><li>Лазер хэвлэлээр нэр, огноо, QR код сийлнэ</li><li>Ой, хурим, төрсөн өдрийн бэлэгт тохиромжтой</li><li>Олон өнгийн сонголттой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_keychain-opener" class="detail-stock-wrap"></div>
+              <div id="dp_keychain-opener" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Олон үйлдэлт түлхүүрийн оосор" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="keychain-plain">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Металл түлхүүрийн оосор</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_37.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Зэвэрдэггүй ган материал</li><li>Лазер хэвлэлээр нэр, лого, огноо сийлнэ</li><li>Хурим, ой, төрсөн өдрийн бэлэгт тохиромжтой</li><li>Бэлгийн боодолтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_keychain-plain" class="detail-stock-wrap"></div>
+              <div id="dp_keychain-plain" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Металл түлхүүрийн оосор" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="keychain-badge">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Дугуй badge түлхүүрийн оосор</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="badge-keychain.png" alt="Дугуй badge түлхүүрийн оосор" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:12px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Дугуй badge түлхүүрийн оосор</h2>
+        <p>Бүрэн өнгөт хэвлэлтэй дугуй badge оосор. Зураг, лого, текст, QR код хэвлэх боломжтой. Ангийн уулзалт, корпорат арга хэмжээ, бэлэгт хамгийн тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Хэлбэр</div><div class="spec-val">Дугуй</div></div>
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Металл суурь + хуванцар бүрхүүл</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Бүрэн өнгөт (Full color)</div></div>
+          <div class="spec-item"><div class="spec-label">Холбоос</div><div class="spec-val">Металл оосор цагирагтай</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол хэвлэл үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Бүрэн өнгөт — зураг, лого, текст хэвлэнэ</li>
+          <li>QR код нэмэх боломжтой</li>
+          <li>Ангийн уулзалт, арга хэмжээний бэлэгт тохиромжтой</li>
+          <li>Металл оосор цагирагтай — түлхүүрт зүүдэг</li>
+          <li>Цөөн болон олон тоогоор захиалга хүлээн авна</li>
+        </ul>
+        <div id="ds_keychain-badge" class="detail-stock-wrap"></div>
+        <div id="dp_keychain-badge" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Дугуй badge түлхүүрийн оосор" data-prints="Бүрэн өнгөт хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detail-section" id="vacuum-bottle">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Цайны шүүртэй ган усны сав</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_38.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Хэмжээ: 520мл</li><li>SUS304 зэвэрдэггүй ган дотортой</li><li>Цай хандлах шүүртэй</li><li>Резинэн бариултай — гарт сайн тогтдог</li><li>Лазер, UV, DTF хэвлэл боломжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_vacuum-bottle" class="detail-stock-wrap"></div>
+              <div id="dp_vacuum-bottle" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Цайны шүүртэй ган усны сав" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="dogtag">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Зураг хэвлэх боломжтой ган зүүлт</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="gallery_39.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="gallery_40.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="gallery_41.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Материал: ГАН (зэвэрдэггүй)</li><li>Хэмжээ: 50×30мм</li><li>Хилэн хайрцагтай</li><li>Хос, гэр бүл, дурсгалын бэлэгт тохиромжтой</li><li>Захиалгаар аливаа зургийг лазераар сийлдэг</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_dogtag" class="detail-stock-wrap"></div>
+              <div id="dp_dogtag" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Зураг хэвлэх боломжтой ган зүүлт" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="paper-bag">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Цагаан цаасан уут</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_42.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Хэмжээ: 25×33×11см</li><li>Материал: цаас</li><li>Бариул: ороосон утас</li><li>UV болон DTF хэвлэл хийх боломжтой</li><li>Лого, дизайн хэвлэхэд тохиромжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_paper-bag" class="detail-stock-wrap"></div>
+              <div id="dp_paper-bag" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Цагаан цаасан уут" data-prints="UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="name-necklace">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Name necklace — нэрийн зүүлт</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="gallery_44.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <ul class="features"><li>Нэр, үг, огноо, тэмдэг сийлэх боломжтой</li><li>Материал: зэвэрдэггүй ган</li><li>Хос, найз нөхөд, төрсөн өдрийн бэлэгт тохиромжтой</li><li>Урт гинжтэй</li><li>Захиалгаар дизайн гаргана</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_name-necklace" class="detail-stock-wrap"></div>
+              <div id="dp_name-necklace" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap"><button class="order-btn-online" onclick="openOrderModal(this)" data-product="Name necklace — нэрийн зүүлт" data-prints="Лазер хэвлэл">📦 Онлайн захиалга</button><a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="thermo-flask">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Термос сав 532мл</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="bottleB.jpg" alt="Термос сав 532мл — хар" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="bottleBlue.jpg" alt="Термос сав 532мл — хөх" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="bottleY.jpg" alt="Термос сав 532мл — шар" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Термос сав 532мл</h2>
+        <p>Vacuum insulated технологитой 18oz/532мл термос сав. Зэвэрдэггүй ган гадаргуутай, дулаан/хүйтнээ удаан хадгалдаг. Хар, хөх, шар өнгийн сонголттой бөгөөд гоёмсог хайрцагтай ирдэг тул бэлэг болгоход тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Багтаамж</div><div class="spec-val">532мл / 18oz</div></div>
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Зэвэрдэггүй ган</div></div>
+          <div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">Хар · Хөх · Шар</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV, DTF</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Vacuum insulated — халуун хүйтнээ удаан барьдаг</li>
+          <li>Зэвэрдэггүй ган гадаргуутай, бат бөх</li>
+          <li>Хар, хөх, шар — 3 өнгийн сонголт</li>
+          <li>Гоёмсог хайрцагтай, бэлэг болгоход тохиромжтой</li>
+          <li>Лазер хэвлэлээр лого, нэр нарийн бичигдэнэ</li>
+          <li>Корпорат бэлэг, аялалын хэрэглэлд тохиромжтой</li>
+        </ul>
+        <div id="ds_thermo-flask" class="detail-stock-wrap"></div>
+        <div id="dp_thermo-flask" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Термос сав 532мл" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="tyeso-tumbler">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ TYESO зөөврийн аяга</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="tyeso1.jpg" alt="TYESO аяга — улбар шар" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="tyeso2.jpg" alt="TYESO аяга — саарал хүрэн" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="tyeso3.jpg" alt="TYESO аяга — олон өнгө" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>TYESO зөөврийн аяга</h2>
+        <p>Бариул, шулуус болон flip-top таг бүхий зэвэрдэггүй ган аяга. Дулаан/хүйтнээ удаан хадгалж, авч явахад тохиромжтой бариултай. 10 гаруй өнгийн сонголттой тул хувь хүн болон корпорат захиалгад аль алинд нь тохиромжтой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Материал</div><div class="spec-val">Зэвэрдэггүй ган</div></div>
+          <div class="spec-item"><div class="spec-label">Таг</div><div class="spec-val">Flip-top + шулуус</div></div>
+          <div class="spec-item"><div class="spec-label">Бариул</div><div class="spec-val">Тийм</div></div>
+          <div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">10 өнгийн сонголт</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV, DTF</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Бариултай — гар дээгүүр авч явахад амар</li>
+          <li>Flip-top таг + шулуус хамт орсон</li>
+          <li>Дулаан/хүйтнээ удаан хадгална</li>
+          <li>10 гаруй өнгийн сонголттой</li>
+          <li>Лазер хэвлэлээр лого, нэр нарийн бичигдэнэ</li>
+          <li>Корпорат бэлэг, спорт клуб, кофе шопод тохиромжтой</li>
+        </ul>
+        <div id="ds_tyeso-tumbler" class="detail-stock-wrap"></div>
+        <div id="dp_tyeso-tumbler" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="TYESO зөөврийн аяга" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="travel-coffee-cup">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Зөөврийн кофены аяга</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="coff_biege.jpg" alt="Кофены аяга — шаргал" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="coff_black.jpg" alt="Кофены аяга — хар" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="coff_white.jpg" alt="Кофены аяга — цагаан" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Зөөврийн кофены аяга</h2>
+        <p>Гарт барихад тохиромжтой, гарын оосортой зөөврийн кофены аяга. Аяврын кофе шоп, оффис, автомашинд хэрэглэхэд тав тухтай. Цагаан, хар, шаргал өнгийн сонголттой.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><div class="spec-label">Таг</div><div class="spec-val">Flip-top таг</div></div>
+          <div class="spec-item"><div class="spec-label">Оосор</div><div class="spec-val">"COFFEE" бичигтэй</div></div>
+          <div class="spec-item"><div class="spec-label">Өнгө</div><div class="spec-val">Цагаан · Хар · Шаргал</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэлт</div><div class="spec-val">Лазер, UV, DTF</div></div>
+          <div class="spec-item"><div class="spec-label">Хэвлэл</div><div class="spec-val">Бүтээгдэхүүн сонговол үнэгүй</div></div>
+          <div class="spec-item"><div class="spec-label">Утас</div><div class="spec-val">86681144</div></div>
+        </div>
+        <ul class="features">
+          <li>Гарын оосортой — авч явахад амар</li>
+          <li>Flip-top таг, асгардаггүй</li>
+          <li>Цагаан, хар, шаргал — 3 өнгийн сонголт</li>
+          <li>Лазер хэвлэлээр лого, нэр нарийн бичигдэнэ</li>
+          <li>Кофе шоп, оффис, корпорат бэлэгт тохиромжтой</li>
+        </ul>
+        <div id="ds_travel-coffee-cup" class="detail-stock-wrap"></div>
+        <div id="dp_travel-coffee-cup" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Зөөврийн кофены аяга" data-prints="Лазер хэвлэл|UV хэвлэл|DTF хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="notebook-a5">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Арьсан гадартай A5 дэвтэр</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="Blue-notebook.png" alt="A5 дэвтэр — цэнхэр" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="Gray-notebook.png" alt="A5 дэвтэр — teal" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="Yellow-notebook.png" alt="A5 дэвтэр — шар" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Арьсан гадартай A5 дэвтэр</h2>
+        <p>PU арьсан зөөлөн гадартай, резинэн бэхэлгээтэй A5 дэвтэр. Дотор шугамтай цаас, үзэг углуулах хавчаартай.</p>
+        <ul class="features"><li>Хэмжээ: A5</li><li>Материал: PU арьсан гадартай, зузаан цаас</li><li>Өнгөний сонголт: Цэнхэр · Teal · Шар</li><li>Резинэн бэхэлгээ, үзэг углуулах хавчаартай</li><li>Лазер, UV хэвлэлээр нэр/лого хийх боломжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_notebook-a5" class="detail-stock-wrap"></div>
+        <div id="dp_notebook-a5" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Арьсан гадартай A5 дэвтэр" data-prints="Лазер хэвлэл|UV хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="notebook-pen-set">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Дэвтэр & Үзгийн бэлгийн хайрцаг сет</div>
+    <div class="detail-grid">
+      <div class="gallery gallery-one">
+        <div class="gallery-img"><img src="Blue-set.png" alt="Дэвтэр & Үзгийн бэлгийн хайрцаг сет" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Дэвтэр & Үзгийн бэлгийн хайрцаг сет</h2>
+        <p>A5 дэвтэр болон 2 үзэг (metal pen, stylus pen) багтсан, цэнхэр өнгийн тансаг хайрцагтай бэлгийн сет. Корпорат бэлэгт тохиромжтой.</p>
+        <ul class="features"><li>Агуулга: A5 дэвтэр + 2 үзэг</li><li>Тансаг хайрцагтай, бэлэг өгөхөд бэлэн</li><li>Цэнхэр өнгийн иж бүрэн загвар</li><li>Лазер, UV хэвлэлээр нэр/лого хийх боломжтой</li><li>Корпорат, тэмдэглэлт үйл явдлын бэлэгт тохиромжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_notebook-pen-set" class="detail-stock-wrap"></div>
+        <div id="dp_notebook-pen-set" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Дэвтэр & Үзгийн бэлгийн хайрцаг сет" data-prints="Лазер хэвлэл|UV хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="pen-set-box">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Металл үзэгний сет хайрцагтай</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="pen-set.png" alt="Металл үзэгний сет хайрцагтай" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="pen-set2.png" alt="Металл үзэгний сет хайрцагтай — нээлттэй" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Металл үзэгний сет хайрцагтай</h2>
+        <p>Хар өнгийн тансаг хайрцагтай, 2 металл үзэгний сет (rollerball pen, stylus pen). Танилцуулга, шагнал, бэлэгт тохиромжтой.</p>
+        <ul class="features"><li>Агуулга: 2 металл үзэг</li><li>Хар өнгийн тансаг хайрцагтай</li><li>Лазер, UV хэвлэлээр нэр/лого сийлэх боломжтой</li><li>Шагнал, танилцуулга, корпорат бэлэгт тохиромжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_pen-set-box" class="detail-stock-wrap"></div>
+        <div id="dp_pen-set-box" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Металл үзэгний сет хайрцагтай" data-prints="Лазер хэвлэл|UV хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section" id="tote-bag">
+  <div class="detail-inner">
+    <div class="section-label" style="text-align:left;margin-bottom:1.5rem">✦ Даавуун тор</div>
+    <div class="detail-grid">
+      <div class="gallery" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="gallery-img"><img src="Tote-bag.png" alt="Даавуун тор" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="canvas_bag.jpg" alt="Даавуун тор — хэвлэлийн жишээ 1" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="canvas_bag3.jpg" alt="Даавуун тор — хэвлэлийн жишээ 2" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+        <div class="gallery-img"><img src="tor-bag.png" alt="Даавуун тор — хэвлэлийн жишээ 3" class="lb-img" onclick="openLightbox(this.src)" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
+      </div>
+      <div class="detail-content">
+        <h2>Даавуун тор</h2>
+        <p>Цагаан канвас даавуун тоут цүнх, урт бариултай. Сублимац хэвлэлээр лого, зураг хэвлэх боломжтой.</p>
+        <ul class="features"><li>Хэмжээ: 38×32см</li><li>Материал: 100% канвас даавуу, цагаан</li><li>Урт бариултай, олс зөөврийн цүнх</li><li>Сублимац хэвлэлээр лого, зураг хэвлэх боломжтой</li><li>Дэлгүүр, сурталчилгаа, бэлгийн уутанд тохиромжтой</li><li>Дизайны зөвлөгөө үнэгүй</li></ul>
+        <div id="ds_tote-bag" class="detail-stock-wrap"></div>
+        <div id="dp_tote-bag" class="detail-price-wrap"></div>
+        <div class="order-btns-wrap">
+          <button class="order-btn-online" onclick="openOrderModal(this)" data-product="Даавуун тор" data-prints="Сублимац хэвлэл">📦 Онлайн захиалга</button>
+          <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="order-btn-fb">✦ Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="portfolio-section" id="portfolio">
+  <div class="section-label">✦ Бидний ажлууд</div>
+  <div class="section-title">Хийгдсэн ажлын жишээ</div>
+  <div style="text-align:center;margin-bottom:1.5rem">
+    <button class="pf-toggle-btn" id="pf-toggle" onclick="togglePortfolio()">
+      <span id="pf-toggle-icon">▼</span> Ажлын жишээ харах
+    </button>
+  </div>
+  <div class="portfolio-body" id="portfolio-body">
+    <div class="portfolio-filters">
+      <button class="pf-btn active" data-filter="all">Бүгд</button>
+      <button class="pf-btn" data-filter="laser">🔆 Лазер хэвлэл</button>
+      <button class="pf-btn" data-filter="uv">🌈 UV хэвлэл</button>
+      <button class="pf-btn" data-filter="dtf">👕 DTF хэвлэл</button>
+      <button class="pf-btn" data-filter="biz">🖨️ Бизнес хэвлэл</button>
+      <button class="pf-btn" data-filter="keychain">🔑 Түлхүүрийн оосор</button>
+    </div>
+    <div class="portfolio-grid" id="portfolio-grid"></div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="section-label">✦ Хэрхэн ажилладаг вэ</div>
+  <div class="section-title">Захиалгын үйл явц</div>
+  <p style="color:rgba(15,23,42,0.58);font-size:15px;margin-top:0.4rem;margin-bottom:0">Энгийн 4 алхамаар захиалгаа өгнө үү</p>
+  <div class="road-steps">
+    <div class="road-step">
+      <div class="rs-bubble"><span class="rs-icon">📞</span><span class="rs-num">01</span></div>
+      <div class="rs-card"><h3>Холбоо барих</h3><p>86681144 дугаарт залгах эсвэл Facebook-т бичих</p></div>
+    </div>
+    <div class="road-connector"></div>
+    <div class="road-step">
+      <div class="rs-bubble"><span class="rs-icon">🎨</span><span class="rs-num">02</span></div>
+      <div class="rs-card"><h3>Дизайн тохирох</h3><p>Лого болон хэвлэлтийн дизайнаа хамтран тохирно</p></div>
+    </div>
+    <div class="road-connector"></div>
+    <div class="road-step">
+      <div class="rs-bubble"><span class="rs-icon">⚙️</span><span class="rs-num">03</span></div>
+      <div class="rs-card"><h3>Үйлдвэрлэл</h3><p>Батлагдсан дизайнаар үйлдвэрлэл эхэлнэ</p></div>
+    </div>
+    <div class="road-connector"></div>
+    <div class="road-step">
+      <div class="rs-bubble"><span class="rs-icon">🎁</span><span class="rs-num">04</span></div>
+      <div class="rs-card"><h3>Хүлээн авах</h3><p>Бэлэн болмогц хүргэж өгөх эсвэл очиж авах</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Захиалга өгөхөд бэлэн үү?</h2>
+  <p>Та манайтай холбогдоод захиалгаа өгнө үү. Лого болон хэвлэлтийн дизайныг тохирч ажиллана. Манайхаас бүтээгдэхүүн сонговол хэвлэл үнэгүй!</p>
+  <div class="contact-info">
+    <a href="tel:86681144" class="contact-item">
+      <span class="ci-icon">📞</span>
+      <strong>Утас</strong>
+      <span class="ci-val">86681144</span>
+    </a>
+    <div class="contact-item">
+      <span class="ci-icon">🖨️</span>
+      <strong>Хэвлэлийн төрөл</strong>
+      <span class="ci-val">Лазер · UV · DTF</span>
+    </div>
+    <div class="contact-item">
+      <span class="ci-icon">📍</span>
+      <strong>Хаяг</strong>
+      <span class="ci-val">БЗД, 16-р хороолол</span>
+    </div>
+    <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="contact-item">
+      <span class="ci-icon">👍</span>
+      <strong>Facebook</strong>
+      <span class="ci-val">Page руу орох →</span>
+    </a>
+  </div>
+  <div class="contact-btns">
+    <a href="tel:86681144" class="btn-white">📞 86681144 Утасдах</a>
+    <a href="https://www.facebook.com/profile.php?id=100063665375091" target="_blank" class="btn-ghost" style="background:#1877F2;border-color:#1877F2;color:#fff;">Facebook захиалга өгөх</a>
+
+    <!-- Сублимац хэвлэл panel -->
+    <div class="svc-panel" id="svc-sublim">
+      <div>
+        <p class="svc-panel-desc">Дулаан болон даралтын тусламжтайгаар тусгай будгийг полиэстер эдлэл эсвэл бүрсэн гадаргуу дээр шингээдэг аргачлал. Тод өнгө, фото чанарын дүрс, удаан тэсвэртэй.</p>
+        <ul class="svc-features">
+          <li>Аяга, дэлгэцний хамгаалалт, утасны бүрэх дээр хэвлэнэ</li>
+          <li>Бүрэн өнгөт фото чанарын хэвлэл</li>
+          <li>Угаалтанд, гэрлийн нөлөөнд тэсвэртэй</li>
+          <li>Жижиг болон дунд хэмжээний захиалгыг хүлээн авна</li>
+          <li>Дизайны зөвлөгөө үнэгүй</li>
+        </ul>
+      </div>
+      <div class="svc-panel-right">
+        <div class="svc-panel-icon">🌡️</div>
+        <div class="svc-panel-title">Сублимац хэвлэл</div>
+        <div class="svc-panel-sub">Дулаан дамжуулалт · Фото чанар</div>
+        <div class="svc-mat-label">Хэвлэх боломжтой материал</div>
+        <div class="svc-panel-mats">
+          <span class="svc-mat">Дулааны аяга</span>
+          <span class="svc-mat">Утасны бүрэх</span>
+          <span class="svc-mat">Дэлгэцний хамгаалалт</span>
+          <span class="svc-mat">Полиэстер даавуу</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">✦ ЛАЗЕР ХЭВЛЭЛ</div>
+  <div>© 2026 · Бүх эрх хуулиар хамгаалагдсан · 86681144</div>
+</footer>
+
+
+
+
+
+<div id="prodEditModal" onclick="if(event.target===this)closeProdEdit()">
+  <div id="prodEditBox">
+    <button class="modal-close" onclick="closeProdEdit()" style="position:absolute;top:1rem;right:1rem">&#x2715;</button>
+    <h3>&#x270E; Бүтээгдэхүүний мэдээлэл засах</h3>
+    <input type="hidden" id="pedit_pid">
+    <div class="pedit-label">Бүтээгдэхүүний нэр</div>
+    <input class="pedit-input" id="pedit_name" type="text" placeholder="Нэр">
+    <div class="pedit-label">Тайлбар</div>
+    <textarea class="pedit-input" id="pedit_desc" rows="3" placeholder="Тайлбар текст"></textarea>
+    <div class="pedit-label">Онцлогууд <span class="pedit-hint">(мөр бүрт нэг онцлог)</span></div>
+    <textarea class="pedit-input" id="pedit_features" rows="6" placeholder="Онцлог 1&#10;Онцлог 2&#10;Онцлог 3"></textarea>
+    <button class="btn-auth" style="margin-top:1.25rem" onclick="saveProdEdit()">&#x2713; Хадгалах</button>
+  </div>
+</div>
+
+<!-- Auth Modal -->
+<div id="authModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeAuthModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAuthModal()">&#x2715;</button>
+    <div class="modal-title">&#x1F44B; Тавтай морилно уу</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')">Нэвтрэх</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')">Бүртгүүлэх</button>
+    </div>
+    <div id="loginTab" class="tab-content active">
+      <div class="form-group"><label class="form-label">Имэйл</label><input class="form-input" type="email" id="loginEmail" placeholder="example@gmail.com"></div>
+      <div class="form-group"><label class="form-label">Нууц үг</label><input class="form-input" type="password" id="loginPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+      <div class="auth-err" id="loginErr"></div>
+      <button class="btn-auth" onclick="doLogin()">Нэвтрэх</button>
+    </div>
+    <div id="registerTab" class="tab-content">
+      <div class="form-group"><label class="form-label">Нэр</label><input class="form-input" type="text" id="regName" placeholder="Таны нэр"></div>
+      <div class="form-group"><label class="form-label">Утасны дугаар</label><input class="form-input" type="tel" id="regPhone" placeholder="8868XXXX"></div>
+      <div class="form-group"><label class="form-label">Имэйл</label><input class="form-input" type="email" id="regEmail" placeholder="example@gmail.com"></div>
+      <div class="form-group"><label class="form-label">Нууц үг</label><input class="form-input" type="password" id="regPassword" placeholder="Дор хаяж 6 тэмдэгт"></div>
+      <div class="auth-err" id="regErr"></div>
+      <button class="btn-auth" onclick="doRegister()">Бүртгүүлэх</button>
+    </div>
+  </div>
+</div>
+
+<!-- Order Modal -->
+<div id="orderModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeOrderModal()">
+  <div class="order-modal-box">
+    <button class="modal-close" onclick="closeOrderModal()">&#x2715;</button>
+    <div class="modal-title">&#x1F4E6; Захиалга өгөх</div>
+    <div class="form-group" id="orderProductGroup"><label class="form-label">Бүтээгдэхүүн</label>
+      <select class="form-select" id="orderProduct">
+        <option value="">— Сонгох —</option>
+        <option>Дурсгалын медаллион</option>
+        <option>Термо усны сав 580мл</option>
+        <option>Термо сав 300мл — 4 өнгө</option>
+        <option>Тэмдэглэлийн дэвтэр &amp; Бал сет</option>
+        <option>Тансаг үзэг хайрцагтай</option>
+        <option>Нарийн металл үзэг</option>
+        <option>Кабелийн SS тэмдэглэгээ</option>
+        <option>Стейнли загвартай термо аяга</option>
+        <option>Арьсан тэмдэглэлийн дэвтэр</option>
+        <option>Арьсан хавтастай нимгэн дэвтэр</option>
+        <option>Аялалын кофены ган аяга</option>
+        <option>Олон үйлдэлт түлхүүрийн оосор</option>
+        <option>Металл түлхүүрийн оосор</option>
+        <option>Дугуй badge түлхүүрийн оосор</option>
+        <option>Цайны шүүртэй ган усны сав</option>
+        <option>Зураг хэвлэх боломжтой ган зүүлт</option>
+        <option>Цагаан цаасан уут</option>
+        <option>Name necklace — нэрийн зүүлт</option>
+        <option>Японы загварын термо сав</option>
+        <option>Owala загварын кофены аяга</option>
+        <option>Сублимац аяга 590мл</option>
+        <option>Захиалгат шаазан аяга</option>
+        <option>PVC үнэмлэх</option>
+      </select>
+    </div>
+    <div class="form-group" id="orderProductDisplay" style="display:none"><label class="form-label">Бүтээгдэхүүн</label><div style="padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;background:#f8fafc;font-weight:600;color:#0f172a" id="orderProductName"></div></div>
+    <div class="form-group"><label class="form-label">Хэвлэлийн төрөл</label>
+      <select class="form-select" id="orderPrintType">
+        <option value="">— Сонгох —</option>
+        <option>Лазер хэвлэл</option>
+        <option>UV хэвлэл</option>
+        <option>DTF хэвлэл</option>
+        <option>Сублимац хэвлэл</option>
+        <option>Бизнес хэвлэл</option>
+      </select>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="form-group"><label class="form-label">Тоо ширхэг</label><input class="form-input" type="number" id="orderQty" min="1" value="1" oninput="updateOrderPrice()"></div>
+      <div class="form-group"><label class="form-label">Өнгө / Хэмжээ</label><input class="form-input" type="text" id="orderVariant" placeholder="Хар, A5..."></div>
+    </div>
+    <div id="orderPriceInfo" style="display:none;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:10px 16px;margin-bottom:0.5rem;font-size:14px;color:#15803d"></div>
+    <div class="form-group"><label class="form-label">Лого / Дизайн тайлбар</label><textarea class="form-input" id="orderDesign" rows="2" placeholder="Ямар лого, текст, дизайн хэвлэх вэ?"></textarea></div>
+    <div class="form-group"><label class="form-label">Нэмэлт тайлбар</label><textarea class="form-input" id="orderNote" rows="2" placeholder="Онцгой хүсэлт..."></textarea></div>
+    <div class="form-group"><label class="form-label">Хүргэлт</label>
+      <select class="form-select" id="orderDelivery" onchange="toggleAddress()">
+        <option value="pickup">Очиж авна (БЗД, 16-р хороолол)</option>
+        <option value="delivery">Хүргэлтээр авна</option>
+      </select>
+    </div>
+    <div class="form-group" id="addressGroup" style="display:none"><label class="form-label">Хүргэлтийн хаяг</label><input class="form-input" type="text" id="orderAddress" placeholder="Дүүрэг, хороо, байр, тоот..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="form-group"><label class="form-label">Нэр</label><input class="form-input" type="text" id="orderName" placeholder="Таны нэр"></div>
+      <div class="form-group"><label class="form-label">Утас</label><input class="form-input" type="tel" id="orderPhone" placeholder="8868XXXX"></div>
+    </div>
+    <div class="auth-err" id="orderErr"></div>
+    <button class="btn-auth" onclick="submitOrder()">&#x2713; Захиалга илгээх</button>
+  </div>
+</div>
+
+<!-- My Orders Modal -->
+<div id="ordersModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeOrdersModal()">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeOrdersModal()">&#x2715;</button>
+    <div class="modal-title" id="ordersModalTitle">&#x1F4CB; Миний захиалгууд</div>
+    <div id="ordersList" class="orders-list"><div style="text-align:center;color:#94a3b8;padding:2rem">Уншиж байна...</div></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+
+
+
+<!-- Stock Modal -->
+<div id="priceModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closePriceModal()">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closePriceModal()">&#x2715;</button>
+    <div class="modal-title">&#x1F4B0; &#x04AE;&#x043D;&#x044D; &#x0442;&#x043E;&#x0445;&#x0438;&#x0440;&#x0443;&#x0443;&#x043B;&#x0430;&#x0445;</div>
+    <div style="font-size:12px;color:#94a3b8;margin-bottom:0.5rem">&#x0424;&#x043E;&#x0440;&#x043C;&#x0430;&#x0442;: 1-10:5000,11-50:4000,51+:3000 &nbsp;(&#x0448;&#x0438;&#x0440;&#x0445;&#x044D;&#x0433;:&#x0442;&#x04E9;&#x0433;&#x0440;&#x04E9;&#x0433;)</div>
+    <div id="priceList" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0.5rem"></div>
+    <button class="btn-auth" style="margin-top:1rem" onclick="saveAllPrices()">&#x2713; &#x0411;&#x04AF;&#x0433;&#x0434;&#x0438;&#x0439;&#x0433; &#x0445;&#x0430;&#x0434;&#x0433;&#x0430;&#x043B;&#x0430;&#x0445;</button>
+  </div>
+</div>
+
+<div id="stockModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeStockModal()">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeStockModal()">&#x2715;</button>
+    <div class="modal-title">&#x1F4E6; Үлдэгдэл тохируулах</div>
+    <div id="stockList" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem"></div>
+    <button class="btn-auth" style="margin-top:1rem" onclick="saveAllStock()">&#x2713; Бүгдийг хадгалах</button>
+  </div>
+</div>
+
+<div id="detail-screen"></div>
+
+
+
+</body>
+</html>

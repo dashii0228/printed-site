@@ -1,0 +1,34 @@
+kind = "web"
+previewPath = "/"
+title = "Multi-page Site"
+description = "An imported website organized into separate pages connected through clear navigation and working hyperlinks."
+version = "1.0.0"
+id = "artifacts/multi-page-site"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26129
+
+[services.development]
+run = "pnpm --filter @workspace/multi-page-site run dev"
+
+[services.production]
+serve = "static"
+publicDir = "artifacts/multi-page-site/dist/public"
+
+[services.production.build]
+args = [ "pnpm", "--filter", "@workspace/multi-page-site", "run", "build" ]
+
+[services.production.build.env]
+PORT = "26129"
+BASE_PATH = "/"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26129"
+BASE_PATH = "/"

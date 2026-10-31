@@ -1,0 +1,298 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: admin
+    description: Admin access checks
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /admin/access:
+    get:
+      operationId: getAdminAccess
+      tags: [admin]
+      summary: Check admin access
+      description: Confirms that the signed-in user has server-verified admin access
+      responses:
+        "200":
+          description: Admin access confirmed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminAccess"
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "503":
+          description: Admin access verification is unavailable
+  /portfolio/changes:
+    get:
+      operationId: getPortfolioChanges
+      tags: [portfolio]
+      summary: Get portfolio edits
+      description: Returns saved edits for the existing portfolio works
+      responses:
+        "200":
+          description: Saved portfolio edits
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioWorkOverrides"
+        "503":
+          description: Portfolio edits are unavailable
+  /admin/portfolio:
+    get:
+      operationId: getAdminPortfolio
+      tags: [admin, portfolio]
+      summary: List editable portfolio works
+      description: Returns saved edits for existing portfolio works
+      responses:
+        "200":
+          description: Saved portfolio edits
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioWorkOverrides"
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "503":
+          description: Portfolio edits are unavailable
+  /admin/portfolio/{id}:
+    put:
+      operationId: updatePortfolioWork
+      tags: [admin, portfolio]
+      summary: Update an existing portfolio work
+      description: Updates text, category, and image for an existing work; does not add or remove works
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: "^work-[0-9]{3}$"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePortfolioWorkRequest"
+      responses:
+        "200":
+          description: Updated portfolio work
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioWorkOverride"
+        "400":
+          description: Invalid work data
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "404":
+          description: Portfolio work not found
+        "503":
+          description: Portfolio edit could not be saved
+  /admin/portfolio-images/upload-url:
+    post:
+      operationId: createPortfolioImageUpload
+      tags: [admin, portfolio]
+      summary: Create a portfolio image upload URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortfolioImageUploadBody"
+      responses:
+        "200":
+          description: Upload URL created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioImageUploadResponse"
+        "400":
+          description: Invalid image upload
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "503":
+          description: Image storage unavailable
+  /admin/portfolio-images/complete:
+    post:
+      operationId: completePortfolioImageUpload
+      tags: [admin, portfolio]
+      summary: Publish a portfolio image upload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortfolioImageCompleteBody"
+      responses:
+        "200":
+          description: Image published
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioImageCompleteResponse"
+        "400":
+          description: Invalid or missing image
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "503":
+          description: Image could not be published
+  /storage/portfolio-images/{id}:
+    get:
+      operationId: getPortfolioImage
+      tags: [portfolio]
+      summary: Get a published portfolio image
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Portfolio image bytes
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Image not found
+        "503":
+          description: Image storage unavailable
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    AdminAccess:
+      type: object
+      properties:
+        isAdmin:
+          type: boolean
+        role:
+          type: string
+          enum: [admin]
+      required:
+        - isAdmin
+        - role
+    PortfolioWorkCategory:
+      type: string
+      enum: [laser, uv, dtf, business]
+    PortfolioWorkOverride:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: "^work-[0-9]{3}$"
+        image:
+          type: string
+          minLength: 1
+          maxLength: 500
+        title:
+          type: string
+          minLength: 1
+          maxLength: 160
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        category:
+          $ref: "#/components/schemas/PortfolioWorkCategory"
+      required: [id, image, title, description, category]
+    PortfolioWorkOverrides:
+      type: array
+      items:
+        $ref: "#/components/schemas/PortfolioWorkOverride"
+    UpdatePortfolioWorkRequest:
+      type: object
+      properties:
+        image:
+          type: string
+          minLength: 1
+          maxLength: 500
+        title:
+          type: string
+          minLength: 1
+          maxLength: 160
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        category:
+          $ref: "#/components/schemas/PortfolioWorkCategory"
+      required: [image, title, description, category]
+    PortfolioImageUploadBody:
+      type: object
+      properties:
+        contentType:
+          type: string
+          enum: [image/png, image/jpeg, image/webp, image/gif]
+        size:
+          type: integer
+          minimum: 1
+          maximum: 8388608
+      required: [contentType, size]
+    PortfolioImageUploadResponse:
+      type: object
+      properties:
+        uploadUrl:
+          type: string
+          format: uri
+        imageUrl:
+          type: string
+        uploadFields:
+          type: object
+          description: Signed multipart fields for POST uploads. If absent, use a binary PUT.
+          additionalProperties:
+            type: string
+      required: [uploadUrl, imageUrl]
+    PortfolioImageCompleteBody:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+      required: [id]
+    PortfolioImageCompleteResponse:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+      required: [imageUrl]
+
