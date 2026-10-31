@@ -94,12 +94,7 @@ function AccountNavigation({ onNavigate }: { onNavigate: () => void }) {
     return () => { active = false; };
   }, [isLoaded, isSignedIn, user?.id]);
 
-  if (!isLoaded) return null;
-  if (!isSignedIn) {
-    return <div className="nav-auth-links">
-      <Link href="/sign-up" onClick={onNavigate}>Нэвтрэх</Link>
-    </div>;
-  }
+  if (!isLoaded || !isSignedIn) return null;
 
   return <div className="nav-auth-links">
     {isAdmin && <Link href="/admin" onClick={onNavigate}>Админ хэсэг</Link>}
