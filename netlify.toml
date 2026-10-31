@@ -9,7 +9,6 @@ PORT = "26129"
 
 [functions]
 directory = "artifacts/api-server/netlify/functions"
-external_node_modules = ["express"]
 node_bundler = "esbuild"
 
 [[redirects]]
