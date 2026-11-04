@@ -51,6 +51,32 @@ after(async () => {
   await server?.close();
 });
 
+test('homepage shows bundled image slides when Netlify data APIs fail', async () => {
+  const page = await browser!.newPage();
+  try {
+    for (const endpoint of ['/api/products/changes', '/api/portfolio/changes', '/api/catalog/deletions']) {
+      await page.route(`**${endpoint}`, (route) => route.fulfill({
+        status: 503,
+        contentType: 'application/json',
+        body: '{"error":"unavailable"}',
+      }));
+    }
+    await page.goto(`${baseUrl}/`, { waitUntil: 'domcontentloaded' });
+    const cards = page.locator('.hero-carousel-card');
+    await cards.first().waitFor();
+
+    assert.ok(await cards.count() >= 3, 'The carousel should use bundled product and portfolio images.');
+    assert.equal(await page.locator('.hero-carousel-fallback').count(), 0, 'The old banner should not replace the carousel.');
+    assert.match(
+      await cards.first().locator('.hero-carousel-image').getAttribute('src') ?? '',
+      /\/images\//,
+      'The fallback slide should load from the bundled site images.',
+    );
+  } finally {
+    await page.close();
+  }
+});
+
 test('homepage carousel advances automatically and has working previous/next controls', async () => {
   const page = await browser!.newPage({ reducedMotion: 'no-preference' });
   page.setDefaultTimeout(12_000);

@@ -767,7 +767,10 @@ function Home() {
       });
     return () => { active = false; };
   }, []);
-  const heroSlides = buildHomeHeroSlides(catalog.products, portfolioWorks);
+  const heroSlides = buildHomeHeroSlides(
+    catalog.error ? products : catalog.products,
+    portfolioLoadError ? PORTFOLIO_WORK : portfolioWorks,
+  );
   return <Shell>
     <section className="hero"><div className="hero-inner">
       <div><Eyebrow>Хэвлэл · Сийлбэр · Бэлэг</Eyebrow><h1>Таны санааг<br/><em>бодит болгоно.</em></h1><p className="hero-copy">Лазер болон дижитал хэвлэлийн шийдэл, байгууллагын брэнд бүтээгдэхүүн — нэг дороос.</p>
