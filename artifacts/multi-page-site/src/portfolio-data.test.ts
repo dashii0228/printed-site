@@ -19,7 +19,7 @@ test('Бүгд includes every portfolio example exactly once', () => {
   const allWork = filterPortfolioWork('all');
 
   assert.deepEqual(allWork, PORTFOLIO_WORK);
-  assert.equal(allWork.length, 47, 'update this expected count when intentionally changing the gallery');
+  assert.equal(allWork.length, 55, 'update this expected count when intentionally changing the gallery');
   assert.equal(allWork.length, PORTFOLIO_WORK.length);
   assert.equal(new Set(allWork.map((item) => item.image)).size, allWork.length);
 });
@@ -66,7 +66,14 @@ test('every portfolio example exposes one or more valid material tags', () => {
 test('material filters match material tags and include steel in the broader metal filter', () => {
   assert.deepEqual(
     filterPortfolioWork('all', '', 'fabric').map((item) => item.image),
-    ['portfolio-tote.webp', 'portfolio-dtf-samples.webp', 'portfolio-dtf-overview.webp'],
+    [
+      'portfolio-tote.webp',
+      'portfolio-dtf-samples.webp',
+      'portfolio-dtf-overview.webp',
+      'portfolio-evipo-tote.webp',
+      'portfolio-bukh-tulga-tote.webp',
+      'portfolio-custom-tote-series.webp',
+    ],
   );
   const steelWork = filterPortfolioWork('all', '', 'steel');
   const metalWork = filterPortfolioWork('all', '', 'metal');
@@ -88,6 +95,8 @@ test('material filters combine with print categories and can be cleared', () => 
       'portfolio-khaan-buuz-cups-01.webp',
       'portfolio-khaan-buuz-cups-02.webp',
       'portfolio-logo-thermos-series.webp',
+      'portfolio-ubcab-name-thermos.webp',
+      'portfolio-koica-thermos-series.webp',
     ],
   );
   assert.deepEqual(filterPortfolioWork('laser', '', 'fabric'), []);
@@ -104,6 +113,14 @@ test('new supplied portfolio examples are listed with their intended categories'
     ['portfolio-heritage-mongolia-badges.webp', 'uv'],
     ['portfolio-custom-message-thermos-cups.webp', 'uv'],
     ['portfolio-ecm-branded-card.webp', 'business'],
+    ['portfolio-duvision-languagecert-notebooks.webp', 'business'],
+    ['portfolio-blue-notebook-gift-set.webp', 'business'],
+    ['portfolio-evipo-tote.webp', 'dtf'],
+    ['portfolio-bukh-tulga-tote.webp', 'dtf'],
+    ['portfolio-custom-tote-series.webp', 'dtf'],
+    ['portfolio-laom-keychain-2026.webp', 'laser'],
+    ['portfolio-ubcab-name-thermos.webp', 'laser'],
+    ['portfolio-koica-thermos-series.webp', 'laser'],
   ]);
 
   for (const [image, category] of expectedCategories) {

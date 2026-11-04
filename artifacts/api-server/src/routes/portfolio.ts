@@ -22,6 +22,7 @@ import {
   streamPortfolioImage,
 } from "../lib/productImageStorage";
 import { requireAdmin } from "./admin";
+import { isCatalogEntryDeleted } from "../lib/catalogDeletions";
 
 const router: IRouter = Router();
 
@@ -70,6 +71,10 @@ router.put("/admin/portfolio/:id", requireAdmin, async (req, res): Promise<void>
   }
 
   try {
+    if (await isCatalogEntryDeleted("portfolio", parsedParams.data.id)) {
+      res.status(409).json({ error: "Энэ бүтээл устгагдсан тул засах боломжгүй." });
+      return;
+    }
     const [saved] = await db
       .insert(sitePortfolioTable)
       .values({ id: parsedParams.data.id, ...parsedBody.data, updatedAt: new Date() })

@@ -1,5 +1,6 @@
 import { uploadImageFile } from "../upload-image";
 import { useAdminFetch } from "../use-admin-fetch";
+import { filterDeletedEntries, loadCatalogDeletions } from "../catalog-deletions";
 import { useEffect, useState, type FormEvent } from "react";
 import { ImagePlus, Pencil, Save, X } from "lucide-react";
 import { getImageUrl } from "../image-url";
@@ -34,17 +35,19 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
   const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
-    adminFetch("/api/admin/portfolio")
+    Promise.all([adminFetch("/api/admin/portfolio")
       .then(async (response) => {
         if (!response.ok) throw new Error("Бүтээлийн сангийн жагсаалтыг ачаалж чадсангүй.");
         return response.json() as Promise<PortfolioWorkOverride[]>;
-      })
-      .then((changes) => {
+      }), loadCatalogDeletions()])
+      .then(([changes, deletions]) => {
         if (active) {
-          setWorks(mergePortfolioWork(initialWorks, changes));
+          setWorks(filterDeletedEntries(mergePortfolioWork(initialWorks, changes),
+            deletions, "portfolio", (item) => item.id));
           setLoadError("");
         }
       })
@@ -79,6 +82,22 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
     if (saving) return;
     setEditing(null);
     setImageFile(null);
+  };
+
+  const deleteWork = async (work: PortfolioWorkItem) => {
+    if (deletingId || !window.confirm(`“${work.title}” бүтээлийг устгах уу?\nБаталсны дараа бүтээлийн сангаас хасагдана. Зургийн файл устахгүй.`)) return;
+    setDeletingId(work.id);
+    setMessage("");
+    try {
+      const response = await adminFetch(`/api/admin/portfolio/${encodeURIComponent(work.id)}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Бүтээлийг устгаж чадсангүй. Дахин оролдоно уу.");
+      setWorks((current) => current.filter((item) => item.id !== work.id));
+      setMessage(`“${work.title}” бүтээл устгагдлаа.`);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Устгах үед алдаа гарлаа.");
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   const saveWork = async (event: FormEvent<HTMLFormElement>) => {
@@ -142,14 +161,15 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
       <div className="admin-products-heading">
         <div>
           <p className="eyebrow">БҮТЭЭЛИЙН САН</p>
-          <h2 id="admin-portfolio-heading">Одоо байгаа бүтээл засах</h2>
+          <h2 id="admin-portfolio-heading">Бүтээлийн сан удирдах</h2>
         </div>
-        <p className="admin-portfolio-hint">Бүтээл нэмэх, хасах боломжгүй.</p>
+        <p className="admin-portfolio-hint">Бүтээлийн мэдээлэл, зураг засах болон устгах боломжтой.</p>
       </div>
+      {message && <p className="admin-manager-state" role="status">{message}</p>}
       {loadError && <p className="admin-manager-state admin-manager-error" role="alert">{loadError}</p>}
       {loading ? (
         <p className="admin-manager-state" role="status">Бүтээлийн сан ачаалж байна…</p>
-      ) : (
+      ) : loadError ? null : (
         <div className="admin-product-list">
           {works.map((work) => (
             <article className="admin-product-row" key={work.id}>
@@ -158,15 +178,21 @@ export function PortfolioManager({ initialWorks }: { initialWorks: PortfolioWork
                 <span>{portfolioCategoryLabels[work.category]}</span>
                 <h3>{work.title}</h3>
               </div>
-              <button type="button" className="admin-edit-button" onClick={() => startEdit(work)}>
+              <div className="admin-row-actions">
+              <button type="button" className="admin-edit-button" onClick={() => startEdit(work)} disabled={deletingId !== null}>
                 <Pencil size={15} /> Засах
               </button>
+              <button type="button" className="admin-edit-button admin-delete-button"
+                disabled={deletingId !== null} onClick={() => void deleteWork(work)}
+                aria-label={`Устгах: ${work.title}`}>
+                {deletingId === work.id ? "Устгаж байна…" : "Устгах"}
+              </button>
+              </div>
             </article>
           ))}
         </div>
       )}
-      {message && <p className="admin-manager-state" role="status">{message}</p>}
-
+      {!loading && !loadError && works.length === 0 && <p className="admin-manager-state">Бүтээлийн сан хоосон байна.</p>}
       {editing && (
         <div className="admin-editor-backdrop" role="presentation" onMouseDown={(event) => {
           if (event.target === event.currentTarget) closeEditor();

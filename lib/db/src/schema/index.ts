@@ -1,4 +1,10 @@
-import { integer, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
+
+export const siteCatalogDeletionsTable = pgTable("site_catalog_deletions", {
+  kind: text("kind").$type<"product" | "portfolio">().notNull(),
+  id: text("id").notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [primaryKey({ columns: [table.kind, table.id] })]);
 
 export type ProductImage = { image: string; label: string };
 export type ProductSpec = { label: string; value: string };

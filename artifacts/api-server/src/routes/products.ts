@@ -11,6 +11,7 @@ import {
   streamProductImage,
 } from "../lib/productImageStorage";
 import { requireAdmin } from "./admin";
+import { isCatalogEntryDeleted } from "../lib/catalogDeletions";
 
 const router: IRouter = Router();
 const productCategories = new Set([
@@ -147,6 +148,10 @@ router.put("/admin/products/:id", requireAdmin, async (req: Request, res: Respon
   }
 
   try {
+    if (await isCatalogEntryDeleted("product", id)) {
+      res.status(409).json({ error: "Энэ бүтээгдэхүүн устгагдсан тул засах боломжгүй." });
+      return;
+    }
     const [saved] = await db
       .insert(siteProductsTable)
       .values({ ...product, updatedAt: new Date() })

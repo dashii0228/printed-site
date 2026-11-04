@@ -34,6 +34,10 @@ try {
       assert.equal(access.statusCode, 401);
       assert.deepEqual(JSON.parse(access.body), { error: "Sign in is required." });
       assert.equal(access.headers["cache-control"], "no-store");
+      for (const path of ["/api/admin/products/test-product", "/api/admin/portfolio/work-001"]) {
+        const deleted = await handler({ ...request, path, httpMethod: "DELETE" }, {});
+        assert.equal(deleted.statusCode, 401, "Deletion requires verified admin access");
+      }
     }).catch(error => { console.error(error); process.exitCode = 1; });
   `;
   const cases = [

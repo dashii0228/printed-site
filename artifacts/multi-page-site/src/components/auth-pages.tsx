@@ -7,6 +7,7 @@ import { getImageUrl } from "../image-url";
 import type { PortfolioWorkItem } from "../portfolio-data";
 import { PortfolioManager } from "./portfolio-admin";
 import { uploadImageFile } from "../upload-image";
+import { filterDeletedEntries, loadCatalogDeletions } from "../catalog-deletions";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 const imageUrl = (name: string) => getImageUrl(name, import.meta.env.BASE_URL);
@@ -157,7 +158,7 @@ export function AdminPage({
               <strong>{user?.primaryEmailAddress?.emailAddress ?? "Бүртгэлтэй хэрэглэгч"}</strong>
             </p>
             <p className="admin-notice">
-              Бүтээгдэхүүн нэмэх, мэдээлэл болон үндсэн зургийг засах эрх зөвхөн админд нээлттэй.
+              Бүтээгдэхүүн нэмэх, мэдээлэл болон зураг засах, бүтээгдэхүүн болон бүтээл устгах эрх зөвхөн админд нээлттэй.
             </p>
             <ProductManager initialProducts={initialProducts} />
             <PortfolioManager initialWorks={initialPortfolio} />
@@ -251,17 +252,19 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
   const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
-    adminFetch("/api/admin/products")
+    Promise.all([adminFetch("/api/admin/products")
       .then(async (response) => {
         if (!response.ok) throw new Error("Бүтээгдэхүүний жагсаалтыг ачаалж чадсангүй.");
         return response.json() as Promise<AdminManagedProduct[]>;
-      })
-      .then((stored) => {
+      }), loadCatalogDeletions()])
+      .then(([stored, deletions]) => {
         if (active) {
-          setProducts(mergeAdminProducts(initialProducts, stored));
+          setProducts(filterDeletedEntries(mergeAdminProducts(initialProducts, stored),
+            deletions, "product", (item) => item.id));
           setLoadError("");
         }
       })
@@ -318,6 +321,22 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
     if (saving) return;
     setEditing(null);
     setImageFile(null);
+  };
+
+  const deleteProduct = async (product: AdminManagedProduct) => {
+    if (deletingId || !window.confirm(`“${product.name}” бүтээгдэхүүнийг устгах уу?\nБаталсны дараа сайтаас хасагдана. Зургийн файл устахгүй.`)) return;
+    setDeletingId(product.id);
+    setMessage("");
+    try {
+      const response = await adminFetch(`/api/admin/products/${encodeURIComponent(product.id)}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Бүтээгдэхүүнийг устгаж чадсангүй. Дахин оролдоно уу.");
+      setProducts((current) => current.filter((item) => item.id !== product.id));
+      setMessage(`“${product.name}” бүтээгдэхүүн устгагдлаа.`);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Устгах үед алдаа гарлаа.");
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   const saveProduct = async (event: FormEvent<HTMLFormElement>) => {
@@ -402,10 +421,11 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
           <p className="eyebrow">КАТАЛОГ</p>
           <h2 id="admin-products-heading">Бүтээгдэхүүн удирдах</h2>
         </div>
-        <button type="button" className="admin-primary-button" onClick={startNew}>
+        <button type="button" className="admin-primary-button" onClick={startNew} disabled={deletingId !== null}>
           <Plus size={17} /> Шинэ бүтээгдэхүүн
         </button>
       </div>
+      {message && <p className="admin-manager-state" role="status">{message}</p>}
       {loading ? (
         <p className="admin-manager-state" role="status">Бүтээгдэхүүн ачаалж байна…</p>
       ) : loadError ? (
@@ -419,15 +439,21 @@ function ProductManager({ initialProducts }: { initialProducts: AdminManagedProd
                 <span>{product.category}</span>
                 <h3>{product.name}</h3>
               </div>
-              <button type="button" className="admin-edit-button" onClick={() => startEdit(product)}>
+              <div className="admin-row-actions">
+              <button type="button" className="admin-edit-button" onClick={() => startEdit(product)} disabled={deletingId !== null}>
                 <Pencil size={15} /> Засах
               </button>
+              <button type="button" className="admin-edit-button admin-delete-button"
+                disabled={deletingId !== null} onClick={() => void deleteProduct(product)}
+                aria-label={`Устгах: ${product.name}`}>
+                {deletingId === product.id ? "Устгаж байна…" : "Устгах"}
+              </button>
+              </div>
             </article>
           ))}
         </div>
       )}
-      {message && <p className="admin-manager-state" role="status">{message}</p>}
-
+      {!loading && !loadError && products.length === 0 && <p className="admin-manager-state">Бүтээгдэхүүн байхгүй байна.</p>}
       {editing && (
         <div className="admin-editor-backdrop" role="presentation" onMouseDown={(event) => {
           if (event.target === event.currentTarget) closeEditor();

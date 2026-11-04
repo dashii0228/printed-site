@@ -8,6 +8,8 @@
 
 export * from './adminAccess';
 export * from './adminAccessRole';
+export * from './catalogDeletion';
+export * from './catalogDeletionKind';
 export * from './healthStatus';
 export * from './portfolioImageCompleteBody';
 export * from './portfolioImageCompleteResponse';

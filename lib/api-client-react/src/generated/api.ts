@@ -26,6 +26,7 @@ import type {
 
 import type {
   AdminAccess,
+  CatalogDeletion,
   HealthStatus,
   PortfolioImageCompleteBody,
   PortfolioImageCompleteResponse,
@@ -62,6 +63,181 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getGetCatalogDeletionsUrl = () => {
+
+
+
+
+  return `/api/catalog/deletions`
+}
+
+/**
+ * @summary List removed catalog entries
+ */
+export const getCatalogDeletions = async ( options?: Parameters<typeof customFetch>[1]): Promise<CatalogDeletion[]> => {
+
+  return customFetch<CatalogDeletion[]>(getGetCatalogDeletionsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetCatalogDeletionsQueryKey = () => {
+    return [
+    `/api/catalog/deletions`
+    ] as const;
+    }
+
+
+export const getGetCatalogDeletionsQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogDeletions>>, TError = ErrorType<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogDeletions>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetCatalogDeletionsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogDeletions>>> = ({ signal }) => getCatalogDeletions({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogDeletions>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetCatalogDeletionsQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogDeletions>>>
+export type GetCatalogDeletionsQueryError = ErrorType<void>
+
+
+export function useGetCatalogDeletions<TData = Awaited<ReturnType<typeof getCatalogDeletions>>, TError = ErrorType<void>>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogDeletions>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getCatalogDeletions>>,
+          TError,
+          Awaited<ReturnType<typeof getCatalogDeletions>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetCatalogDeletions<TData = Awaited<ReturnType<typeof getCatalogDeletions>>, TError = ErrorType<void>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogDeletions>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getCatalogDeletions>>,
+          TError,
+          Awaited<ReturnType<typeof getCatalogDeletions>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetCatalogDeletions<TData = Awaited<ReturnType<typeof getCatalogDeletions>>, TError = ErrorType<void>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogDeletions>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary List removed catalog entries
+ */
+
+export function useGetCatalogDeletions<TData = Awaited<ReturnType<typeof getCatalogDeletions>>, TError = ErrorType<void>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogDeletions>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetCatalogDeletionsQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getDeleteProductUrl = (id: string,) => {
+
+
+
+
+  return `/api/admin/products/${id}`
+}
+
+/**
+ * @summary Remove a product from the public catalog
+ */
+export const deleteProduct = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+
+  return customFetch<void>(getDeleteProductUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeleteProductMutationKey = () => ['deleteProduct'] as const;
+
+export const getDeleteProductMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteProduct>>, TError,DeleteProductMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteProduct>>, TError,DeleteProductMutationVariables, TContext> => {
+
+const mutationKey = getDeleteProductMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteProduct>>, DeleteProductMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteProduct(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteProductMutationResult = NonNullable<Awaited<ReturnType<typeof deleteProduct>>>
+
+    export type DeleteProductMutationError = ErrorType<void>
+    export type DeleteProductMutationVariables = {id: string}
+
+    /**
+ * @summary Remove a product from the public catalog
+ */
+export const useDeleteProduct = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteProduct>>, TError,DeleteProductMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof deleteProduct>>,
+        TError,
+        DeleteProductMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDeleteProductMutationOptions(options), queryClient);
+    }
 
 export const getHealthCheckUrl = () => {
 
@@ -470,6 +646,80 @@ export function useGetAdminPortfolio<TData = Awaited<ReturnType<typeof getAdminP
 
 
 
+
+export const getDeletePortfolioWorkUrl = (id: string,) => {
+
+
+
+
+  return `/api/admin/portfolio/${id}`
+}
+
+/**
+ * @summary Remove an existing portfolio work
+ */
+export const deletePortfolioWork = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+
+  return customFetch<void>(getDeletePortfolioWorkUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeletePortfolioWorkMutationKey = () => ['deletePortfolioWork'] as const;
+
+export const getDeletePortfolioWorkMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePortfolioWork>>, TError,DeletePortfolioWorkMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deletePortfolioWork>>, TError,DeletePortfolioWorkMutationVariables, TContext> => {
+
+const mutationKey = getDeletePortfolioWorkMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deletePortfolioWork>>, DeletePortfolioWorkMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  deletePortfolioWork(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeletePortfolioWorkMutationResult = NonNullable<Awaited<ReturnType<typeof deletePortfolioWork>>>
+
+    export type DeletePortfolioWorkMutationError = ErrorType<void>
+    export type DeletePortfolioWorkMutationVariables = {id: string}
+
+    /**
+ * @summary Remove an existing portfolio work
+ */
+export const useDeletePortfolioWork = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePortfolioWork>>, TError,DeletePortfolioWorkMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof deletePortfolioWork>>,
+        TError,
+        DeletePortfolioWorkMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDeletePortfolioWorkMutationOptions(options), queryClient);
+    }
 
 export const getUpdatePortfolioWorkUrl = (id: string,) => {
 

@@ -5,6 +5,23 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export type CatalogDeletionKind = typeof CatalogDeletionKind[keyof typeof CatalogDeletionKind];
+
+
+export const CatalogDeletionKind = {
+  product: 'product',
+  portfolio: 'portfolio',
+} as const;
+
+export interface CatalogDeletion {
+  kind: CatalogDeletionKind;
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  id: string;
+}
+
 export interface HealthStatus {
   status: string;
 }

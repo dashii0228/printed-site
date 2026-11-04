@@ -123,6 +123,14 @@ const PORTFOLIO_WORK_SOURCE = [
   { image:'portfolio-otgontenger-medal-set.webp', title:'Отгонтэнгэр хайрханы дурсгалын медаль', description:'Уулын дүрст медаль болон тахилгын бичвэртэй, хайрцагтай дурсгалын багц.', category:'laser' },
   { image:'portfolio-otgontenger-medal-inscription.webp', title:'Төрийн их тахилгын медалийн бичвэр', description:'Отгонтэнгэр хайрханы 2026 оны төрийн их тахилгад зориулсан медалийн бичвэр, хайрцаг.', category:'laser' },
   { image:'portfolio-otgontenger-medal-artwork.webp', title:'Хангайн нурууны дүрст медаль', description:'Хангайн нуруу, Отгонтэнгэр хайрханы дүрслэлтэй дурсгалын медалийн нүүр тал.', category:'laser' },
+  { image:'portfolio-laom-keychain-2026.webp', title:'LAOM · 20 жилийн ойн түлхүүрийн оосор', description:'Los Angeles Mongolian Community-ийн 2006–2026 оны ойн лого бүхий металл түлхүүрийн оосор.', category:'laser' },
+  { image:'portfolio-ubcab-name-thermos.webp', title:'UBCab Express · нэртэй термо аяганы цуврал', description:'UBCab Express-ийн лого, захиалагчдын нэртэй хар термо аяганы цуврал.', category:'laser' },
+  { image:'portfolio-koica-thermos-series.webp', title:'KOICA · лого хэвлэлтэй термо савны цуврал', description:'KOICA-ийн лого бүхий төрөл бүрийн өнгөт термо савны цуврал.', category:'laser' },
+  { image:'portfolio-duvision-languagecert-notebooks.webp', title:'Duvision Global · LanguageCert дэвтрийн багц', description:'Duvision Global болон LanguageCert-ийн лого хэвлэсэн хөх дэвтрийн багц.', category:'business' },
+  { image:'portfolio-evipo-tote.webp', title:'E-VIPO · даавуун торны хэвлэл', description:'E-VIPO-ийн дүрс, лого бүхий даавуун торонд хийсэн өнгөт хэвлэл.', category:'dtf' },
+  { image:'portfolio-bukh-tulga-tote.webp', title:'Бөх Тулга Констракшн · лого хэвлэлтэй тор', description:'Бөх Тулга Констракшны лого хэвлэсэн даавуун тор.', category:'dtf' },
+  { image:'portfolio-custom-tote-series.webp', title:'Өнгөт зурагтай даавуун торны жишээнүүд', description:'E-VIPO-ийн лого болон өнгөт дүрсний хэвлэлтэй даавуун торны жишээнүүд.', category:'dtf' },
+  { image:'portfolio-blue-notebook-gift-set.webp', title:'Монгол бичигтэй хөх дэвтэр, үзэгний багц', description:'Монгол бичиг, байгууллагын тэмдэгтэй хөх дэвтэр, үзэгний бэлгийн багц.', category:'business' },
 ] satisfies Omit<PortfolioWorkItem, 'id' | 'sourceImage' | 'materials'>[];
 
 const MATERIALS_BY_IMAGE: Record<string, readonly PortfolioMaterial[]> = {
@@ -173,6 +181,14 @@ const MATERIALS_BY_IMAGE: Record<string, readonly PortfolioMaterial[]> = {
   'portfolio-otgontenger-medal-set.webp': ['metal'],
   'portfolio-otgontenger-medal-inscription.webp': ['metal'],
   'portfolio-otgontenger-medal-artwork.webp': ['metal'],
+  'portfolio-laom-keychain-2026.webp': ['metal'],
+  'portfolio-ubcab-name-thermos.webp': ['steel'],
+  'portfolio-koica-thermos-series.webp': ['steel'],
+  'portfolio-duvision-languagecert-notebooks.webp': ['paper'],
+  'portfolio-evipo-tote.webp': ['fabric'],
+  'portfolio-bukh-tulga-tote.webp': ['fabric'],
+  'portfolio-custom-tote-series.webp': ['fabric'],
+  'portfolio-blue-notebook-gift-set.webp': ['mixed'],
 };
 
 if (PORTFOLIO_WORK_SOURCE.length !== PORTFOLIO_WORK_IDS.length) {
@@ -238,6 +254,14 @@ const ITEM_SEARCH_ALIASES: Record<string, readonly string[]> = {
   'portfolio-otgontenger-medal-set.webp': ['otgontenger', 'medal', 'medallion', 'coin', 'gift box'],
   'portfolio-otgontenger-medal-inscription.webp': ['otgontenger', 'medal', 'medallion', 'inscription', '2026'],
   'portfolio-otgontenger-medal-artwork.webp': ['otgontenger', 'khangai', 'medal', 'medallion', 'coin'],
+  'portfolio-laom-keychain-2026.webp': ['laom', 'los angeles mongolian community', 'keychain', 'anniversary', '2026'],
+  'portfolio-ubcab-name-thermos.webp': ['ubcab express', 'thermos', 'thermo cup', 'travel mug', 'name'],
+  'portfolio-koica-thermos-series.webp': ['koica', 'thermos', 'water bottle', 'vacuum flask', 'logo'],
+  'portfolio-duvision-languagecert-notebooks.webp': ['duvision global', 'languagecert', 'notebook', 'journal'],
+  'portfolio-evipo-tote.webp': ['e-vipo', 'evipo', 'tote bag', 'fabric', 'textile'],
+  'portfolio-bukh-tulga-tote.webp': ['bukh tulga', 'construction', 'tote bag', 'fabric', 'textile'],
+  'portfolio-custom-tote-series.webp': ['e-vipo', 'evipo', 'tote bag', 'fabric', 'textile', 'colorful'],
+  'portfolio-blue-notebook-gift-set.webp': ['notebook', 'journal', 'pen', 'gift set', 'mongolian script'],
 };
 
 export function filterPortfolioWork(

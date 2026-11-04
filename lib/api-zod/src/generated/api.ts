@@ -9,6 +9,34 @@ import * as zod from 'zod';
 
 
 /**
+ * @summary List removed catalog entries
+ */
+export const getCatalogDeletionsResponseIdMax = 180;
+
+
+
+export const GetCatalogDeletionsResponseItem = zod.object({
+  "kind": zod.enum(['product', 'portfolio']),
+  "id": zod.string().min(1).max(getCatalogDeletionsResponseIdMax)
+})
+export const GetCatalogDeletionsResponse = zod.array(GetCatalogDeletionsResponseItem)
+
+
+/**
+ * @summary Remove a product from the public catalog
+ */
+export const deleteProductPathIdMax = 180;
+
+
+
+export const DeleteProductParams = zod.object({
+  "id": zod.coerce.string().min(1).max(deleteProductPathIdMax)
+})
+
+export const DeleteProductResponse = zod.void()
+
+
+/**
  * Returns server health status
  * @summary Health check
  */
@@ -71,6 +99,19 @@ export const GetAdminPortfolioResponseItem = zod.object({
   "category": zod.enum(['laser', 'uv', 'dtf', 'business'])
 })
 export const GetAdminPortfolioResponse = zod.array(GetAdminPortfolioResponseItem)
+
+
+/**
+ * @summary Remove an existing portfolio work
+ */
+export const deletePortfolioWorkPathIdRegExp = new RegExp('^work-[0-9]{3}$');
+
+
+export const DeletePortfolioWorkParams = zod.object({
+  "id": zod.coerce.string().regex(deletePortfolioWorkPathIdRegExp)
+})
+
+export const DeletePortfolioWorkResponse = zod.void()
 
 
 /**

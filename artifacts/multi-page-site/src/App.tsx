@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent, type PointerEvent, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { filterDeletedEntries, loadCatalogDeletions } from './catalog-deletions';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -12,10 +13,12 @@ import { AdminPage, SignInPage, SignUpPage } from './components/auth-pages';
 import { filterPortfolioWork, getPortfolioCategoryFromSearch, getPortfolioMaterialFromSearch, getPortfolioRouteCategoryFromSearch, getPortfolioSearchTermFromSearch, getPortfolioWorkFromSearch, mergePortfolioWork, PORTFOLIO_CATEGORIES, PORTFOLIO_MATERIAL_OPTIONS, PORTFOLIO_SEARCH_SUGGESTIONS, PORTFOLIO_WORK, type PortfolioWorkOverride } from './portfolio-data';
 import { getImageUrl } from './image-url';
 import { useAdminFetch } from './use-admin-fetch';
+import { buildHomeHeroSlides, type HomeHeroSlide } from './home-hero';
 
 const queryClient = new QueryClient();
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const img = (name: string) => getImageUrl(name, import.meta.env.BASE_URL);
+const topBannerPromotion = 'Та манайхаас промошн болон корпорейт бэлгээ сонгоод хэвлэлийг нь үнэгүй хийлгэж аваарай';
 const navItems = [
   ['/', 'Нүүр'], ['/services', 'Үйлчилгээ'], ['/products', 'Бүтээгдэхүүн'],
   ['/equipment-sale', 'Тоног төхөөрөмж'], ['/portfolio', 'Бүтээлийн сан'],
@@ -64,7 +67,18 @@ function Header() {
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
   return <>
-    <div className="topline"><div className="topline-inner"><span>UB · МОНГОЛ УЛС</span><span>Хэвлэл бүрд сэтгэл шингээнэ</span></div></div>
+    <div className="topline">
+      <div className="topline-inner">
+        <span>UB · МОНГОЛ УЛС</span>
+        <div className="topline-marquee" role="note" aria-label={topBannerPromotion}>
+          <div className="topline-marquee-track" aria-hidden="true">
+            <span>{topBannerPromotion}</span>
+            <span>{topBannerPromotion}</span>
+          </div>
+        </div>
+        <span>Хэвлэл бүрд сэтгэл шингээнэ</span>
+      </div>
+    </div>
     <header className="header">
       <div className="nav-wrap">
         <Link href="/" className="brand" onClick={() => setOpen(false)} aria-label="Printed нүүр хуудас"><img src={img('header-logo.png')} alt="Printed — All printing, custom gifts" /></Link>
@@ -428,17 +442,17 @@ function productImageUrl(image: string) {
 }
 
 function useProductCatalog() {
-  const [catalog, setCatalog] = useState<Product[]>(products);
+  const [catalog, setCatalog] = useState<Product[]>([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     let active = true;
-    fetch('/api/products/changes')
+    Promise.all([fetch('/api/products/changes')
       .then((response) => {
         if (!response.ok) throw new Error('Could not load product changes');
         return response.json() as Promise<Product[]>;
-      })
-      .then((changes) => {
+      }), loadCatalogDeletions()])
+      .then(([changes, deletions]) => {
         if (!active) return;
         const initial = products.map((product, index) => ({
           ...product,
@@ -452,7 +466,8 @@ function useProductCatalog() {
           ...changeById.get(getProductId(product)),
         }));
         const added = changes.filter((product) => !initialIds.has(getProductId(product)));
-        setCatalog([...merged, ...added].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)));
+        setCatalog(filterDeletedEntries([...merged, ...added], deletions, "product", getProductId)
+          .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)));
         setError(false);
       })
       .catch(() => {
@@ -464,6 +479,123 @@ function useProductCatalog() {
   }, []);
 
   return { products: catalog, error };
+}
+
+function HomepageCarousel({ slides }: { slides: HomeHeroSlide[] }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [movement, setMovement] = useState<-1 | 1 | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
+  const activeIndexRef = useRef(0);
+  const movementRef = useRef<-1 | 1 | null>(null);
+  const visibleSlideCount = 3;
+  const trackStartIndex = movement === -1 && slides.length
+    ? (activeIndex + slides.length - 1) % slides.length
+    : activeIndex;
+  const trackSlides = Array.from(
+    { length: slides.length ? (movement === null ? Math.min(visibleSlideCount, slides.length) : visibleSlideCount + 1) : 0 },
+    (_, slot) => {
+      const index = (trackStartIndex + slot) % slides.length;
+      return { slide: slides[index], index, slot };
+    },
+  );
+
+  useEffect(() => {
+    const nextIndex = Math.min(activeIndexRef.current, Math.max(slides.length - 1, 0));
+    activeIndexRef.current = nextIndex;
+    setActiveIndex(nextIndex);
+    movementRef.current = null;
+    setMovement(null);
+  }, [slides.length]);
+
+  const selectSlide = useCallback((direction: -1 | 1) => {
+    if (!slides.length || movementRef.current !== null) return;
+    movementRef.current = direction;
+    setMovement(direction);
+  }, [slides.length]);
+
+  const finishMovement = useCallback(() => {
+    const direction = movementRef.current;
+    if (direction === null || !slides.length) return;
+    const nextIndex = (activeIndexRef.current + direction + slides.length) % slides.length;
+    activeIndexRef.current = nextIndex;
+    setActiveIndex(nextIndex);
+    movementRef.current = null;
+    setMovement(null);
+  }, [slides.length]);
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setPrefersReducedMotion(preference.matches);
+    preference.addEventListener('change', updatePreference);
+    return () => preference.removeEventListener('change', updatePreference);
+  }, []);
+
+  useEffect(() => {
+    if (slides.length < 2 || isHovered || isFocused || prefersReducedMotion) return;
+    const interval = window.setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        selectSlide(1);
+      }
+    }, 8000);
+    return () => window.clearInterval(interval);
+  }, [slides.length, isHovered, isFocused, prefersReducedMotion, selectSlide]);
+
+  return <div
+    className={`hero-carousel${slides.length ? ' has-slides' : ''}`}
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="Бүтээгдэхүүн болон бүтээлийн сангийн зургууд"
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+    onFocusCapture={() => setIsFocused(true)}
+    onBlurCapture={(event) => {
+      if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsFocused(false);
+    }}
+  >
+    {slides.length > 0 ? <>
+      <div
+        className={`hero-carousel-track${movement === 1 ? ' is-moving-left' : movement === -1 ? ' is-moving-right' : ''}`}
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget) finishMovement();
+        }}
+      >
+        {trackSlides.map(({ slide, index, slot }) => <div
+          className="hero-carousel-card"
+          key={`${slide.key}-${slot}`}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`Зураг ${index + 1} / ${slides.length}: ${slide.title}`}
+        >
+          <img
+            className="hero-carousel-image"
+            src={slide.image.startsWith('/api/') || slide.image.startsWith('http') ? slide.image : img(slide.image)}
+            alt={slide.alt}
+            fetchPriority={slot === 0 ? 'high' : 'auto'}
+            decoding="async"
+          />
+          <div className="hero-carousel-caption">
+            <span>{slide.kind === 'product' ? 'Бүтээгдэхүүн' : 'Бүтээлийн сан'}</span>
+            <strong>{slide.title}</strong>
+          </div>
+        </div>)}
+      </div>
+      {slides.length > 1 && <div className="hero-carousel-controls" aria-label="Зураг солих">
+        <button type="button" onClick={() => selectSlide(-1)} disabled={movement !== null} aria-label="Өмнөх зураг"><ChevronLeft size={17}/></button>
+        <span aria-hidden="true">{activeIndex + 1} / {slides.length}</span>
+        <button type="button" onClick={() => selectSlide(1)} disabled={movement !== null} aria-label="Дараагийн зураг"><ChevronRight size={17}/></button>
+      </div>}
+    </> : <img
+      className="hero-carousel-fallback"
+      src={img('banner.png')}
+      alt="Лазер болон UV хэвлэлийн үйлдвэрлэл"
+      fetchPriority="high"
+      decoding="async"
+    />}
+  </div>;
 }
 
 function ProductCard({ product, onSelect }: { product: Product; onSelect: (product: Product, trigger: HTMLButtonElement) => void }) {
@@ -487,6 +619,7 @@ function ProductGrid({ items, catalog = products, className }: { items: Product[
     setSelected(getProductFromSearch(window.location.search, catalog));
   }, [catalog]);
   useEffect(() => {
+    syncSelectedFromUrl();
     window.addEventListener('popstate', syncSelectedFromUrl);
     return () => window.removeEventListener('popstate', syncSelectedFromUrl);
   }, [syncSelectedFromUrl]);
@@ -608,11 +741,38 @@ function ProductDetailDialog({ product, onClose, restoreFocus }: { product: Prod
 }
 function Home() {
   const catalog = useProductCatalog();
+  const [portfolioWorks, setPortfolioWorks] = useState<typeof PORTFOLIO_WORK>([]);
+  const [portfolioLoadError, setPortfolioLoadError] = useState(false);
+  useEffect(() => {
+    let active = true;
+    Promise.all([
+      fetch('/api/portfolio/changes').then((response) => {
+        if (!response.ok) throw new Error('Could not load portfolio changes');
+        return response.json() as Promise<PortfolioWorkOverride[]>;
+      }),
+      loadCatalogDeletions(),
+    ])
+      .then(([changes, deletions]) => {
+        if (!active) return;
+        setPortfolioWorks(filterDeletedEntries(
+          mergePortfolioWork(PORTFOLIO_WORK, changes),
+          deletions,
+          'portfolio',
+          (item) => item.id,
+        ));
+        setPortfolioLoadError(false);
+      })
+      .catch(() => {
+        if (active) setPortfolioLoadError(true);
+      });
+    return () => { active = false; };
+  }, []);
+  const heroSlides = buildHomeHeroSlides(catalog.products, portfolioWorks);
   return <Shell>
     <section className="hero"><div className="hero-inner">
       <div><Eyebrow>Хэвлэл · Сийлбэр · Бэлэг</Eyebrow><h1>Таны санааг<br/><em>бодит болгоно.</em></h1><p className="hero-copy">Лазер болон дижитал хэвлэлийн шийдэл, байгууллагын брэнд бүтээгдэхүүн — нэг дороос.</p>
         <div className="actions"><a className="button button-red" href="https://m.me/100063665375091" target="_blank" rel="noopener noreferrer"><MessageCircle size={16}/> Чатаар холбогдох <ArrowUpRight size={16}/></a><ButtonLink href="/contact" outline>Бидэнтэй холбогдох</ButtonLink></div>
-      </div><div className="hero-art"><img src={img('banner.png')} alt="Лазер болон UV хэвлэлийн үйлдвэрлэл"/><div className="hero-stamp"><img src={img('free-print-seal.png')} alt="" aria-hidden="true"/><span>БҮТЭЭГДЭХҮҮН<br/>АВБАЛ<br/>ХЭВЛЭЛ<br/>ҮНЭГҮЙ</span></div></div>
+      </div><div className="hero-art"><HomepageCarousel slides={heroSlides}/><div className="hero-stamp"><img src={img('free-print-seal.png')} alt="" aria-hidden="true"/><span>БҮТЭЭГДЭХҮҮН<br/>АВБАЛ<br/>ХЭВЛЭЛ<br/>ҮНЭГҮЙ</span></div>{portfolioLoadError && <span className="sr-only" role="status">Бүтээлийн сангийн зураг ачаалагдсангүй.</span>}</div>
     </div></section>
     <div className="strip"><div className="strip-inner">
       <div className="strip-item"><Printer/>Дижитал хэвлэл</div><div className="strip-item"><Settings2/>Лазер технологи</div><div className="strip-item"><Package/>Захиалгат бүтээгдэхүүн</div><div className="strip-item"><ShieldCheck/>Чанартай гүйцэтгэл</div>
@@ -749,7 +909,8 @@ function portfolioWorkImage(image: string) {
 }
 
 function PortfolioPage() {
-  const [portfolioWorks, setPortfolioWorks] = useState(PORTFOLIO_WORK);
+  const [portfolioWorks, setPortfolioWorks] = useState<typeof PORTFOLIO_WORK>([]);
+  const [portfolioLoaded, setPortfolioLoaded] = useState(false);
   const [portfolioLoadError, setPortfolioLoadError] = useState('');
   const [activeCategory, setActiveCategory] = useState(() => getPortfolioRouteCategoryFromSearch(window.location.search));
   const [activeMaterial, setActiveMaterial] = useState(() => getPortfolioMaterialFromSearch(window.location.search));
@@ -761,14 +922,16 @@ function PortfolioPage() {
   const modalHistoryActiveRef = useRef(false);
   useEffect(() => {
     let active = true;
-    fetch('/api/portfolio/changes')
+    Promise.all([fetch('/api/portfolio/changes')
       .then(async (response) => {
         if (!response.ok) throw new Error('Бүтээлийн сангийн шинэ мэдээллийг ачаалж чадсангүй.');
         return response.json() as Promise<PortfolioWorkOverride[]>;
-      })
-      .then((changes) => {
+      }), loadCatalogDeletions()])
+      .then(([changes, deletions]) => {
         if (!active) return;
-        setPortfolioWorks(mergePortfolioWork(PORTFOLIO_WORK, changes));
+        setPortfolioWorks(filterDeletedEntries(mergePortfolioWork(PORTFOLIO_WORK, changes),
+          deletions, "portfolio", (item) => item.id));
+        setPortfolioLoaded(true);
         setPortfolioLoadError('');
       })
       .catch((error: unknown) => {
@@ -792,6 +955,7 @@ function PortfolioPage() {
   }, []);
   const restoreImageFocus = useCallback(() => imageTriggerRef.current?.focus({ preventScroll: true }), []);
   useEffect(() => {
+    if (!portfolioLoaded) return;
     const syncPortfolioStateFromUrl = (fromHistory = false) => {
       const url = new URL(window.location.href);
       const work = getPortfolioWorkFromSearch(url.search, portfolioWorks);
@@ -822,7 +986,7 @@ function PortfolioPage() {
     const handlePopState = () => syncPortfolioStateFromUrl(true);
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [portfolioWorks]);
+  }, [portfolioWorks, portfolioLoaded]);
   const setWorkUrl = (image: string | null, replace = false) => {
     const url = new URL(window.location.href);
     if (image) url.searchParams.set('work', image);

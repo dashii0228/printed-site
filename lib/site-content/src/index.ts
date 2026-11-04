@@ -48,6 +48,14 @@ export const PORTFOLIO_WORK_IDS = [
   "work-045",
   "work-046",
   "work-047",
+  "work-048",
+  "work-049",
+  "work-050",
+  "work-051",
+  "work-052",
+  "work-053",
+  "work-054",
+  "work-055",
 ] as const;
 
 const portfolioWorkIdSet = new Set<string>(PORTFOLIO_WORK_IDS);

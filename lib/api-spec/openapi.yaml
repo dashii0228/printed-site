@@ -13,6 +13,46 @@ tags:
   - name: admin
     description: Admin access checks
 paths:
+  /catalog/deletions:
+    get:
+      operationId: getCatalogDeletions
+      tags: [admin]
+      summary: List removed catalog entries
+      responses:
+        "200":
+          description: Persistent deletion markers for source and added entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CatalogDeletion"
+        "503":
+          description: Deletion records unavailable
+  /admin/products/{id}:
+    delete:
+      operationId: deleteProduct
+      tags: [admin]
+      summary: Remove a product from the public catalog
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 180
+      responses:
+        "204":
+          description: Product removed
+        "400":
+          description: Invalid product ID
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "503":
+          description: Deletion failed
   /healthz:
     get:
       operationId: healthCheck
@@ -80,6 +120,28 @@ paths:
         "503":
           description: Portfolio edits are unavailable
   /admin/portfolio/{id}:
+    delete:
+      operationId: deletePortfolioWork
+      tags: [admin]
+      summary: Remove an existing portfolio work
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            pattern: "^work-[0-9]{3}$"
+      responses:
+        "204":
+          description: Portfolio work removed
+        "401":
+          description: Sign-in required
+        "403":
+          description: Admin access denied
+        "404":
+          description: Portfolio work not found
+        "503":
+          description: Deletion failed
     put:
       operationId: updatePortfolioWork
       tags: [admin, portfolio]
@@ -193,6 +255,17 @@ paths:
           description: Image storage unavailable
 components:
   schemas:
+    CatalogDeletion:
+      type: object
+      required: [kind, id]
+      properties:
+        kind:
+          type: string
+          enum: [product, portfolio]
+        id:
+          type: string
+          minLength: 1
+          maxLength: 180
     HealthStatus:
       type: object
       properties:
